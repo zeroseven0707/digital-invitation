@@ -7,29 +7,13 @@
 @endsection
 
 @section('content')
-<!-- Statistics Cards -->
+<!-- Statistics Cards (Same as Welcome Page) -->
 <div class="row">
-    <!-- Total Users -->
-    <div class="col-lg-3 col-6">
-        <div class="small-box bg-info">
-            <div class="inner">
-                <h3>{{ $platformStats['totalUsers'] }}</h3>
-                <p>Total User</p>
-            </div>
-            <div class="icon">
-                <i class="fas fa-users"></i>
-            </div>
-            <a href="{{ route('admin.users.index') }}" class="small-box-footer">
-                Lihat Detail <i class="fas fa-arrow-circle-right"></i>
-            </a>
-        </div>
-    </div>
-
     <!-- Total Invitations -->
     <div class="col-lg-3 col-6">
         <div class="small-box bg-primary">
             <div class="inner">
-                <h3>{{ $platformStats['totalInvitations'] }}</h3>
+                <h3>{{ number_format($platformStats['totalInvitations']) }}</h3>
                 <p>Total Undangan</p>
             </div>
             <div class="icon">
@@ -41,33 +25,49 @@
         </div>
     </div>
 
-    <!-- Published Invitations -->
+    <!-- Total Templates -->
     <div class="col-lg-3 col-6">
         <div class="small-box bg-success">
             <div class="inner">
-                <h3>{{ $platformStats['publishedInvitations'] }}</h3>
-                <p>Undangan Published</p>
+                <h3>{{ number_format($platformStats['totalTemplates']) }}</h3>
+                <p>Template Aktif</p>
             </div>
             <div class="icon">
-                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-palette"></i>
             </div>
-            <a href="{{ route('admin.invitations.index') }}?status=published" class="small-box-footer">
+            <a href="{{ route('admin.templates.index') }}" class="small-box-footer">
                 Lihat Detail <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
     </div>
 
-    <!-- Paid Invitations -->
+    <!-- Total Views -->
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{ number_format($platformStats['totalViews']) }}</h3>
+                <p>Total Views</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-eye"></i>
+            </div>
+            <a href="{{ route('admin.invitations.index') }}" class="small-box-footer">
+                Lihat Detail <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Total RSVPs -->
     <div class="col-lg-3 col-6">
         <div class="small-box bg-warning">
             <div class="inner">
-                <h3>{{ \App\Models\Invitation::where('is_paid', true)->count() }}</h3>
-                <p>Undangan Berbayar</p>
+                <h3>{{ number_format($platformStats['totalRsvps']) }}</h3>
+                <p>Total RSVP</p>
             </div>
             <div class="icon">
-                <i class="fas fa-money-bill-wave"></i>
+                <i class="fas fa-comments"></i>
             </div>
-            <a href="{{ route('admin.invitations.index') }}?payment_status=paid" class="small-box-footer">
+            <a href="{{ route('admin.invitations.index') }}" class="small-box-footer">
                 Lihat Detail <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -76,46 +76,35 @@
 
 <!-- Second Row Statistics -->
 <div class="row">
-    <!-- Total Views -->
-    <div class="col-lg-3 col-6">
+    <!-- Total Users -->
+    <div class="col-lg-4 col-6">
         <div class="info-box">
-            <span class="info-box-icon bg-info"><i class="fas fa-eye"></i></span>
+            <span class="info-box-icon bg-info"><i class="fas fa-users"></i></span>
             <div class="info-box-content">
-                <span class="info-box-text">Total Views</span>
-                <span class="info-box-number">{{ number_format($platformStats['totalViews']) }}</span>
+                <span class="info-box-text">Total User</span>
+                <span class="info-box-number">{{ number_format($platformStats['totalUsers']) }}</span>
             </div>
         </div>
     </div>
 
-    <!-- Total Guests -->
-    <div class="col-lg-3 col-6">
+    <!-- Paid Invitations -->
+    <div class="col-lg-4 col-6">
         <div class="info-box">
-            <span class="info-box-icon bg-success"><i class="fas fa-user-friends"></i></span>
+            <span class="info-box-icon bg-success"><i class="fas fa-money-bill-wave"></i></span>
             <div class="info-box-content">
-                <span class="info-box-text">Total Tamu</span>
-                <span class="info-box-number">{{ number_format($platformStats['totalGuests']) }}</span>
+                <span class="info-box-text">Undangan Berbayar</span>
+                <span class="info-box-number">{{ number_format($platformStats['paidInvitations']) }}</span>
             </div>
         </div>
     </div>
 
-    <!-- Total Templates -->
-    <div class="col-lg-3 col-6">
+    <!-- Published Invitations -->
+    <div class="col-lg-4 col-6">
         <div class="info-box">
-            <span class="info-box-icon bg-warning"><i class="fas fa-palette"></i></span>
+            <span class="info-box-icon bg-primary"><i class="fas fa-check-circle"></i></span>
             <div class="info-box-content">
-                <span class="info-box-text">Total Template</span>
-                <span class="info-box-number">{{ $platformStats['totalTemplates'] }}</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Active Users -->
-    <div class="col-lg-3 col-6">
-        <div class="info-box">
-            <span class="info-box-icon bg-danger"><i class="fas fa-user-check"></i></span>
-            <div class="info-box-content">
-                <span class="info-box-text">User Aktif</span>
-                <span class="info-box-number">{{ $platformStats['activeUsers'] }}</span>
+                <span class="info-box-text">Undangan Published</span>
+                <span class="info-box-number">{{ number_format($platformStats['publishedInvitations']) }}</span>
             </div>
         </div>
     </div>
@@ -138,17 +127,17 @@
         </div>
     </div>
 
-    <!-- Invitation Growth Chart -->
+    <!-- Transaction Growth Chart -->
     <div class="col-lg-6">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
                     <i class="fas fa-chart-line mr-1"></i>
-                    Pertumbuhan Undangan (30 Hari Terakhir)
+                    Pertumbuhan Transaksi (30 Hari Terakhir)
                 </h3>
             </div>
             <div class="card-body">
-                <canvas id="invitationGrowthChart" style="height: 250px;"></canvas>
+                <canvas id="transactionGrowthChart" style="height: 250px;"></canvas>
             </div>
         </div>
     </div>
@@ -328,7 +317,8 @@ const userGrowthChart = new Chart(userGrowthCtx, {
             data: {!! json_encode($userGrowth->pluck('count')->toArray()) !!},
             borderColor: 'rgb(75, 192, 192)',
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            tension: 0.1
+            tension: 0.1,
+            fill: true
         }]
     },
     options: {
@@ -341,22 +331,29 @@ const userGrowthChart = new Chart(userGrowthCtx, {
                     stepSize: 1
                 }
             }
+        },
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top'
+            }
         }
     }
 });
 
-// Invitation Growth Chart
-const invitationGrowthCtx = document.getElementById('invitationGrowthChart').getContext('2d');
-const invitationGrowthChart = new Chart(invitationGrowthCtx, {
+// Transaction Growth Chart
+const transactionGrowthCtx = document.getElementById('transactionGrowthChart').getContext('2d');
+const transactionGrowthChart = new Chart(transactionGrowthCtx, {
     type: 'line',
     data: {
-        labels: {!! json_encode($invitationGrowth->pluck('date')->toArray()) !!},
+        labels: {!! json_encode($transactionGrowth->pluck('date')->toArray()) !!},
         datasets: [{
-            label: 'Undangan Baru',
-            data: {!! json_encode($invitationGrowth->pluck('count')->toArray()) !!},
-            borderColor: 'rgb(54, 162, 235)',
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            tension: 0.1
+            label: 'Transaksi Baru (Undangan Berbayar)',
+            data: {!! json_encode($transactionGrowth->pluck('count')->toArray()) !!},
+            borderColor: 'rgb(255, 159, 64)',
+            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+            tension: 0.1,
+            fill: true
         }]
     },
     options: {
@@ -368,6 +365,12 @@ const invitationGrowthChart = new Chart(invitationGrowthCtx, {
                 ticks: {
                     stepSize: 1
                 }
+            }
+        },
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top'
             }
         }
     }

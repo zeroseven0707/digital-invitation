@@ -120,6 +120,38 @@ class AdminStatisticsService
     }
 
     /**
+     * Get transaction (paid invitations) growth data for the last N days
+     */
+    public function getTransactionGrowth(int $days = 30): array
+    {
+        $startDate = Carbon::now()->subDays($days)->startOfDay();
+
+        $transactions = Invitation::where('is_paid', true)
+            ->where('paid_at', '>=', $startDate)
+            ->selectRaw('DATE(paid_at) as date, COUNT(*) as count')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        // Fill in missing dates with zero counts
+        $dates = [];
+        $counts = [];
+
+        for ($i = $days - 1; $i >= 0; $i--) {
+            $date = Carbon::now()->subDays($i)->format('Y-m-d');
+            $dates[] = $date;
+
+            $transactionCount = $transactions->firstWhere('date', $date);
+            $counts[] = $transactionCount ? $transactionCount->count : 0;
+        }
+
+        return [
+            'dates' => $dates,
+            'counts' => $counts,
+        ];
+    }
+
+    /**
      * Get top users by invitation count
      */
     public function getTopUsersByInvitations(int $limit = 10): array

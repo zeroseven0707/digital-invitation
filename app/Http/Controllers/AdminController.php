@@ -22,25 +22,20 @@ class AdminController extends Controller
      */
     public function dashboard(): View
     {
-        // Get platform statistics
-        $stats = $this->statisticsService->getPlatformStats();
-
-        // Transform to camelCase for view
+        // Get stats same as welcome page
         $platformStats = [
-            'totalUsers' => $stats['total_users'],
-            'activeUsers' => $stats['active_users'],
-            'totalInvitations' => $stats['total_invitations'],
-            'publishedInvitations' => $stats['published_invitations'],
-            'draftInvitations' => $stats['draft_invitations'],
-            'totalViews' => $stats['total_views'],
-            'totalGuests' => $stats['total_guests'],
-            'totalTemplates' => \App\Models\Template::count(),
+            'totalInvitations' => \App\Models\Invitation::count(),
+            'totalTemplates' => \App\Models\Template::where('is_active', true)->count(),
+            'totalViews' => \App\Models\InvitationView::count(),
+            'totalRsvps' => \App\Models\Rsvp::count(),
+            'totalUsers' => \App\Models\User::count(),
+            'paidInvitations' => \App\Models\Invitation::where('is_paid', true)->count(),
+            'publishedInvitations' => \App\Models\Invitation::where('status', 'published')->count(),
         ];
 
         // Get growth data for charts (last 30 days)
         $userGrowthData = $this->statisticsService->getUserGrowth(30);
-        $invitationGrowthData = $this->statisticsService->getInvitationGrowth(30);
-        $viewGrowthData = $this->statisticsService->getViewGrowth(30);
+        $transactionGrowthData = $this->statisticsService->getTransactionGrowth(30);
 
         // Transform growth data to collections for view
         $userGrowth = collect($userGrowthData['dates'])->map(function ($date, $index) use ($userGrowthData) {
@@ -50,17 +45,10 @@ class AdminController extends Controller
             ];
         });
 
-        $invitationGrowth = collect($invitationGrowthData['dates'])->map(function ($date, $index) use ($invitationGrowthData) {
+        $transactionGrowth = collect($transactionGrowthData['dates'])->map(function ($date, $index) use ($transactionGrowthData) {
             return (object) [
                 'date' => $date,
-                'count' => $invitationGrowthData['counts'][$index]
-            ];
-        });
-
-        $viewGrowth = collect($viewGrowthData['dates'])->map(function ($date, $index) use ($viewGrowthData) {
-            return (object) [
-                'date' => $date,
-                'count' => $viewGrowthData['counts'][$index]
+                'count' => $transactionGrowthData['counts'][$index]
             ];
         });
 
@@ -79,8 +67,7 @@ class AdminController extends Controller
         return view('admin.dashboard', compact(
             'platformStats',
             'userGrowth',
-            'invitationGrowth',
-            'viewGrowth',
+            'transactionGrowth',
             'topUsers',
             'topInvitations'
         ));

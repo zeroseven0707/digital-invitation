@@ -10,7 +10,7 @@ class DashboardController extends Controller
     /**
      * Display the user dashboard with invitations and statistics.
      */
-    public function index(Request $request): View
+    public function index(Request $request): View|\Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 

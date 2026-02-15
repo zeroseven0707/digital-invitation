@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'NIKAHIN') }} - Admin Panel</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -93,9 +96,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{{ route('admin.dashboard') }}" class="brand-link text-center">
-            <span class="brand-text font-weight-light">
-                <i class="fas fa-heart text-danger"></i> {{ config('app.name', 'NIKAHIN') }}
-            </span>
+            <img src="{{ asset('images/logo.png') }}" alt="NIKAHIN Logo" style="max-height: 40px; width: auto; display: inline-block; vertical-align: middle;">
         </a>
 
         <!-- Sidebar -->

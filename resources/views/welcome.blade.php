@@ -6,7 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nikahin - Undangan Digital Premium | Mulai 65rb</title>
+    <title>nikahin - Undangan Digital Premium | Mulai 50rb</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -17,14 +18,15 @@
         }
 
         :root {
-            --primary: #1a1a2e;
-            --secondary: #16213e;
-            --accent: #e94560;
-            --gold: #d4af37;
-            --light: #f5f5f7;
+            --primary: #1a1410;
+            --secondary: #2d2416;
+            --accent: #d4af37;
+            --gold: #f4e4c1;
+            --light: #faf8f3;
             --text: #2d2d2d;
-            --gradient-1: #667eea;
-            --gradient-2: #764ba2;
+            --gradient-1: #d4af37;
+            --gradient-2: #b8941e;
+            --dark-gold: #b8941e;
         }
 
         html {
@@ -141,7 +143,7 @@
 
         .btn-nav:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(233, 69, 96, 0.3);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
         }
 
         .btn-nav::after {
@@ -193,7 +195,7 @@
 
         .hero-badge {
             display: inline-block;
-            background: rgba(233, 69, 96, 0.2);
+            background: rgba(212, 175, 55, 0.2);
             border: 1px solid var(--accent);
             color: var(--accent);
             padding: 8px 20px;
@@ -276,7 +278,7 @@
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(233, 69, 96, 0.4);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4);
         }
 
         .btn-secondary {
@@ -322,7 +324,7 @@
         }
 
         .phone-screen {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--dark-gold) 100%);
             border-radius: 30px;
             aspect-ratio: 9/19;
             position: relative;
@@ -497,7 +499,7 @@
         .feature-icon {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, var(--accent), #ff6b6b);
+            background: linear-gradient(135deg, var(--accent), var(--dark-gold));
             border-radius: 15px;
             display: flex;
             align-items: center;
@@ -565,7 +567,7 @@
         .pricing-card.featured {
             transform: scale(1.05);
             border: 2px solid var(--accent);
-            box-shadow: 0 20px 50px rgba(233, 69, 96, 0.2);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.3);
         }
 
         .pricing-card.featured::before {
@@ -669,7 +671,7 @@
         }
 
         .pricing-card.featured .btn-pricing:hover {
-            background: #d63d56;
+            background: var(--dark-gold);
             transform: scale(1.02);
         }
 
@@ -702,7 +704,7 @@
 
         .template-preview {
             height: 400px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--dark-gold) 100%);
             position: relative;
             overflow: hidden;
         }
@@ -751,7 +753,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(233, 69, 96, 0.9);
+            background: rgba(212, 175, 55, 0.95);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -772,6 +774,7 @@
             font-weight: 600;
             transform: scale(0.8);
             transition: transform 0.3s;
+            border: 2px solid var(--accent);
         }
 
         .template-card:hover .btn-preview {
@@ -887,7 +890,7 @@
         /* CTA Section */
         .cta {
             padding: 100px 5%;
-            background: linear-gradient(135deg, var(--accent) 0%, #ff6b6b 100%);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--dark-gold) 100%);
             text-align: center;
             color: white;
             position: relative;
@@ -1125,8 +1128,7 @@
     <!-- Navigation -->
     <nav id="navbar">
         <a href="#" class="logo">
-            <i class="fas fa-heart"></i>
-            Nikahin
+            <img src="{{ asset('images/logo.png') }}" alt="Nikahin Logo" style="height: 40px; width: auto;">
         </a>
         <ul class="nav-links">
             <li><a href="#features">Fitur</a></li>
@@ -1473,8 +1475,7 @@
         <div class="footer-content">
             <div>
                 <div class="footer-brand">
-                    <i class="fas fa-heart"></i>
-                    nikahin
+                    <img src="{{ asset('images/logo.png') }}" alt="Nikahin Logo" style="height: 50px; width: auto;">
                 </div>
                 <p class="footer-desc">
                     Jasa pembuatan undangan digital premium dengan harga terjangkau.

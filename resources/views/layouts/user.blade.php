@@ -6,6 +6,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? 'Dashboard' }} - NIKAHIN</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -91,7 +94,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{{ route('dashboard') }}" class="brand-link">
-            <i class="fas fa-heart brand-image ml-3"></i>
+            <img src="{{ asset('images/logo.png') }}" alt="NIKAHIN Logo" class="brand-image" style="opacity: .8; max-height: 33px; width: auto; margin-left: 10px;">
             <span class="brand-text font-weight-light">NIKAHIN</span>
         </a>
 

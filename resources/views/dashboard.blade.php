@@ -197,12 +197,12 @@
                                             <i class="fas fa-heart"></i> Lebih dari Rp 50.000? <strong>Se-ikhlas-nya!</strong>
                                         </small>
                                     </div>
-                                    <small class="text-muted">
+                                    <small class="text-muted text-white">
                                         <i class="fas fa-check"></i> Unlimited Tamu<br>
                                         <i class="fas fa-check"></i> Galeri Foto<br>
                                         <i class="fas fa-check"></i> RSVP & Ucapan<br>
                                         <i class="fas fa-check"></i> Statistik Views<br>
-                                        <i class="fas fa-check"></i> Custom Domain
+                                        {{-- <i class="fas fa-check"></i> Custom Domain --}}
                                     </small>
                                 </div>
                             </div>
