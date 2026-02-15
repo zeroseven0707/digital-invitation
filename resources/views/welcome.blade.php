@@ -1135,7 +1135,7 @@
             <li><a href="#templates">Template</a></li>
             <li><a href="#pricing">Harga</a></li>
             <li><a href="#testimonials">Testimoni</a></li>
-            <li><a href="https://wa.me/6281394454900" target="_blank" class="btn-nav">Pesan Sekarang</a></li>
+            <li><a href="{{ route('register') }}" class="btn-nav">Daftar</a></li>
         </ul>
         <div class="mobile-menu">
             <i class="fas fa-bars"></i>

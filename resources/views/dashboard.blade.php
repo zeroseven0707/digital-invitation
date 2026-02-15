@@ -16,9 +16,6 @@
                 <div class="icon">
                     <i class="fas fa-envelope"></i>
                 </div>
-                <a href="{{ route('invitations.create') }}" class="small-box-footer">
-                    Buat Undangan <i class="fas fa-arrow-circle-right"></i>
-                </a>
             </div>
         </div>
 
@@ -31,9 +28,6 @@
                 <div class="icon">
                     <i class="fas fa-users"></i>
                 </div>
-                <a href="#" class="small-box-footer">
-                    Info Lengkap <i class="fas fa-arrow-circle-right"></i>
-                </a>
             </div>
         </div>
 
@@ -46,9 +40,6 @@
                 <div class="icon">
                     <i class="fas fa-eye"></i>
                 </div>
-                <a href="#" class="small-box-footer">
-                    Info Lengkap <i class="fas fa-arrow-circle-right"></i>
-                </a>
             </div>
         </div>
     </div>

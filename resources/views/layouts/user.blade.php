@@ -93,23 +93,12 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="{{ route('dashboard') }}" class="brand-link">
-            <img src="{{ asset('images/logo.png') }}" alt="NIKAHIN Logo" class="brand-image" style="opacity: .8; max-height: 33px; width: auto; margin-left: 10px;">
-            <span class="brand-text font-weight-light">NIKAHIN</span>
+         <a href="{{ route('dashboard') }}" class="brand-link text-center">
+            <img src="{{ asset('images/logo.png') }}" alt="NIKAHIN Logo" style="max-height: 130px; width: auto; display: inline-block; vertical-align: middle;">
         </a>
 
         <!-- Sidebar -->
         <div class="sidebar">
-            <!-- Sidebar user panel -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <i class="fas fa-user-circle fa-2x text-white"></i>
-                </div>
-                <div class="info">
-                    <a href="{{ route('profile.edit') }}" class="d-block">{{ Auth::user()->name }}</a>
-                </div>
-            </div>
-
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
