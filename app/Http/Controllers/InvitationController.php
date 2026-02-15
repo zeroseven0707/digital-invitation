@@ -143,6 +143,13 @@ class InvitationController extends Controller
     {
         $invitation = auth()->user()->invitations()->findOrFail($id);
 
+        // Check if invitation is paid
+        if (!$invitation->is_paid) {
+            return redirect()
+                ->route('invitations.show', $invitation->id)
+                ->with('error', 'Undangan belum dapat dipublikasikan. Silakan hubungi admin untuk aktivasi pembayaran.');
+        }
+
         $uniqueUrl = $this->invitationService->publishInvitation($invitation);
 
         return redirect()

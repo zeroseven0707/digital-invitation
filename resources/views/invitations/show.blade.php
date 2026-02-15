@@ -146,12 +146,28 @@
                 </div>
                 <div class="card-footer">
                     @if($invitation->status === 'draft')
-                        <form action="{{ route('invitations.publish', $invitation->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-success btn-block">
-                                <i class="fas fa-paper-plane"></i> Publikasikan
+                        @if($invitation->is_paid)
+                            <div class="alert alert-success mb-3">
+                                <i class="fas fa-check-circle"></i> Pembayaran telah dikonfirmasi. Anda dapat mempublikasikan undangan.
+                            </div>
+                            <form action="{{ route('invitations.publish', $invitation->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-success btn-block">
+                                    <i class="fas fa-paper-plane"></i> Publikasikan
+                                </button>
+                            </form>
+                        @else
+                            <div class="alert alert-warning mb-3">
+                                <i class="fas fa-exclamation-triangle"></i> Undangan belum dapat dipublikasikan.
+                                <br><small>Silakan lakukan pembayaran terlebih dahulu.</small>
+                            </div>
+                            <button type="button" class="btn btn-danger btn-block mb-2" data-toggle="modal" data-target="#paymentModal">
+                                <i class="fas fa-credit-card"></i> Bayar Sekarang (Min. Rp 50.000)
                             </button>
-                        </form>
+                            <button type="button" class="btn btn-secondary btn-block" disabled>
+                                <i class="fas fa-lock"></i> Publikasikan (Menunggu Pembayaran)
+                            </button>
+                        @endif
                     @elseif($invitation->status === 'published')
                         <form action="{{ route('invitations.unpublish', $invitation->id) }}" method="POST">
                             @csrf
@@ -216,4 +232,97 @@
         }
     </script>
     @endpush
+
+    <!-- Payment Modal -->
+    @if(!$invitation->is_paid)
+    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title">
+                        <i class="fas fa-credit-card"></i> Pembayaran Undangan
+                    </h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="font-weight-bold mb-3">Detail Undangan</h6>
+                            <table class="table table-sm">
+                                <tr>
+                                    <td width="40%">Mempelai</td>
+                                    <td><strong>{{ $invitation->bride_name }} & {{ $invitation->groom_name }}</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Template</td>
+                                    <td>{{ $invitation->template->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tanggal Acara</td>
+                                    <td>{{ $invitation->akad_date?->format('d M Y') }}</td>
+                                </tr>
+                            </table>
+
+                            <div class="alert alert-info mt-3">
+                                <h6 class="font-weight-bold mb-2">
+                                    <i class="fas fa-info-circle"></i> Harga Paket
+                                </h6>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>Undangan Digital Premium</span>
+                                    <h4 class="mb-0 text-primary">Rp 50.000</h4>
+                                </div>
+                                <div class="alert alert-success mb-2" style="padding: 8px 12px;">
+                                    <small class="font-weight-bold">
+                                        <i class="fas fa-heart"></i> Lebih dari Rp 50.000? <strong>Se-ikhlas-nya!</strong>
+                                    </small>
+                                </div>
+                                <small class="text-muted">
+                                    <i class="fas fa-check"></i> Unlimited Tamu<br>
+                                    <i class="fas fa-check"></i> Galeri Foto<br>
+                                    <i class="fas fa-check"></i> RSVP & Ucapan<br>
+                                    <i class="fas fa-check"></i> Statistik Views<br>
+                                    <i class="fas fa-check"></i> Custom Domain
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 text-center">
+                            <h6 class="font-weight-bold mb-3">Scan QRIS untuk Pembayaran</h6>
+                            <div class="card">
+                                <div class="card-body">
+                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020101021226670016COM.NOBUBANK.WWW01189360050300000898740214545400009999990303UME51440014ID.CO.QRIS.WWW0215ID10200000000150303UME5204481253033605802ID5920Nikahin Digital6007Jakarta61051234062070703A0163044C4D"
+                                         alt="QRIS Code"
+                                         class="img-fluid mb-3"
+                                         style="max-width: 300px; border: 3px solid #007bff; border-radius: 10px; padding: 10px;">
+                                    <p class="text-muted mb-0">
+                                        <small>Scan dengan aplikasi mobile banking atau e-wallet Anda</small>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-warning mt-3">
+                                <small>
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Setelah melakukan pembayaran, klik tombol <strong>"Konfirmasi Pembayaran"</strong> di bawah untuk menghubungi admin.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="fas fa-times"></i> Tutup
+                    </button>
+                    <a href="https://wa.me/6281394454900?text=Halo%20Admin%2C%20saya%20sudah%20melakukan%20pembayaran%20untuk%20undangan%20*{{ urlencode($invitation->bride_name . ' & ' . $invitation->groom_name) }}*%20dengan%20ID%20*{{ $invitation->id }}*.%20Mohon%20untuk%20diaktifkan.%20Terima%20kasih."
+                       target="_blank"
+                       class="btn btn-success">
+                        <i class="fab fa-whatsapp"></i> Konfirmasi Pembayaran via WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 </x-user-layout>

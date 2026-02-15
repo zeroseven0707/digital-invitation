@@ -144,48 +144,14 @@
                         </a>
                     </li>
 
-                    <li class="nav-header">STATISTIK</li>
-
-                    <!-- Invitations -->
+                    <!-- Invitations Management -->
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('admin.invitations.index') }}" class="nav-link {{ request()->routeIs('admin.invitations.*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-envelope"></i>
                             <p>
-                                Total Undangan
+                                Daftar Undangan
                                 <span class="badge badge-primary right">{{ \App\Models\Invitation::count() }}</span>
                             </p>
-                        </a>
-                    </li>
-
-                    <!-- Published Invitations -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-check-circle"></i>
-                            <p>
-                                Undangan Publish
-                                <span class="badge badge-success right">{{ \App\Models\Invitation::where('status', 'published')->count() }}</span>
-                            </p>
-                        </a>
-                    </li>
-
-                    <!-- Total Views -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-eye"></i>
-                            <p>
-                                Total Views
-                                <span class="badge badge-warning right">{{ \App\Models\InvitationView::count() }}</span>
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="nav-header">LAINNYA</li>
-
-                    <!-- Back to User Dashboard -->
-                    <li class="nav-item">
-                        <a href="{{ route('dashboard') }}" class="nav-link">
-                            <i class="nav-icon fas fa-arrow-left"></i>
-                            <p>Kembali ke Dashboard User</p>
                         </a>
                     </li>
                 </ul>
@@ -253,6 +219,64 @@
     </footer>
 </div>
 <!-- ./wrapper -->
+
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/6281394454900" target="_blank" class="whatsapp-float" title="Hubungi Kami via WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<style>
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+.whatsapp-float:hover {
+    background-color: #128c7e;
+    color: #FFF;
+    transform: scale(1.1);
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 25px;
+    }
+}
+</style>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

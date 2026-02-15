@@ -14,6 +14,11 @@ class DashboardController extends Controller
     {
         $user = $request->user();
 
+        // Redirect admin to admin dashboard
+        if ($user->is_admin) {
+            return redirect()->route('admin.dashboard');
+        }
+
         // Get all invitations for the authenticated user
         $invitations = $user->invitations()
             ->with(['template', 'guests', 'views'])

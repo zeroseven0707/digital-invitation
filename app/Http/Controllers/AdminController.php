@@ -85,5 +85,88 @@ class AdminController extends Controller
             'topInvitations'
         ));
     }
+
+    /**
+     * Display list of all invitations with payment status.
+     *
+     * @param Request $request
+     * @return View
+     */
+    public function invitations(Request $request): View
+    {
+        $query = \App\Models\Invitation::with(['user', 'template'])
+            ->withCount(['views', 'guests']);
+
+        // Filter by payment status
+        if ($request->has('payment_status')) {
+            if ($request->payment_status === 'paid') {
+                $query->where('is_paid', true);
+            } elseif ($request->payment_status === 'unpaid') {
+                $query->where('is_paid', false);
+            }
+        }
+
+        // Filter by publish status
+        if ($request->has('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Search by title or user name
+        if ($request->has('search') && $request->search) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhereHas('user', function($q) use ($search) {
+                      $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        // Sort
+        $sortBy = $request->get('sort_by', 'created_at');
+        $sortOrder = $request->get('sort_order', 'desc');
+        $query->orderBy($sortBy, $sortOrder);
+
+        $invitations = $query->paginate(20);
+
+        return view('admin.invitations.index', compact('invitations'));
+    }
+
+    /**
+     * Activate payment for an invitation.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function activateInvitationPayment(int $id)
+    {
+        $invitation = \App\Models\Invitation::findOrFail($id);
+
+        $invitation->update([
+            'is_paid' => true,
+            'paid_at' => now(),
+        ]);
+
+        return redirect()->back()->with('success', 'Pembayaran undangan berhasil diaktifkan!');
+    }
+
+    /**
+     * Deactivate payment for an invitation.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deactivateInvitationPayment(int $id)
+    {
+        $invitation = \App\Models\Invitation::findOrFail($id);
+
+        $invitation->update([
+            'is_paid' => false,
+            'paid_at' => null,
+        ]);
+
+        return redirect()->back()->with('success', 'Pembayaran undangan berhasil dinonaktifkan!');
+    }
 }
 

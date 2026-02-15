@@ -19,6 +19,8 @@ class Invitation extends Model
         'template_id',
         'unique_url',
         'status',
+        'is_paid',
+        'paid_at',
         'bride_name',
         'bride_father_name',
         'bride_mother_name',
@@ -48,6 +50,8 @@ class Invitation extends Model
         return [
             'akad_date' => 'date',
             'reception_date' => 'date',
+            'is_paid' => 'boolean',
+            'paid_at' => 'datetime',
         ];
     }
 

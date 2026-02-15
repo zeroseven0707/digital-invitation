@@ -114,43 +114,28 @@
                     <li class="nav-item">
                         <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-
-                    <!-- Undangan Menu -->
-                    <li class="nav-item {{ request()->routeIs('invitations.*') || request()->routeIs('guests.*') || request()->routeIs('statistics.*') ? 'menu-open' : '' }}">
-                        <a href="#" class="nav-link {{ request()->routeIs('invitations.*') || request()->routeIs('guests.*') || request()->routeIs('statistics.*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-envelope-open-text"></i>
                             <p>
-                                Undangan Saya
-                                <i class="right fas fa-angle-left"></i>
-                                @if(Auth::check())
+                                Dashboard
+                                @if(Auth::check() && Auth::user()->invitations()->count() > 0)
                                     <span class="badge badge-info right">{{ Auth::user()->invitations()->count() }}</span>
                                 @endif
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('invitations.create') }}" class="nav-link {{ request()->routeIs('invitations.create') ? 'active' : '' }}">
-                                    <i class="far fa-plus-square nav-icon"></i>
-                                    <p>Buat Undangan Baru</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') && !request()->routeIs('invitations.*') ? 'active' : '' }}">
-                                    <i class="far fa-list-alt nav-icon"></i>
-                                    <p>Daftar Undangan</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
 
                     <!-- Template -->
                     <li class="nav-item">
                         <a href="{{ route('templates.index') }}" class="nav-link {{ request()->routeIs('templates.*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-palette"></i>
-                            <p>Template Undangan</p>
+                            <p>Template</p>
+                        </a>
+                    </li>
+
+                    <!-- Guide -->
+                    <li class="nav-item">
+                        <a href="{{ route('guide') }}" class="nav-link {{ request()->routeIs('guide') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p>Panduan</p>
                         </a>
                     </li>
 
@@ -161,16 +146,6 @@
                         <a href="{{ route('profile.edit') }}" class="nav-link {{ request()->routeIs('profile.*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-user-cog"></i>
                             <p>Profil Saya</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-header">BANTUAN</li>
-
-                    <!-- Help/Guide -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" onclick="alert('Fitur panduan akan segera hadir!'); return false;">
-                            <i class="nav-icon fas fa-question-circle"></i>
-                            <p>Panduan Penggunaan</p>
                         </a>
                     </li>
                 </ul>
@@ -231,6 +206,64 @@
         </div>
     </footer>
 </div>
+
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/6281394454900" target="_blank" class="whatsapp-float" title="Hubungi Kami via WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<style>
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+.whatsapp-float:hover {
+    background-color: #128c7e;
+    color: #FFF;
+    transform: scale(1.1);
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 25px;
+    }
+}
+</style>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

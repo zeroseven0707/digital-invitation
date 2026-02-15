@@ -127,4 +127,51 @@ class AdminUserController extends Controller
         return redirect()->back()
             ->with('success', "User {$user->name} has been activated successfully.");
     }
+
+    /**
+     * Activate payment for an invitation.
+     *
+     * @param string $userId
+     * @param string $invitationId
+     * @return RedirectResponse
+     */
+    public function activatePayment(string $userId, string $invitationId): RedirectResponse
+    {
+        $user = User::findOrFail($userId);
+        $invitation = $user->invitations()->findOrFail($invitationId);
+
+        $invitation->update([
+            'is_paid' => true,
+            'paid_at' => now(),
+        ]);
+
+        return redirect()->back()
+            ->with('success', "Pembayaran untuk undangan {$invitation->bride_name} & {$invitation->groom_name} telah diaktifkan.");
+    }
+
+    /**
+     * Deactivate payment for an invitation.
+     *
+     * @param string $userId
+     * @param string $invitationId
+     * @return RedirectResponse
+     */
+    public function deactivatePayment(string $userId, string $invitationId): RedirectResponse
+    {
+        $user = User::findOrFail($userId);
+        $invitation = $user->invitations()->findOrFail($invitationId);
+
+        $invitation->update([
+            'is_paid' => false,
+            'paid_at' => null,
+        ]);
+
+        // If invitation is published, unpublish it
+        if ($invitation->status === 'published') {
+            $invitation->update(['status' => 'draft']);
+        }
+
+        return redirect()->back()
+            ->with('success', "Pembayaran untuk undangan {$invitation->bride_name} & {$invitation->groom_name} telah dinonaktifkan.");
+    }
 }

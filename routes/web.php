@@ -44,10 +44,15 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'block.admin'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Guide route
+    Route::get('/guide', function () {
+        return view('guide');
+    })->name('guide');
 
     // Template routes
     Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
@@ -90,11 +95,18 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
+    // Invitations management routes
+    Route::get('/invitations', [AdminController::class, 'invitations'])->name('admin.invitations.index');
+    Route::post('/invitations/{id}/activate-payment', [AdminController::class, 'activateInvitationPayment'])->name('admin.invitations.activate-payment');
+    Route::post('/invitations/{id}/deactivate-payment', [AdminController::class, 'deactivateInvitationPayment'])->name('admin.invitations.deactivate-payment');
+
     // User management routes
     Route::get('/users', [AdminUserController::class, 'index'])->name('admin.users.index');
     Route::get('/users/{id}', [AdminUserController::class, 'show'])->name('admin.users.show');
     Route::post('/users/{id}/deactivate', [AdminUserController::class, 'deactivate'])->name('admin.users.deactivate');
     Route::post('/users/{id}/activate', [AdminUserController::class, 'activate'])->name('admin.users.activate');
+    Route::post('/users/{userId}/invitations/{invitationId}/activate-payment', [AdminUserController::class, 'activatePayment'])->name('admin.users.invitations.activate-payment');
+    Route::post('/users/{userId}/invitations/{invitationId}/deactivate-payment', [AdminUserController::class, 'deactivatePayment'])->name('admin.users.invitations.deactivate-payment');
 
     // Template management routes
     Route::get('/templates', [AdminTemplateController::class, 'index'])->name('admin.templates.index');

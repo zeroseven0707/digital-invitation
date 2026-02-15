@@ -1157,7 +1157,10 @@
                 </p>
                 <div class="hero-price">
                     <div class="hero-price-label">Mulai dari</div>
-                    <div class="hero-price-amount">Rp 100.000</div>
+                    <div class="hero-price-amount">Rp 50.000</div>
+                    <small style="color: rgba(255,255,255,0.8); display: block; margin-top: 5px;">
+                        <i class="fas fa-heart"></i> Lebih? Se-ikhlas-nya!
+                    </small>
                 </div>
                 <div class="hero-buttons">
                     <a href="https://wa.me/6281394454900" target="_blank" class="btn-primary">
@@ -1289,64 +1292,31 @@
                 </p>
             </div>
             <div class="pricing-grid">
-                <div class="pricing-card animate-on-scroll">
-                    <h3 class="pricing-name">Paket Basic</h3>
-                    <p class="pricing-desc">Cocok untuk undangan sederhana namun elegan</p>
-                    <div class="pricing-price">
-                        100rb <span>/ undangan</span>
-                    </div>
-                    <span class="pricing-original">Rp 100.000</span>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> 1 Pilihan Template</li>
-                        <li><i class="fas fa-check"></i> Informasi Mempelai</li>
-                        <li><i class="fas fa-check"></i> Detail Acara (Akad & Resepsi)</li>
-                        <li><i class="fas fa-check"></i> Google Maps</li>
-                        <li><i class="fas fa-check"></i> Musik Latar</li>
-                        <li><i class="fas fa-check"></i> Countdown Timer</li>
-                        <li class="text-muted" style="opacity: 0.5;"><i class="fas fa-times"></i> Galeri Foto</li>
-                        <li class="text-muted" style="opacity: 0.5;"><i class="fas fa-times"></i> RSVP & Ucapan</li>
-                    </ul>
-                    <button class="btn-pricing">Pilih Paket</button>
-                </div>
-
                 <div class="pricing-card featured animate-on-scroll">
                     <h3 class="pricing-name">Paket Premium</h3>
-                    <p class="pricing-desc">Paling populer dengan fitur lengkap</p>
+                    <p class="pricing-desc">Fitur lengkap dengan harga terjangkau</p>
                     <div class="pricing-price">
-                        150rb <span>/ undangan</span>
+                        50rb <span>/ undangan</span>
                     </div>
-                    <span class="pricing-original">Rp 180.000</span>
+                    <div class="alert alert-success" style="margin: 10px 0; padding: 8px 12px; background: rgba(40, 167, 69, 0.1); border: 1px solid rgba(40, 167, 69, 0.3); border-radius: 8px;">
+                        <small class="font-weight-bold" style="color: #28a745;">
+                            <i class="fas fa-heart"></i> Lebih dari 50rb? Se-ikhlas-nya!
+                        </small>
+                    </div>
                     <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Semua Template Premium</li>
+                        <li><i class="fas fa-check"></i> 18+ Pilihan Template</li>
                         <li><i class="fas fa-check"></i> Informasi Mempelai Lengkap</li>
-                        <li><i class="fas fa-check"></i> Detail Acara & Turut Mengundang</li>
-                        <li><i class="fas fa-check"></i> Google Maps Interaktif</li>
-                        <li><i class="fas fa-check"></i> Musik Latar Bebas Pilih</li>
-                        <li><i class="fas fa-check"></i> Galeri Foto (10 Foto)</li>
-                        <li><i class="fas fa-check"></i> RSVP & Buku Tamu Digital</li>
-                        <li><i class="fas fa-check"></i> Animasi Eksklusif</li>
-                    </ul>
-                    <button class="btn-pricing">Pilih Paket</button>
-                </div>
-
-                <div class="pricing-card animate-on-scroll">
-                    <h3 class="pricing-name">Paket Exclusive</h3>
-                    <p class="pricing-desc">Untuk tampilan yang benar-benar unik</p>
-                    <div class="pricing-price">
-                        350rb <span>/ undangan</span>
-                    </div>
-                    <span class="pricing-original">Rp 350.000</span>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Desain Custom (Request Tema)</li>
-                        <li><i class="fas fa-check"></i> Semua Fitur Premium</li>
+                        <li><i class="fas fa-check"></i> Detail Acara (Akad & Resepsi)</li>
+                        <li><i class="fas fa-check"></i> Google Maps Terintegrasi</li>
+                        <li><i class="fas fa-check"></i> Musik Latar</li>
+                        <li><i class="fas fa-check"></i> Countdown Timer</li>
                         <li><i class="fas fa-check"></i> Galeri Foto Unlimited</li>
-                        <li><i class="fas fa-check"></i> Video Pre-wedding</li>
-                        <li><i class="fas fa-check"></i> Domain Custom (nama.com)</li>
-                        <li><i class="fas fa-check"></i> Revisi 3x</li>
-                        <li><i class="fas fa-check"></i> Priority Support 24/7</li>
-                        <li><i class="fas fa-check"></i> Backup Data 1 Tahun</li>
+                        <li><i class="fas fa-check"></i> RSVP & Ucapan</li>
+                        <li><i class="fas fa-check"></i> Kelola Tamu</li>
+                        <li><i class="fas fa-check"></i> Statistik Views</li>
+                        <li><i class="fas fa-check"></i> Custom Domain</li>
                     </ul>
-                    <button class="btn-pricing">Pilih Paket</button>
+                    <a href="https://wa.me/6281394454900" target="_blank" class="btn-pricing">Pesan Sekarang</a>
                 </div>
             </div>
         </div>

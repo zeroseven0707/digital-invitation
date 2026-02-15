@@ -71,9 +71,11 @@
                                     <th>Bride & Groom</th>
                                     <th>Template</th>
                                     <th>Status</th>
+                                    <th>Payment</th>
                                     <th>Guests</th>
                                     <th>Views</th>
                                     <th>Created</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -93,9 +95,40 @@
                                                 <span class="badge badge-warning">Unpublished</span>
                                             @endif
                                         </td>
+                                        <td>
+                                            @if($invitation->is_paid)
+                                                <span class="badge badge-success">
+                                                    <i class="fas fa-check-circle"></i> Paid
+                                                </span>
+                                                @if($invitation->paid_at)
+                                                    <br><small class="text-muted">{{ $invitation->paid_at->format('d M Y H:i') }}</small>
+                                                @endif
+                                            @else
+                                                <span class="badge badge-danger">
+                                                    <i class="fas fa-times-circle"></i> Unpaid
+                                                </span>
+                                            @endif
+                                        </td>
                                         <td>{{ $invitation->guests->count() }}</td>
                                         <td>{{ $invitation->views->count() }}</td>
                                         <td>{{ $invitation->created_at->format('d M Y') }}</td>
+                                        <td>
+                                            @if($invitation->is_paid)
+                                                <form action="{{ route('admin.users.invitations.deactivate-payment', [$user->id, $invitation->id]) }}" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-warning" onclick="return confirm('Yakin ingin menonaktifkan pembayaran?')">
+                                                        <i class="fas fa-ban"></i> Nonaktifkan
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <form action="{{ route('admin.users.invitations.activate-payment', [$user->id, $invitation->id]) }}" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-success">
+                                                        <i class="fas fa-check"></i> Aktifkan
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
