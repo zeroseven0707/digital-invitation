@@ -105,7 +105,13 @@
                                 <h5 class="text-primary"><i class="fas fa-map-marker-alt"></i> Informasi Lokasi</h5>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <x-adminlte-textarea label="Alamat Lengkap" name="full_address" :value="$invitation->full_address" :required="true" />
+                                        <x-adminlte-textarea
+                                            label="Alamat Lengkap"
+                                            name="full_address"
+                                            :value="$invitation->full_address"
+                                            :required="true"
+                                            rows="4"
+                                            placeholder="Contoh: Jl. Merdeka No. 123, RT 01/RW 02, Kelurahan Sukamaju, Kecamatan Bandung Tengah, Kota Bandung, Jawa Barat 40123" />
                                     </div>
                                 </div>
 

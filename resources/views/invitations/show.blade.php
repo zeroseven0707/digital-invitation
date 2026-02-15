@@ -103,12 +103,21 @@
                             </button>
                         </div>
                     </div>
+                    @php
+                        $waMessage = "Assalamu'alaikum Warahmatullahi Wabarakatuh\n\n";
+                        $waMessage .= "Dengan penuh rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk berkenan hadir dan memberikan doa restu pada acara pernikahan kami.\n\n";
+                        $waMessage .= "Informasi lengkap dapat diakses melalui tautan berikut:\n";
+                        $waMessage .= "👉 " . url('/i/' . $invitation->unique_url) . "\n\n";
+                        $waMessage .= "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.\n\n";
+                        $waMessage .= "Wassalamu'alaikum Warahmatullahi Wabarakatuh\n\n";
+                        $waMessage .= "Terima kasih.";
+                    @endphp
                     <div class="btn-group">
-                        <a href="https://wa.me/?text={{ urlencode('Anda diundang ke pernikahan kami! ' . url('/i/' . $invitation->unique_url)) }}" target="_blank" class="btn btn-success">
-                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        <a href="https://wa.me/?text={{ urlencode($waMessage) }}" target="_blank" class="btn btn-success">
+                            <i class="fab fa-whatsapp"></i> Bagikan via WhatsApp
                         </a>
-                        <a href="mailto:?subject={{ urlencode('Undangan Pernikahan ' . $invitation->bride_name . ' & ' . $invitation->groom_name) }}&body={{ urlencode('Anda diundang ke pernikahan kami! Lihat undangan di: ' . url('/i/' . $invitation->unique_url)) }}" class="btn btn-secondary">
-                            <i class="fas fa-envelope"></i> Email
+                        <a href="mailto:?subject={{ urlencode('Undangan Pernikahan ' . $invitation->bride_name . ' & ' . $invitation->groom_name) }}&body={{ urlencode($waMessage) }}" class="btn btn-secondary">
+                            <i class="fas fa-envelope"></i> Bagikan via Email
                         </a>
                     </div>
                 </div>

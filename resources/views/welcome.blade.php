@@ -7,6 +7,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>nikahin - Undangan Digital Premium | Mulai 50rb</title>
+    <meta name="description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 50.000 dengan 9+ template premium. Bagikan kebahagiaan Anda dengan cara yang berbeda.">
+
+    <!-- Canonical URL -->
+    <meta property="og:url" content="{{ url('/') }}">
+    <link rel="canonical" href="{{ url('/') }}">
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="nikahin">
+    <meta property="og:title" content="nikahin - Undangan Digital Premium | Mulai 50rb">
+    <meta property="og:description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 50.000 dengan 9+ template premium. Bagikan kebahagiaan Anda dengan cara yang berbeda.">
+    <meta property="og:image" content="{{ asset('images/logo.png') }}">
+    <meta property="og:image:secure_url" content="{{ asset('images/logo.png') }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="nikahin - Undangan Digital Premium">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@nikahin">
+    <meta name="twitter:title" content="nikahin - Undangan Digital Premium | Mulai 50rb">
+    <meta name="twitter:description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 50.000 dengan 9+ template premium.">
+    <meta name="twitter:image" content="{{ asset('images/logo.png') }}">
+
+    <!-- WhatsApp Specific -->
+    <meta property="og:locale" content="id_ID">
+
+    <!-- Additional Meta Tags -->
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="nikahin">
+    <meta name="keywords" content="undangan digital, undangan pernikahan, undangan online, wedding invitation, undangan nikah, undangan murah">
+    <meta name="theme-color" content="#d4af37">
+
     <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -1047,10 +1081,95 @@
             font-size: 1.5rem;
             color: white;
             cursor: pointer;
+            z-index: 1001;
         }
 
         nav.scrolled .mobile-menu {
             color: var(--primary);
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+            padding: 80px 30px 30px;
+            transition: right 0.4s ease;
+            z-index: 1000;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+        }
+
+        .mobile-nav ul li {
+            margin-bottom: 25px;
+        }
+
+        .mobile-nav ul li a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: block;
+            padding: 10px 0;
+            transition: color 0.3s;
+        }
+
+        .mobile-nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        .mobile-nav .btn-nav {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            z-index: 999;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.8rem;
+            color: var(--text);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .mobile-close:hover {
+            background: var(--light);
+            color: var(--accent);
         }
 
         /* Responsive */
@@ -1137,10 +1256,25 @@
             <li><a href="#testimonials">Testimoni</a></li>
             <li><a href="{{ route('register') }}" class="btn-nav">Daftar</a></li>
         </ul>
-        <div class="mobile-menu">
+        <div class="mobile-menu" id="mobileMenuBtn">
             <i class="fas fa-bars"></i>
         </div>
     </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-close" id="mobileClose">
+            <i class="fas fa-times"></i>
+        </div>
+        <ul>
+            <li><a href="#features" class="mobile-link">Fitur</a></li>
+            <li><a href="#templates" class="mobile-link">Template</a></li>
+            <li><a href="#pricing" class="mobile-link">Harga</a></li>
+            <li><a href="#testimonials" class="mobile-link">Testimoni</a></li>
+            <li><a href="{{ route('register') }}" class="btn-nav">Daftar Sekarang</a></li>
+        </ul>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -1521,6 +1655,36 @@
     </footer>
 
     <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function openMobileMenu() {
+            mobileNav.classList.add('active');
+            mobileOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileNav.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        mobileClose.addEventListener('click', closeMobileMenu);
+        mobileOverlay.addEventListener('click', closeMobileMenu);
+
+        // Close mobile menu when clicking a link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                closeMobileMenu();
+            });
+        });
+
         // Navbar Scroll Effect
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
