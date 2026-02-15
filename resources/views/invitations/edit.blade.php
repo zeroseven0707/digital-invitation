@@ -28,7 +28,7 @@
                     <div class="tab-content" id="custom-tabs-content">
                         <!-- Info Tab -->
                         <div class="tab-pane fade show active" id="info" role="tabpanel">
-                            <form method="POST" action="{{ route('invitations.update', $invitation->id) }}">
+                            <form method="POST" action="{{ route('invitations.update', $invitation->id) }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" name="template_id" value="{{ old('template_id', $invitation->template_id) }}">
@@ -107,11 +107,54 @@
                                     <div class="col-md-12">
                                         <x-adminlte-textarea label="Alamat Lengkap" name="full_address" :value="$invitation->full_address" :required="true" />
                                     </div>
+                                </div>
+
+                                <!-- Map Picker -->
+                                <div class="form-group">
+                                    <label>Pilih Lokasi di Peta <small class="text-muted">(Klik pada peta untuk memilih lokasi)</small></label>
+                                    <div id="map" style="height: 400px; border-radius: 8px; border: 1px solid #ddd;"></div>
+                                    <small class="form-text text-muted">
+                                        <i class="fas fa-info-circle"></i> Klik pada peta untuk menandai lokasi acara.
+                                    </small>
+                                </div>
+
+                                <div class="row">
                                     <div class="col-md-6">
-                                        <x-adminlte-input label="URL Google Maps" name="google_maps_url" type="url" :value="$invitation->google_maps_url" />
+                                        <x-adminlte-input label="Latitude" name="latitude" type="text" id="latitude" :value="$invitation->latitude" readonly />
                                     </div>
                                     <div class="col-md-6">
-                                        <x-adminlte-input label="URL Musik Latar" name="music_url" type="url" :value="$invitation->music_url" />
+                                        <x-adminlte-input label="Longitude" name="longitude" type="text" id="longitude" :value="$invitation->longitude" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="music_file">Musik Latar (MP3) <small class="text-muted">(Opsional, Max: 5MB)</small></label>
+
+                                            @if($invitation->music_path && Storage::disk('public')->exists($invitation->music_path))
+                                                <div class="alert alert-info">
+                                                    <i class="fas fa-music"></i> Musik saat ini:
+                                                    <audio controls style="max-width: 100%; margin-top: 10px;">
+                                                        <source src="{{ Storage::disk('public')->url($invitation->music_path) }}" type="audio/mpeg">
+                                                        Browser Anda tidak mendukung audio player.
+                                                    </audio>
+                                                    <div class="mt-2">
+                                                        <label>
+                                                            <input type="checkbox" name="remove_music" value="1"> Hapus musik
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="music_file" name="music_file" accept=".mp3,audio/mpeg">
+                                                <label class="custom-file-label" for="music_file">Pilih file MP3 baru</label>
+                                            </div>
+                                            <small class="form-text text-muted">
+                                                <i class="fas fa-info-circle"></i> Upload file musik MP3 untuk latar belakang undangan (maksimal 5MB)
+                                            </small>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -268,6 +311,44 @@
                 alert('Terjadi kesalahan saat menghapus foto');
             }
         }
+
+        // Initialize map for edit
+        let map, marker;
+
+        // Get existing coordinates or use default
+        const existingLat = {{ $invitation->latitude ?? -7.2575 }};
+        const existingLng = {{ $invitation->longitude ?? 112.7521 }};
+
+        // Initialize map
+        map = L.map('map').setView([existingLat, existingLng], 13);
+
+        // Add OpenStreetMap tiles (free!)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Add existing marker if coordinates exist
+        @if($invitation->latitude && $invitation->longitude)
+            marker = L.marker([existingLat, existingLng]).addTo(map);
+        @endif
+
+        // Add click event to map
+        map.on('click', function(e) {
+            const lat = e.latlng.lat;
+            const lng = e.latlng.lng;
+
+            // Update marker
+            if (marker) {
+                marker.setLatLng(e.latlng);
+            } else {
+                marker = L.marker(e.latlng).addTo(map);
+            }
+
+            // Update form fields
+            document.getElementById('latitude').value = lat.toFixed(8);
+            document.getElementById('longitude').value = lng.toFixed(8);
+        });
     </script>
     @endpush
 </x-user-layout>

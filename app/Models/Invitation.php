@@ -36,8 +36,10 @@ class Invitation extends Model
         'reception_time_end',
         'reception_location',
         'full_address',
+        'latitude',
+        'longitude',
         'google_maps_url',
-        'music_url',
+        'music_path',
     ];
 
     /**

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Invitation;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class InvitationService
 {
@@ -19,6 +20,12 @@ class InvitationService
         $data['user_id'] = $userId;
         $data['status'] = 'draft';
 
+        // Handle music file upload
+        if (isset($data['music_file']) && $data['music_file']) {
+            $data['music_path'] = $this->uploadMusicFile($data['music_file'], $userId);
+            unset($data['music_file']);
+        }
+
         return Invitation::create($data);
     }
 
@@ -31,6 +38,26 @@ class InvitationService
      */
     public function updateInvitation(Invitation $invitation, array $data): Invitation
     {
+        // Handle music file removal
+        if (isset($data['remove_music']) && $data['remove_music']) {
+            if ($invitation->music_path) {
+                Storage::disk('public')->delete($invitation->music_path);
+                $data['music_path'] = null;
+            }
+            unset($data['remove_music']);
+        }
+
+        // Handle new music file upload
+        if (isset($data['music_file']) && $data['music_file']) {
+            // Delete old music file if exists
+            if ($invitation->music_path) {
+                Storage::disk('public')->delete($invitation->music_path);
+            }
+
+            $data['music_path'] = $this->uploadMusicFile($data['music_file'], $invitation->user_id);
+            unset($data['music_file']);
+        }
+
         $invitation->update($data);
 
         return $invitation->fresh();
@@ -91,6 +118,11 @@ class InvitationService
      */
     public function deleteInvitation(Invitation $invitation): void
     {
+        // Delete music file if exists
+        if ($invitation->music_path) {
+            Storage::disk('public')->delete($invitation->music_path);
+        }
+
         $invitation->delete();
     }
 
@@ -106,6 +138,23 @@ class InvitationService
         } while (Invitation::where('unique_url', $url)->exists());
 
         return $url;
+    }
+
+    /**
+     * Upload music file for invitation.
+     *
+     * @param \Illuminate\Http\UploadedFile $file
+     * @param int $userId
+     * @return string Path to uploaded file
+     */
+    protected function uploadMusicFile($file, int $userId): string
+    {
+        $filename = time() . '_' . Str::random(10) . '.mp3';
+        $path = "invitations/user_{$userId}/music/{$filename}";
+
+        Storage::disk('public')->put($path, file_get_contents($file));
+
+        return $path;
     }
 }
 

@@ -41,7 +41,10 @@ class UpdateInvitationRequest extends FormRequest
             'reception_location' => ['required', 'string', 'max:500'],
             'full_address' => ['required', 'string', 'max:1000'],
             'google_maps_url' => ['nullable', 'url', 'max:1000'],
-            'music_url' => ['nullable', 'url', 'max:1000'],
+            'music_file' => ['nullable', 'file', 'mimes:mp3', 'max:5120'], // 5MB max
+            'remove_music' => ['nullable', 'boolean'],
+            'latitude' => ['nullable', 'numeric', 'between:-90,90'],
+            'longitude' => ['nullable', 'numeric', 'between:-180,180'],
         ];
     }
 
@@ -70,7 +73,9 @@ class UpdateInvitationRequest extends FormRequest
             'reception_location.required' => 'Lokasi resepsi wajib diisi.',
             'full_address.required' => 'Alamat lengkap wajib diisi.',
             'google_maps_url.url' => 'URL Google Maps tidak valid.',
-            'music_url.url' => 'URL musik tidak valid.',
+            'music_file.file' => 'File musik harus berupa file yang valid.',
+            'music_file.mimes' => 'File musik harus berformat MP3.',
+            'music_file.max' => 'Ukuran file musik maksimal 5MB.',
         ];
     }
 }

@@ -40,6 +40,14 @@ Route::post('/i/{uniqueUrl}/rsvp', [App\Http\Controllers\RsvpController::class, 
     ->middleware('throttle:10,1')
     ->name('rsvp.store');
 
+// RSVP latest messages endpoint (AJAX)
+Route::get('/i/{uniqueUrl}/rsvp/latest', [App\Http\Controllers\RsvpController::class, 'latest'])
+    ->name('rsvp.latest');
+
+// Public template routes (no authentication required)
+Route::get('/templates', [TemplateController::class, 'publicIndex'])->name('public.templates.index');
+Route::get('/templates/{id}/preview', [TemplateController::class, 'publicPreview'])->name('public.templates.preview');
+
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
@@ -54,9 +62,9 @@ Route::middleware(['auth', 'block.admin'])->group(function () {
         return view('guide');
     })->name('guide');
 
-    // Template routes
-    Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
-    Route::get('/templates/{id}', [TemplateController::class, 'show'])->name('templates.show');
+    // Template routes for authenticated users
+    Route::get('/my-templates', [TemplateController::class, 'index'])->name('templates.index');
+    Route::get('/my-templates/{id}', [TemplateController::class, 'show'])->name('templates.show');
 
     // Invitation routes
     Route::get('/invitations/create', [InvitationController::class, 'create'])->name('invitations.create');

@@ -1,56 +1,60 @@
 # Database Seeders
 
-Dokumentasi untuk database seeders Platform Management Undangan Pernikahan Digital.
+## Overview
+This directory contains database seeders for the Digital Invitation application.
 
-## Daftar Seeders
+## Available Seeders
 
 ### 1. TemplateSeeder
-Membuat template undangan default (Classic Elegant, Modern Minimalist, Romantic Floral).
+Seeds 9 active invitation templates:
+- Classic Elegant
+- Modern Minimalist
+- Romantic Floral
+- Luxury Gold
+- Rustic Vintage
+- Ocean Breeze
+- Garden Party
+- Night Sky
+- Parallax Mountain
 
-### 2. UserSeeder
-Membuat akun admin dan pengguna regular.
+### 2. ProductionSeeder
+Seeds production-ready data:
+- **Admin User**: admin@nikahin.com / password
+- **Regular User**: user@nikahin.com / password
+- **Sample Invitation**: Published and paid invitation for Anisa & Dian using Classic Elegant template
 
-**Admin:**
-- Email: `admin@undangan.com`
-- Password: `admin123`
+## Usage
 
-**Pengguna Regular:**
-- Email: `budi@example.com` / Password: `password`
-- Email: `siti@example.com` / Password: `password`
-- Email: `ahmad@example.com` / Password: `password`
-- Email: `dewi@example.com` / Password: `password`
-
-### 3. SampleDataSeeder
-Membuat data sample untuk testing:
-- 3 undangan dengan status berbeda (2 published, 1 draft)
-- Daftar tamu untuk setiap undangan (family, friend, colleague)
-- View statistics untuk undangan yang published
-
-## Cara Menggunakan
-
-### Seed Semua Data
+### Fresh Installation
 ```bash
 php artisan migrate:fresh --seed
 ```
 
-### Seed Spesifik
+### Run Specific Seeder
 ```bash
-# Seed hanya templates
 php artisan db:seed --class=TemplateSeeder
-
-# Seed hanya users
-php artisan db:seed --class=UserSeeder
-
-# Seed hanya sample data
-php artisan db:seed --class=SampleDataSeeder
+php artisan db:seed --class=ProductionSeeder
 ```
 
-### Reset dan Seed Ulang
-```bash
-php artisan migrate:fresh --seed
-```
+## Production Data Details
 
-## Catatan
-- Jalankan TemplateSeeder terlebih dahulu sebelum SampleDataSeeder
-- Jalankan UserSeeder sebelum SampleDataSeeder
-- SampleDataSeeder membutuhkan minimal 1 user dan 1 template
+### Bride Information
+- Name: Anisa Rismayanti
+- Father: Mumuh Muhlisin (ALM)
+- Mother: Siti Komariah
+
+### Groom Information
+- Name: Dian Nurdilan
+- Father: Emuh Saepulloh
+- Mother: Ii Jahroi
+
+### Event Details
+- **Akad**: Sunday, March 29, 2026, 08:00-10:00
+- **Reception**: Sunday, March 29, 2026, 10:00-selesai
+- **Location**: Rumah Mempelai Wanita
+- **Address**: Kp. Sindangraja RT 11 RW 04 Desa Linggawangi Kec. Leuwisari Kab. Tasikmalaya
+
+### Invitation Status
+- Status: Published
+- Payment: Paid
+- Template: Classic Elegant

@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('invitations.store') }}">
+                    <form method="POST" action="{{ route('invitations.store') }}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="template_id" id="template_id">
 
@@ -129,11 +129,38 @@
                             <div class="col-md-12">
                                 <x-adminlte-textarea label="Alamat Lengkap" name="full_address" :required="true" />
                             </div>
+                        </div>
+
+                        <!-- Map Picker -->
+                        <div class="form-group">
+                            <label>Pilih Lokasi di Peta <small class="text-muted">(Klik pada peta untuk memilih lokasi)</small></label>
+                            <div id="map" style="height: 400px; border-radius: 8px; border: 1px solid #ddd;"></div>
+                            <small class="form-text text-muted">
+                                <i class="fas fa-info-circle"></i> Klik pada peta untuk menandai lokasi acara. Anda juga bisa mencari lokasi dengan mengetik alamat di kotak pencarian.
+                            </small>
+                        </div>
+
+                        <div class="row">
                             <div class="col-md-6">
-                                <x-adminlte-input label="URL Google Maps" name="google_maps_url" type="url" />
+                                <x-adminlte-input label="Latitude" name="latitude" type="text" id="latitude" readonly />
                             </div>
                             <div class="col-md-6">
-                                <x-adminlte-input label="URL Musik Latar" name="music_url" type="url" />
+                                <x-adminlte-input label="Longitude" name="longitude" type="text" id="longitude" readonly />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="music_file">Musik Latar (MP3) <small class="text-muted">(Opsional, Max: 5MB)</small></label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="music_file" name="music_file" accept=".mp3,audio/mpeg">
+                                        <label class="custom-file-label" for="music_file">Pilih file MP3</label>
+                                    </div>
+                                    <small class="form-text text-muted">
+                                        <i class="fas fa-info-circle"></i> Upload file musik MP3 untuk latar belakang undangan (maksimal 5MB)
+                                    </small>
+                                </div>
                             </div>
                         </div>
 
@@ -160,6 +187,12 @@
 
     @push('scripts')
     <script>
+        // Custom file input
+        $('.custom-file-input').on('change', function() {
+            let fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-label').html(fileName);
+        });
+
         function selectTemplate(templateId, templateName) {
             document.getElementById('template_id').value = templateId;
             document.getElementById('selected-template').textContent = templateName;
@@ -174,8 +207,8 @@
         }
 
         function backToTemplate() {
-            document.getElementById('template-selection').style.display = 'block';
-            document.getElementById('invitation-form').style.display = 'none';
+            document.getElementById('template-selection').style.display = 'none';
+            document.getElementById('invitation-form').style.display = 'block';
 
             // Scroll to template selection
             document.getElementById('template-selection').scrollIntoView({
@@ -189,6 +222,41 @@
             document.getElementById('template-selection').style.display = 'none';
             document.getElementById('invitation-form').style.display = 'block';
         @endif
+
+        // Initialize map
+        let map, marker;
+
+        // Default location (Indonesia center)
+        const defaultLat = -7.2575;
+        const defaultLng = 112.7521;
+
+        // Initialize map when form is shown
+        setTimeout(() => {
+            map = L.map('map').setView([defaultLat, defaultLng], 13);
+
+            // Add OpenStreetMap tiles (free!)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 19
+            }).addTo(map);
+
+            // Add click event to map
+            map.on('click', function(e) {
+                const lat = e.latlng.lat;
+                const lng = e.latlng.lng;
+
+                // Update marker
+                if (marker) {
+                    marker.setLatLng(e.latlng);
+                } else {
+                    marker = L.marker(e.latlng).addTo(map);
+                }
+
+                // Update form fields
+                document.getElementById('latitude').value = lat.toFixed(8);
+                document.getElementById('longitude').value = lng.toFixed(8);
+            });
+        }, 500);
     </script>
     @endpush
 </x-user-layout>

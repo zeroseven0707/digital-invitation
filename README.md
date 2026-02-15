@@ -121,16 +121,23 @@ MAIL_FROM_ADDRESS=noreply@undangan.test
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 
-7. Run migrations dan seeders
+7. (Opsional) Konfigurasi Google Maps API Key
+Untuk menampilkan peta di undangan, tambahkan Google Maps API key:
+```env
+GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+```
+Lihat [GOOGLE_MAPS_SETUP.md](GOOGLE_MAPS_SETUP.md) untuk panduan lengkap cara mendapatkan API key.
+
+8. Run migrations dan seeders
 ```bash
 php artisan migrate --seed
 ```
 
 **Seeder akan membuat:**
-- 3 template undangan (Classic Elegant, Modern Minimalist, Romantic Floral)
-- 1 akun admin: `admin@undangan.com` / `admin123`
-- 4 akun user regular: `budi@example.com`, `siti@example.com`, `ahmad@example.com`, `dewi@example.com` / `password`
-- 3 undangan sample dengan tamu dan statistik views
+- 9 template undangan aktif
+- 1 akun admin: `admin@nikahin.com` / `password`
+- 1 akun user regular: `user@nikahin.com` / `password`
+- 1 undangan sample yang sudah published dan paid
 
 **Untuk seed ulang data:**
 ```bash
@@ -142,24 +149,21 @@ php artisan migrate:fresh --seed
 # Seed hanya templates
 php artisan db:seed --class=TemplateSeeder
 
-# Seed hanya users
-php artisan db:seed --class=UserSeeder
-
-# Seed hanya sample data
-php artisan db:seed --class=SampleDataSeeder
+# Seed hanya production data (admin, user, dan 1 undangan)
+php artisan db:seed --class=ProductionSeeder
 ```
 
-8. Create storage link
+9. Create storage link
 ```bash
 php artisan storage:link
 ```
 
-9. Build assets
+10. Build assets
 ```bash
 npm run build
 ```
 
-10. Start development server
+11. Start development server
 ```bash
 php artisan serve
 ```
@@ -192,11 +196,11 @@ Rate limiting sudah dikonfigurasi untuk:
 
 ### Admin Account
 Setelah menjalankan seeder, Anda dapat login sebagai admin dengan:
-- Email: `admin@example.com`
+- Email: `admin@nikahin.com`
 - Password: `password`
 
 ### User Account (untuk testing)
-- Email: `user@example.com`
+- Email: `user@nikahin.com`
 - Password: `password`
 
 ## Template Structure
@@ -284,6 +288,9 @@ MAIL_PORT=587
 MAIL_USERNAME=your-smtp-username
 MAIL_PASSWORD=your-smtp-password
 MAIL_ENCRYPTION=tls
+
+# Google Maps (Optional - untuk menampilkan peta di undangan)
+GOOGLE_MAPS_API_KEY=your-google-maps-api-key
 
 # Optional: S3 for file storage
 FILESYSTEM_DISK=s3

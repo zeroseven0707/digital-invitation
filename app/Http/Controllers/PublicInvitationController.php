@@ -6,6 +6,7 @@ use App\Models\Invitation;
 use App\Services\InvitationViewTracker;
 use App\Services\TemplateService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PublicInvitationController extends Controller
 {
@@ -65,8 +66,10 @@ class PublicInvitationController extends Controller
             'reception_time_end' => $invitation->reception_time_end,
             'reception_location' => $invitation->reception_location,
             'full_address' => $invitation->full_address,
+            'latitude' => $invitation->latitude,
+            'longitude' => $invitation->longitude,
             'google_maps_url' => $invitation->google_maps_url,
-            'music_url' => $invitation->music_url,
+            'music_url' => $invitation->music_path ? Storage::disk('public')->url($invitation->music_path) : null,
             'galleries' => $invitation->galleries,
             'guests' => $invitation->guests,
             'rsvps' => $invitation->rsvps()->latest()->take(10)->get(),

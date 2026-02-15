@@ -292,7 +292,7 @@
                             <h6 class="font-weight-bold mb-3">Scan QRIS untuk Pembayaran</h6>
                             <div class="card">
                                 <div class="card-body">
-                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020101021226670016COM.NOBUBANK.WWW01189360050300000898740214545400009999990303UME51440014ID.CO.QRIS.WWW0215ID10200000000150303UME5204481253033605802ID5920Nikahin Digital6007Jakarta61051234062070703A0163044C4D"
+                                    <img src="{{ asset('images/duniakaryastore.jpeg') }}"
                                          alt="QRIS Code"
                                          class="img-fluid mb-3"
                                          style="max-width: 300px; border: 3px solid #007bff; border-radius: 10px; padding: 10px;">

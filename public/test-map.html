@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test OpenStreetMap</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #333;
+        }
+        #test-map {
+            height: 400px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .info {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test OpenStreetMap dengan Leaflet.js</h1>
+
+    <div class="info">
+        <p><strong>Status Leaflet:</strong> <span id="leaflet-status">Checking...</span></p>
+        <p><strong>Koordinat:</strong> -7.350500, 108.216700 (Tasikmalaya)</p>
+    </div>
+
+    <div id="test-map"></div>
+
+    <div class="info">
+        <p><strong>Log:</strong></p>
+        <div id="log"></div>
+    </div>
+
+    <script>
+        const log = document.getElementById('log');
+        const statusEl = document.getElementById('leaflet-status');
+
+        function addLog(message, isError = false) {
+            const p = document.createElement('p');
+            p.textContent = message;
+            p.style.color = isError ? 'red' : 'green';
+            log.appendChild(p);
+            console.log(message);
+        }
+
+        // Check if Leaflet is loaded
+        if (typeof L === 'undefined') {
+            statusEl.textContent = 'ERROR: Leaflet tidak ter-load!';
+            statusEl.className = 'error';
+            addLog('ERROR: Leaflet library tidak ditemukan', true);
+        } else {
+            statusEl.textContent = 'OK - Leaflet ter-load dengan baik';
+            statusEl.className = 'success';
+            addLog('✓ Leaflet library berhasil dimuat');
+
+            // Initialize map
+            try {
+                addLog('Mencoba inisialisasi map...');
+
+                const map = L.map('test-map').setView([-7.350500, 108.216700], 15);
+                addLog('✓ Map object berhasil dibuat');
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors',
+                    maxZoom: 19
+                }).addTo(map);
+                addLog('✓ Tile layer berhasil ditambahkan');
+
+                // Custom marker with Font Awesome
+                const customIcon = L.divIcon({
+                    html: '<i class="fas fa-map-marker-alt" style="font-size: 32px; color: #e91e63;"></i>',
+                    className: 'custom-marker',
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 32]
+                });
+
+                L.marker([-7.350500, 108.216700], {icon: customIcon}).addTo(map);
+                addLog('✓ Marker berhasil ditambahkan');
+
+                addLog('✓✓✓ MAP BERHASIL DITAMPILKAN! ✓✓✓');
+
+            } catch (error) {
+                addLog('ERROR saat inisialisasi map: ' + error.message, true);
+                console.error('Map initialization error:', error);
+            }
+        }
+    </script>
+</body>
+</html>

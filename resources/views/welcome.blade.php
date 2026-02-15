@@ -1128,7 +1128,7 @@
     <!-- Navigation -->
     <nav id="navbar">
         <a href="#" class="logo">
-            <img src="{{ asset('images/logo.png') }}" alt="Nikahin Logo" style="height: 40px; width: auto;">
+            <img src="{{ asset('images/logo.png') }}" alt="Nikahin Logo" style="height: 70px; width: auto;">
         </a>
         <ul class="nav-links">
             <li><a href="#features">Fitur</a></li>
@@ -1351,7 +1351,7 @@
                             <p class="template-style">{{ Str::limit($template->description, 50) }}</p>
                         </div>
                         <div class="template-overlay">
-                            <a href="{{ route('templates.show', $template->id) }}" class="btn-preview">Preview</a>
+                            <a href="{{ route('public.templates.preview', $template->id) }}" class="btn-preview">Preview</a>
                         </div>
                     </div>
                 </div>
@@ -1364,7 +1364,7 @@
 
             @if($templates->count() > 0)
             <div style="text-align: center; margin-top: 50px;">
-                <a href="{{ route('templates.index') }}" class="btn-primary">
+                <a href="{{ route('public.templates.index') }}" class="btn-primary">
                     <i class="fas fa-th"></i> Lihat Semua Template
                 </a>
             </div>
@@ -1475,7 +1475,7 @@
         <div class="footer-content">
             <div>
                 <div class="footer-brand">
-                    <img src="{{ asset('images/logo.png') }}" alt="Nikahin Logo" style="height: 50px; width: auto;">
+                    <img src="{{ asset('images/logo.png') }}" alt="Nikahin Logo" style="height: 80px; width: auto;">
                 </div>
                 <p class="footer-desc">
                     Jasa pembuatan undangan digital premium dengan harga terjangkau.
@@ -1516,7 +1516,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 nikahin. All rights reserved. | Dibuat dengan <i class="fas fa-heart" style="color: var(--accent);"></i> di Indonesia</p>
+            <p>&copy; 2026 nikahin. All rights reserved. | Dibuat dengan Dunia Karya di Indonesia</p>
         </div>
     </footer>
 

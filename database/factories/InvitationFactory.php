@@ -39,7 +39,7 @@ class InvitationFactory extends Factory
             'reception_location' => fake()->address(),
             'full_address' => fake()->address(),
             'google_maps_url' => 'https://maps.google.com/?q=' . fake()->latitude() . ',' . fake()->longitude(),
-            'music_url' => null,
+            'music_path' => null,
         ];
     }
 
