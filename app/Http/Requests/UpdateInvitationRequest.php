@@ -11,9 +11,11 @@ class UpdateInvitationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // User can only update their own invitations
+        // User can only update their own invitations and must be active
         $invitation = $this->route('invitation');
-        return $invitation && $this->user()->id === $invitation->user_id;
+        return $invitation
+            && $this->user()->id === $invitation->user_id
+            && $this->user()->is_active;
     }
 
     /**

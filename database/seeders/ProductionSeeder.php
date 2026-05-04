@@ -52,16 +52,16 @@ class ProductionSeeder extends Seeder
                 'reception_time_end' => '21:00',
                 'reception_location' => 'Rumah Mempelai Wanita',
                 'full_address' => 'Kp. Sindangraja RT 11 RW 04 Desa Linggawangi Kec. Leuwisari Kab. Tasikmalaya',
-                'google_maps_url' => 'https://maps.google.com/?q=-7.3505,108.2167',
+                'latitude' => -7.350500,
+                'longitude' => 108.216700,
                 'is_paid' => true,
                 'paid_at' => now(),
             ]);
 
-            $this->command->info('Created invitation for: ' . $invitation->bride_name . ' & ' . $invitation->groom_name);
+            $this->command->info('✓ Created invitation for: ' . $invitation->bride_name . ' & ' . $invitation->groom_name);
             $this->command->info('  URL: /i/' . $invitation->unique_url);
         } else {
             $this->command->error('Classic Elegant template not found. Please run TemplateSeeder first.');
         }
     }
 }
-
