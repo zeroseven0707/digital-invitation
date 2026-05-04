@@ -155,7 +155,7 @@
                     <div class="alert alert-success mt-4">
                         <h5><i class="fas fa-headset"></i> Butuh Bantuan?</h5>
                         <p>Jika Anda mengalami kesulitan atau memiliki pertanyaan, jangan ragu untuk menghubungi kami:</p>
-                        <a href="https://wa.me/6281394454900" target="_blank" class="btn btn-success">
+                        <a href="https://wa.me/6282342742787" target="_blank" class="btn btn-success">
                             <i class="fab fa-whatsapp"></i> Hubungi Admin via WhatsApp
                         </a>
                     </div>

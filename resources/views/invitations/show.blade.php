@@ -324,7 +324,7 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
                         <i class="fas fa-times"></i> Tutup
                     </button>
-                    <a href="https://wa.me/6281394454900?text=Halo%20Admin%2C%20saya%20sudah%20melakukan%20pembayaran%20untuk%20undangan%20*{{ urlencode($invitation->bride_name . ' & ' . $invitation->groom_name) }}*%20dengan%20ID%20*{{ $invitation->id }}*.%20Mohon%20untuk%20diaktifkan.%20Terima%20kasih."
+                    <a href="https://wa.me/6282342742787?text=Halo%20Admin%2C%20saya%20sudah%20melakukan%20pembayaran%20untuk%20undangan%20*{{ urlencode($invitation->bride_name . ' & ' . $invitation->groom_name) }}*%20dengan%20ID%20*{{ $invitation->id }}*.%20Mohon%20untuk%20diaktifkan.%20Terima%20kasih."
                        target="_blank"
                        class="btn btn-success">
                         <i class="fab fa-whatsapp"></i> Konfirmasi Pembayaran via WhatsApp

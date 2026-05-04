@@ -211,7 +211,7 @@
 <!-- ./wrapper -->
 
 <!-- Floating WhatsApp Button -->
-<a href="https://wa.me/6281394454900" target="_blank" class="whatsapp-float" title="Hubungi Kami via WhatsApp">
+<a href="https://wa.me/6282342742787" target="_blank" class="whatsapp-float" title="Hubungi Kami via WhatsApp">
     <i class="fab fa-whatsapp"></i>
 </a>
 

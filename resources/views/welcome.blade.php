@@ -1299,7 +1299,7 @@
                     </small>
                 </div>
                 <div class="hero-buttons">
-                    <a href="https://wa.me/6281394454900" target="_blank" class="btn-primary">
+                    <a href="https://wa.me/6282342742787" target="_blank" class="btn-primary">
                         <i class="fas fa-rocket"></i> Pesan Sekarang
                     </a>
                     <a href="#templates" class="btn-secondary">
@@ -1452,7 +1452,7 @@
                         <li><i class="fas fa-check"></i> Statistik Views</li>
                         <li><i class="fas fa-check"></i> Custom Domain</li>
                     </ul>
-                    <a href="https://wa.me/6281394454900" target="_blank" class="btn-pricing">Pesan Sekarang</a>
+                    <a href="https://wa.me/6282342742787" target="_blank" class="btn-pricing">Pesan Sekarang</a>
                 </div>
             </div>
         </div>
@@ -1598,7 +1598,7 @@
                 Jadikan momen pernikahan Anda lebih berkesan dengan undangan digital
                 yang modern dan elegan. Pesan sekarang dan dapatkan promo spesial!
             </p>
-            <a href="https://wa.me/6281394454900" class="btn-cta">
+            <a href="https://wa.me/6282342742787" class="btn-cta">
                 <i class="fab fa-whatsapp"></i> Chat WhatsApp Sekarang
             </a>
         </div>
