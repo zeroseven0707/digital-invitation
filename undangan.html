@@ -9,7 +9,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -30,18 +30,20 @@
             theme: {
                 extend: {
                     colors: {
-                        'sage': '#9CAF88',
-                        'sage-dark': '#7A8F6C',
-                        'cream': '#F5F1E8',
-                        'warm-white': '#FAF8F5',
-                        'charcoal': '#2C3E50',
-                        'gold': '#D4AF37',
+                        'sage': '#7D8E73',
+                        'sage-dark': '#5D6B56',
+                        'cream': '#F9F6F0',
+                        'warm-white': '#FFFEFB',
+                        'charcoal': '#1A1A1A',
+                        'gold': '#C5A059',
+                        'gold-light': '#E2C792',
                         'rose': '#E8D5C4',
                     },
                     fontFamily: {
-                        'serif': ['Cormorant Garamond', 'serif'],
+                        'serif': ['Playfair Display', 'serif'],
                         'script': ['Great Vibes', 'cursive'],
-                        'sans': ['Montserrat', 'sans-serif'],
+                        'sans': ['Lora', 'serif'],
+                        'montserrat': ['Montserrat', 'sans-serif'],
                     }
                 }
             }
@@ -63,6 +65,24 @@
             font-family: 'Montserrat', sans-serif;
             background: #FAF8F5;
             overflow-x: hidden;
+        }
+
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #C5A059, #7D8E73);
+            z-index: 1000;
+        }
+
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         /* Custom Scrollbar */
@@ -210,7 +230,7 @@
         }
 
         .cover-name {
-            font-family: 'Great Vibes', cursive;
+            font-family: 'Playfair Display', serif; font-weight: 700;
             font-size: clamp(3rem, 10vw, 6rem);
             color: #2C3E50;
             line-height: 1;
@@ -313,7 +333,7 @@
         }
 
         .nav-logo {
-            font-family: 'Great Vibes', cursive;
+            font-family: 'Playfair Display', serif; font-weight: 700;
             font-size: 1.5rem;
             color: #2C3E50;
         }
@@ -400,7 +420,7 @@
         }
 
         .hero-title {
-            font-family: 'Great Vibes', cursive;
+            font-family: 'Playfair Display', serif; font-weight: 700;
             font-size: clamp(3rem, 8vw, 5rem);
             color: #2C3E50;
             margin-bottom: 1rem;
@@ -468,7 +488,7 @@
         }
 
         .couple-name {
-            font-family: 'Great Vibes', cursive;
+            font-family: 'Playfair Display', serif; font-weight: 700;
             font-size: 2.5rem;
             color: #2C3E50;
             margin-bottom: 0.5rem;
@@ -557,7 +577,7 @@
         }
 
         .story-date {
-            font-family: 'Great Vibes', cursive;
+            font-family: 'Playfair Display', serif; font-weight: 700;
             font-size: 1.5rem;
             color: #9CAF88;
             margin-bottom: 0.5rem;
@@ -631,7 +651,7 @@
         }
 
         .event-date {
-            font-family: 'Great Vibes', cursive;
+            font-family: 'Playfair Display', serif; font-weight: 700;
             font-size: 2rem;
             color: #9CAF88;
             margin-bottom: 0.5rem;
@@ -911,7 +931,7 @@
         }
 
         .footer-names {
-            font-family: 'Great Vibes', cursive;
+            font-family: 'Playfair Display', serif; font-weight: 700;
             font-size: 3rem;
             margin-bottom: 1rem;
             background: linear-gradient(135deg, #D4AF37, #E8D5C4);
@@ -1105,6 +1125,7 @@
     </style>
 </head>
 <body>
+    <div class="scroll-progress"></div>
     <!-- Loader -->
     <div class="loader-container" id="loader">
         <div class="loader-ring"></div>
@@ -1116,19 +1137,31 @@
 
     <!-- Cover Section -->
     <section class="cover-section" id="cover">
-        <div class="cover-ornament top-left"></div>
-        <div class="cover-ornament bottom-right"></div>
+        <div class="absolute inset-0 z-0">
+            <img src="wedding_hero_bg_1777918308841.png" class="w-full h-full object-cover opacity-40 scale-110" id="coverBg" alt="Background">
+            <div class="absolute inset-0 bg-gradient-to-b from-cream/80 via-transparent to-cream/80"></div>
+        </div>
 
-        <div class="cover-content">
-            <p class="cover-subtitle">The Wedding of</p>
+        <div class="cover-ornament top-left">
+            <img src="gold_floral_ornament_1777918389130.png" class="w-full h-full object-contain rotate-45 opacity-60" alt="Ornament">
+        </div>
+        <div class="cover-ornament bottom-right">
+            <img src="gold_floral_ornament_1777918389130.png" class="w-full h-full object-contain -rotate-135 opacity-60" alt="Ornament">
+        </div>
+
+        <div class="cover-content glass-morphism p-12 rounded-[50px] border border-white/20 backdrop-blur-xl shadow-2xl">
+            <p class="cover-subtitle font-montserrat">The Wedding of</p>
             <div class="cover-names">
                 <span class="cover-name" id="name1">Vidi</span>
                 <span class="cover-ampersand" id="amp">&</span>
                 <span class="cover-name" id="name2">Hening</span>
             </div>
-            <p class="cover-date" id="coverDate">08 • 05 • 2027</p>
-            <button class="open-btn" id="openBtn" onclick="openInvitation()">
-                Open Invitation
+            <p class="cover-date font-serif italic text-2xl mt-4" id="coverDate">May 08, 2027</p>
+            <button class="open-btn group" id="openBtn" onclick="openInvitation()">
+                <span class="relative z-10 flex items-center gap-3">
+                    Open Invitation
+                    <i data-lucide="envelope-open" class="w-4 h-4 transition-transform group-hover:rotate-12"></i>
+                </span>
             </button>
         </div>
     </section>
@@ -1151,28 +1184,33 @@
     <!-- Main Content -->
     <main class="main-content" id="mainContent">
         <!-- Hero Section -->
-        <section class="hero-section" id="hero">
-            <div class="hero-content">
-                <div class="hero-ornament"></div>
-                <h1 class="hero-title">Vidi & Hening</h1>
-                <p class="hero-subtitle">"Two souls, one heart, forever intertwined"</p>
+        <section class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden" id="hero">
+            <div class="absolute inset-0 z-0">
+                <img src="wedding_hero_bg_1777918308841.png" class="w-full h-full object-cover opacity-20 scale-105" alt="Hero BG">
+                <div class="absolute inset-0 bg-gradient-to-t from-warm-white via-transparent to-warm-white"></div>
+            </div>
+            
+            <div class="hero-content relative z-10 text-center">
+                <div class="hero-ornament mx-auto mb-8 w-24 h-0.5 bg-gold-light opacity-50"></div>
+                <h1 class="hero-title font-serif text-7xl md:text-8xl text-charcoal mb-4">Vidi & Hening</h1>
+                <p class="hero-subtitle font-sans italic text-2xl text-sage mb-12">"Two souls, one heart, forever intertwined"</p>
 
-                <div class="countdown" id="countdown">
+                <div class="countdown glass-morphism p-8 md:p-12 rounded-[50px] border border-white/40 inline-flex gap-8 md:gap-16 shadow-2xl backdrop-blur-xl" id="countdown">
                     <div class="countdown-item">
-                        <div class="countdown-number" id="days">00</div>
-                        <div class="countdown-label">Days</div>
+                        <div class="countdown-number font-serif text-5xl md:text-6xl text-gold" id="days">00</div>
+                        <div class="countdown-label font-montserrat text-[10px] tracking-[0.4em] uppercase text-sage">Days</div>
                     </div>
                     <div class="countdown-item">
-                        <div class="countdown-number" id="hours">00</div>
-                        <div class="countdown-label">Hours</div>
+                        <div class="countdown-number font-serif text-5xl md:text-6xl text-gold" id="hours">00</div>
+                        <div class="countdown-label font-montserrat text-[10px] tracking-[0.4em] uppercase text-sage">Hours</div>
                     </div>
                     <div class="countdown-item">
-                        <div class="countdown-number" id="minutes">00</div>
-                        <div class="countdown-label">Minutes</div>
+                        <div class="countdown-number font-serif text-5xl md:text-6xl text-gold" id="minutes">00</div>
+                        <div class="countdown-label font-montserrat text-[10px] tracking-[0.4em] uppercase text-sage">Mins</div>
                     </div>
                     <div class="countdown-item">
-                        <div class="countdown-number" id="seconds">00</div>
-                        <div class="countdown-label">Seconds</div>
+                        <div class="countdown-number font-serif text-5xl md:text-6xl text-gold" id="seconds">00</div>
+                        <div class="countdown-label font-montserrat text-[10px] tracking-[0.4em] uppercase text-sage">Secs</div>
                     </div>
                 </div>
             </div>
@@ -1350,45 +1388,51 @@
         </section>
 
         <!-- RSVP Section -->
-        <section class="rsvp-section" id="rsvp">
+        <section class="rsvp-section bg-warm-white" id="rsvp">
             <div class="section-content">
                 <div class="text-center mb-16">
-                    <p class="font-script text-3xl text-sage mb-2">Join Us</p>
-                    <h2 class="font-serif text-4xl text-charcoal">RSVP</h2>
+                    <p class="font-script text-4xl text-sage mb-2">Join Our Celebration</p>
+                    <h2 class="font-serif text-5xl text-charcoal">RSVP</h2>
                 </div>
 
-                <form class="rsvp-form" id="rsvpForm" onsubmit="handleRSVP(event)">
-                    <div class="form-group">
-                        <label class="form-label">Full Name</label>
-                        <input type="text" class="form-input" placeholder="Enter your full name" required>
+                <div class="rsvp-form glass-morphism p-12 md:p-16 rounded-[60px] border border-white/50 relative overflow-hidden shadow-2xl backdrop-blur-2xl max-w-2xl mx-auto" id="rsvpFormContainer">
+                    <div class="absolute top-0 right-0 w-48 h-48 opacity-10 -mr-12 -mt-12 pointer-events-none">
+                        <img src="gold_floral_ornament_1777918389130.png" class="w-full h-full object-contain" alt="Ornament">
                     </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Will You Attend?</label>
-                        <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="attendance" value="yes" class="radio-input" checked>
-                                <span>Joyfully Accept</span>
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="attendance" value="no" class="radio-input">
-                                <span>Regretfully Decline</span>
-                            </label>
+                    
+                    <form id="rsvpForm" onsubmit="handleRSVP(event)" class="relative z-10">
+                        <div class="form-group mb-8">
+                            <label class="form-label font-montserrat text-[10px] tracking-[0.3em] uppercase text-sage mb-4 block">Guest Name</label>
+                            <input type="text" class="form-input border-b border-t-0 border-x-0 rounded-none bg-transparent focus:border-gold px-0 text-xl font-serif py-4 transition-all" placeholder="Your full name" required>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Number of Guests</label>
-                        <input type="number" class="form-input" min="1" max="5" value="1" required>
-                    </div>
+                        <div class="form-group mb-8">
+                            <label class="form-label font-montserrat text-[10px] tracking-[0.3em] uppercase text-sage mb-4 block">Attendance</label>
+                            <div class="radio-group flex gap-4">
+                                <label class="radio-label flex-1 group relative overflow-hidden border border-gold/20 rounded-2xl p-6 cursor-pointer hover:bg-gold/5 transition-all">
+                                    <input type="radio" name="attendance" value="yes" class="radio-input hidden" checked>
+                                    <span class="relative z-10 font-serif italic text-xl text-charcoal">Joyfully Accept</span>
+                                </label>
+                                <label class="radio-label flex-1 group relative overflow-hidden border border-gold/20 rounded-2xl p-6 cursor-pointer hover:bg-gold/5 transition-all">
+                                    <input type="radio" name="attendance" value="no" class="radio-input hidden">
+                                    <span class="relative z-10 font-serif italic text-xl text-charcoal text-opacity-50">Regretfully Decline</span>
+                                </label>
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Message for the Couple</label>
-                        <textarea class="form-input form-textarea" placeholder="Share your wishes..."></textarea>
-                    </div>
+                        <div class="form-group mb-12">
+                            <label class="form-label font-montserrat text-[10px] tracking-[0.3em] uppercase text-sage mb-4 block">Message for us</label>
+                            <textarea class="form-input border-b border-t-0 border-x-0 rounded-none bg-transparent focus:border-gold px-0 text-lg font-sans py-4 min-h-[100px] transition-all" placeholder="Share your wishes..."></textarea>
+                        </div>
 
-                    <button type="submit" class="submit-btn">Send RSVP</button>
-                </form>
+                        <button type="submit" class="submit-btn w-full py-6 rounded-full bg-charcoal text-white hover:bg-gold transition-all duration-500 shadow-xl group">
+                            <span class="flex items-center justify-center gap-4 font-montserrat tracking-[0.3em] text-[10px] uppercase">
+                                Send Confirmation
+                                <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform"></i>
+                            </span>
+                        </button>
+                    </form>
+                </div>
             </div>
         </section>
 
@@ -1534,15 +1578,21 @@
             // Animate cover out
             tl.to('.cover-content', {
                 opacity: 0,
-                y: -50,
-                duration: 0.6,
-                ease: 'power2.in'
+                scale: 0.9,
+                filter: 'blur(10px)',
+                duration: 1,
+                ease: 'power4.inOut'
             })
-            .to('.cover-section', {
-                scale: 1.1,
+            .to('#coverBg', {
+                scale: 1.5,
                 opacity: 0,
-                duration: 0.8,
-                ease: 'power2.inOut',
+                duration: 1.5,
+                ease: 'power2.inOut'
+            }, '-=0.5')
+            .to('.cover-section', {
+                y: '-100%',
+                duration: 1.2,
+                ease: 'expo.inOut',
                 onComplete: () => {
                     document.getElementById('cover').style.display = 'none';
                     document.getElementById('mainContent').style.visibility = 'visible';
@@ -1556,14 +1606,14 @@
                     // Init scroll animations
                     initScrollAnimations();
                 }
-            }, '-=0.3')
+            }, '-=0.8')
             .to('#mainContent', {
                 opacity: 1,
-                duration: 0.8
-            })
+                duration: 1
+            }, '-=0.5')
             .add(() => {
                 animateHero();
-            }, '-=0.4');
+            }, '-=0.6');
         }
 
         // Hero Animation
