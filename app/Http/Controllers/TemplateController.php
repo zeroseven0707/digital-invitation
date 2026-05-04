@@ -135,6 +135,14 @@ class TemplateController extends Controller
         $dummyInvitation->unique_url = 'preview-template';
         $dummyInvitation->bride_name = 'Sarah';
         $dummyInvitation->groom_name = 'Ahmad';
+        $dummyInvitation->status = 'published';
+        $dummyInvitation->is_paid = true;
+        $dummyInvitation->rsvps = collect();
+        $dummyInvitation->galleries = collect();
+        $dummyInvitation->guests = collect();
+        $dummyInvitation->akad_location = 'Gedung Pernikahan Indah';
+        $dummyInvitation->reception_location = 'Gedung Pernikahan Indah';
+        $dummyInvitation->full_address = 'Jl. Merdeka No. 123, Jakarta Pusat, DKI Jakarta 10110';
 
         // Create dummy datetime for countdown
         $eventDateTime = \Carbon\Carbon::now()->addMonths(3)->setTime(9, 0, 0);
