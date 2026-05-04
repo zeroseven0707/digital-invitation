@@ -47,7 +47,7 @@ class RsvpController extends Controller
             ->where('status', 'published')
             ->firstOrFail();
 
-        $lastId = $request->input('last_id', 0);
+        $lastId = $request->input('last_id') ?? $request->input('latest_id') ?? 0;
 
         $rsvps = $invitation->rsvps()
             ->when($lastId > 0, function($query) use ($lastId) {

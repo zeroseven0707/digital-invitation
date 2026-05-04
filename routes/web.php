@@ -43,6 +43,8 @@ Route::post('/i/{uniqueUrl}/rsvp', [App\Http\Controllers\RsvpController::class, 
 // RSVP latest messages endpoint (AJAX)
 Route::get('/i/{uniqueUrl}/rsvp/latest', [App\Http\Controllers\RsvpController::class, 'latest'])
     ->name('rsvp.latest');
+Route::get('/i/{uniqueUrl}/rsvp/poll', [App\Http\Controllers\RsvpController::class, 'latest'])
+    ->name('rsvp.poll');
 
 // Public template routes (no authentication required)
 Route::get('/templates', [TemplateController::class, 'publicIndex'])->name('public.templates.index');
