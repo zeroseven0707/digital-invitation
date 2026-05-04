@@ -6,8 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nikahin - Undangan Digital Premium | Mulai 50rb</title>
-    <meta name="description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 50.000 dengan 9+ template premium. Bagikan kebahagiaan Anda dengan cara yang berbeda.">
+    <title>nikahin - Undangan Digital Premium | Mulai 35rb</title>
+    <meta name="description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 35.000 dengan 9+ template premium. Bagikan kebahagiaan Anda dengan cara yang berbeda.">
 
     <!-- Canonical URL -->
     <meta property="og:url" content="{{ url('/') }}">
@@ -16,8 +16,8 @@
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="nikahin">
-    <meta property="og:title" content="nikahin - Undangan Digital Premium | Mulai 50rb">
-    <meta property="og:description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 50.000 dengan 9+ template premium. Bagikan kebahagiaan Anda dengan cara yang berbeda.">
+    <meta property="og:title" content="nikahin - Undangan Digital Premium | Mulai 35rb">
+    <meta property="og:description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 35.000 dengan 9+ template premium. Bagikan kebahagiaan Anda dengan cara yang berbeda.">
     <meta property="og:image" content="{{ asset('images/logo.png') }}">
     <meta property="og:image:secure_url" content="{{ asset('images/logo.png') }}">
     <meta property="og:image:type" content="image/png">
@@ -28,8 +28,8 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@nikahin">
-    <meta name="twitter:title" content="nikahin - Undangan Digital Premium | Mulai 50rb">
-    <meta name="twitter:description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 50.000 dengan 9+ template premium.">
+    <meta name="twitter:title" content="nikahin - Undangan Digital Premium | Mulai 35rb">
+    <meta name="twitter:description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 35.000 dengan 9+ template premium.">
     <meta name="twitter:image" content="{{ asset('images/logo.png') }}">
 
     <!-- WhatsApp Specific -->
@@ -1293,7 +1293,7 @@
                 </p>
                 <div class="hero-price">
                     <div class="hero-price-label">Mulai dari</div>
-                    <div class="hero-price-amount">Rp 50.000</div>
+                    <div class="hero-price-amount">Rp 35.000</div>
                     <small style="color: rgba(255,255,255,0.8); display: block; margin-top: 5px;">
                         <i class="fas fa-heart"></i> Lebih? Se-ikhlas-nya!
                     </small>
@@ -1432,11 +1432,11 @@
                     <h3 class="pricing-name">Paket Premium</h3>
                     <p class="pricing-desc">Fitur lengkap dengan harga terjangkau</p>
                     <div class="pricing-price">
-                        50rb <span>/ undangan</span>
+                        35rb <span>/ undangan</span>
                     </div>
                     <div class="alert alert-success" style="margin: 10px 0; padding: 8px 12px; background: rgba(40, 167, 69, 0.1); border: 1px solid rgba(40, 167, 69, 0.3); border-radius: 8px;">
                         <small class="font-weight-bold" style="color: #28a745;">
-                            <i class="fas fa-heart"></i> Lebih dari 50rb? Se-ikhlas-nya!
+                            <i class="fas fa-heart"></i> Lebih dari 35rb? Se-ikhlas-nya!
                         </small>
                     </div>
                     <ul class="pricing-features">

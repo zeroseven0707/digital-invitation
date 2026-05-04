@@ -181,11 +181,11 @@
                                     </h6>
                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                         <span>Undangan Digital Premium</span>
-                                        <h4 class="mb-0 text-primary">Rp 50.000</h4>
+                                        <h4 class="mb-0 text-primary">Rp 35.000</h4>
                                     </div>
                                     <div class="alert alert-success mb-2" style="padding: 8px 12px;">
                                         <small class="font-weight-bold">
-                                            <i class="fas fa-heart"></i> Lebih dari Rp 50.000? <strong>Se-ikhlas-nya!</strong>
+                                            <i class="fas fa-heart"></i> Lebih dari Rp 35.000? <strong>Se-ikhlas-nya!</strong>
                                         </small>
                                     </div>
                                     <small class="text-muted text-white">

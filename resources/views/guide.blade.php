@@ -57,7 +57,7 @@
                         <ol>
                             <li>Setelah menyimpan undangan, klik tombol <strong>"Bayar Sekarang"</strong></li>
                             <li>Scan QRIS code dengan aplikasi mobile banking atau e-wallet Anda</li>
-                            <li>Lakukan pembayaran minimal <strong>Rp 50.000</strong> (lebih? se-ikhlas-nya!)</li>
+                            <li>Lakukan pembayaran minimal <strong>Rp 35.000</strong> (lebih? se-ikhlas-nya!)</li>
                             <li>Setelah bayar, klik <strong>"Konfirmasi Pembayaran via WhatsApp"</strong></li>
                             <li>Tunggu admin mengaktifkan undangan Anda (biasanya 1-24 jam)</li>
                         </ol>
