@@ -85,4 +85,65 @@ class RsvpController extends Controller
 
         return view('rsvps.index', compact('invitation', 'rsvps'));
     }
+
+    /**
+     * Store RSVP from mobile app
+     */
+    public function storeMobile(Request $request, $uniqueUrl)
+    {
+        $invitation = Invitation::where('unique_url', $uniqueUrl)
+            ->where('status', 'published')
+            ->firstOrFail();
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'message' => 'required|string|max:500',
+        ]);
+
+        $rsvp = $invitation->rsvps()->create($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Terima kasih! Ucapan Anda telah diterima.',
+            'rsvp' => [
+                'id' => $rsvp->id,
+                'name' => $rsvp->name,
+                'message' => $rsvp->message,
+                'created_at' => $rsvp->created_at->diffForHumans(),
+            ]
+        ]);
+    }
+
+    /**
+     * Get latest RSVPs for mobile app
+     */
+    public function latestMobile(Request $request, $uniqueUrl)
+    {
+        $invitation = Invitation::where('unique_url', $uniqueUrl)
+            ->where('status', 'published')
+            ->firstOrFail();
+
+        $lastId = $request->input('last_id', 0);
+
+        $rsvps = $invitation->rsvps()
+            ->when($lastId > 0, function($query) use ($lastId) {
+                return $query->where('id', '>', $lastId);
+            })
+            ->latest()
+            ->get()
+            ->map(function($rsvp) {
+                return [
+                    'id' => $rsvp->id,
+                    'name' => $rsvp->name,
+                    'message' => $rsvp->message,
+                    'created_at' => $rsvp->created_at->diffForHumans(),
+                ];
+            });
+
+        return response()->json([
+            'success' => true,
+            'rsvps' => $rsvps,
+            'count' => $invitation->rsvps()->count(),
+        ]);
+    }
 }

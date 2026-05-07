@@ -52,6 +52,21 @@
             font-size: 14px;
         }
 
+        .preview-label {
+            display: flex;
+            align-items: center;
+        }
+
+        .label-badge {
+            background: linear-gradient(135deg, #d4af37, #b8941e);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+        }
+
         .preview-actions {
             display: flex;
             gap: 10px;
@@ -108,9 +123,9 @@
                 display: none;
             }
 
-            .btn {
+            .label-badge {
                 padding: 8px 15px;
-                font-size: 13px;
+                font-size: 12px;
             }
         }
     </style>
@@ -123,19 +138,8 @@
                 <h1>{{ $template->name }}</h1>
                 <p>Preview Template Undangan</p>
             </div>
-            <div class="preview-actions">
-                <a href="{{ route('public.templates.index') }}" class="btn btn-back">
-                    <i class="fas fa-arrow-left"></i> Kembali
-                </a>
-                @auth
-                    <a href="{{ route('invitations.create', ['template' => $template->id]) }}" class="btn btn-use">
-                        <i class="fas fa-check"></i> Gunakan Template
-                    </a>
-                @else
-                    <a href="{{ route('register') }}" class="btn btn-use">
-                        <i class="fas fa-user-plus"></i> Daftar untuk Menggunakan
-                    </a>
-                @endauth
+            <div class="preview-label">
+                <span class="label-badge">Preview Undangan</span>
             </div>
         </div>
     </div>

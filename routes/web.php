@@ -35,6 +35,20 @@ Route::get('/i/{uniqueUrl}', [PublicInvitationController::class, 'show'])
     ->middleware('throttle:60,1')
     ->name('public.invitation');
 
+// Guest welcome / check-in page — kept for backward compatibility
+// Route::get('/welcome/{qrToken}', [\App\Http\Controllers\WelcomeGuestController::class, 'show'])
+//     ->middleware('throttle:30,1')
+//     ->name('guest.welcome');
+
+// Display / gerbang screen — shown on large monitor at venue entrance
+Route::get('/display/{uniqueUrl}', [\App\Http\Controllers\DisplayController::class, 'show'])
+    ->middleware('throttle:60,1')
+    ->name('display.show');
+
+// SSE stream for real-time check-in events on display screen
+Route::get('/display/{uniqueUrl}/stream', [\App\Http\Controllers\DisplayController::class, 'stream'])
+    ->name('display.stream');
+
 // RSVP route (no authentication required)
 Route::post('/i/{uniqueUrl}/rsvp', [App\Http\Controllers\RsvpController::class, 'store'])
     ->middleware('throttle:10,1')

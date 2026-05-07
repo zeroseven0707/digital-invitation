@@ -26,6 +26,14 @@ class Guest extends Model
         'name',
         'category',
         'whatsapp_number',
+        'qr_token',
+        'checked_in_at',
+        'souvenir_taken_at',
+    ];
+
+    protected $casts = [
+        'checked_in_at'     => 'datetime',
+        'souvenir_taken_at' => 'datetime',
     ];
 
     /**
