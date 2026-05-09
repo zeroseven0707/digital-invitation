@@ -72,12 +72,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/invitations/{invitation}/guests/{guest}', [GuestController::class, 'update']);
     Route::delete('/invitations/{invitation}/guests/{guest}', [GuestController::class, 'destroy']);
     Route::post('/invitations/{invitation}/guests/{guest}/generate-qr', [GuestController::class, 'generateQr']);
-    Route::post('/invitations/{invitation}/guests/{guest}/reset-checkin', [GuestController::class, 'resetCheckIn']);
-    Route::post('/invitations/{invitation}/guests/{guest}/reset-souvenir', [GuestController::class, 'resetSouvenir']);
 
     // QR Scan actions
     Route::post('/invitations/{invitation}/checkin', [GuestController::class, 'checkIn']);
+    Route::post('/invitations/{invitation}/checkout', [GuestController::class, 'checkOut']);
     Route::post('/invitations/{invitation}/souvenir-scan', [GuestController::class, 'souvenirScan']);
+    Route::post('/invitations/{invitation}/souvenir-scan-2', [GuestController::class, 'souvenirScan2']);
+
+    // Reset scan actions
+    Route::post('/invitations/{invitation}/guests/{guest}/reset-checkin', [GuestController::class, 'resetCheckIn']);
+    Route::post('/invitations/{invitation}/guests/{guest}/reset-checkout', [GuestController::class, 'resetCheckOut']);
+    Route::post('/invitations/{invitation}/guests/{guest}/reset-souvenir', [GuestController::class, 'resetSouvenir']);
+    Route::post('/invitations/{invitation}/guests/{guest}/reset-souvenir-2', [GuestController::class, 'resetSouvenir2']);
 
     // Scan analytics
     Route::get('/invitations/{invitation}/scan-analytics', [GuestController::class, 'scanAnalytics']);
