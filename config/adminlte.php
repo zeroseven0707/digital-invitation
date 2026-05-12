@@ -324,6 +324,11 @@ return [
             'url' => 'admin/templates',
             'icon' => 'fas fa-fw fa-palette',
         ],
+        [
+            'text' => 'Pengaturan',
+            'url'  => 'admin/settings',
+            'icon' => 'fas fa-fw fa-cog',
+        ],
 
         ['header' => 'AKUN'],
 

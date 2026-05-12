@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminTemplateController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminSettingsWebController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GuestController;
@@ -137,6 +138,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/templates/create', [AdminTemplateController::class, 'create'])->name('admin.templates.create');
     Route::post('/templates', [AdminTemplateController::class, 'store'])->name('admin.templates.store');
     Route::delete('/templates/{id}', [AdminTemplateController::class, 'destroy'])->name('admin.templates.destroy');
+
+    // Settings management
+    Route::get('/settings', [AdminSettingsWebController::class, 'index'])->name('admin.settings.index');
+    Route::put('/settings', [AdminSettingsWebController::class, 'update'])->name('admin.settings.update');
 });
 
 require __DIR__.'/auth.php';

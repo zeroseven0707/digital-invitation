@@ -15,15 +15,22 @@ class PaymentController extends Controller
 {
     public function __construct()
     {
-        MidtransConfig::$serverKey    = config('services.midtrans.server_key');
-        MidtransConfig::$isProduction = config('services.midtrans.is_production');
+        // Baca config dari database settings (override .env)
+        $this->loadMidtransConfig();
+    }
+
+    private function loadMidtransConfig(): void
+    {
+        $serverKey  = \App\Models\Setting::get('midtrans_server_key')  ?: config('services.midtrans.server_key');
+        $clientKey  = \App\Models\Setting::get('midtrans_client_key')  ?: config('services.midtrans.client_key');
+        $isProd     = \App\Models\Setting::get('midtrans_is_production') ?? config('services.midtrans.is_production');
+
+        MidtransConfig::$serverKey    = $serverKey;
+        MidtransConfig::$isProduction = $isProd;
         MidtransConfig::$isSanitized  = config('services.midtrans.is_sanitized');
         MidtransConfig::$is3ds        = config('services.midtrans.is_3ds');
 
-        // Disable SSL verification in local/development environment
-        // (Windows dev machines often lack CA certificates)
-        // Must include CURLOPT_HTTPHEADER to avoid SDK bug with array key access
-        if (!config('services.midtrans.is_production')) {
+        if (!$isProd) {
             MidtransConfig::$curlOptions = [
                 CURLOPT_SSL_VERIFYHOST => 0,
                 CURLOPT_SSL_VERIFYPEER => false,
@@ -51,7 +58,7 @@ class PaymentController extends Controller
             ], 409);
         }
 
-        $price  = config('services.midtrans.price', 50000);
+        $price  = (int) (\App\Models\Setting::get('invitation_price') ?: config('services.midtrans.price', 50000));
         $user   = $request->user();
 
         // Reuse pending payment if exists (avoid duplicate Snap tokens)
@@ -148,7 +155,7 @@ class PaymentController extends Controller
             'success'        => true,
             'is_paid'        => $isPaid,
             'paid_at'        => $invitation->paid_at?->toIso8601String(),
-            'amount'         => config('services.midtrans.price', 50000),
+            'amount'         => (int) (\App\Models\Setting::get('invitation_price') ?: config('services.midtrans.price', 50000)),
             'payment_status' => $paymentStatus,
             'payment_type'   => $payment?->payment_type,
         ]);

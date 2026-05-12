@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\TemplateController;
 use App\Http\Controllers\Api\GiftController;
 use App\Http\Controllers\Api\AdminProductController;
 use App\Http\Controllers\Api\BankAccountController;
+use App\Http\Controllers\Api\AdminSettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,9 @@ Route::post('/public/invitations/{uniqueUrl}/gifts/order', [GiftController::clas
 Route::get('/public/gift-orders/{orderCode}/status', [GiftController::class, 'publicOrderStatus']);
 Route::post('/gift/notification', [GiftController::class, 'notification'])->withoutMiddleware(['throttle']);
 Route::get('/public/invitations/{uniqueUrl}/bank-accounts', [BankAccountController::class, 'publicIndex']);
+
+// Public settings (harga, nama app, dll)
+Route::get('/public/settings', [AdminSettingsController::class, 'publicSettings']);
 
 // Protected routes (authentication required)
 Route::middleware('auth:sanctum')->group(function () {
@@ -129,5 +133,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/admin/products/{id}', [AdminProductController::class, 'destroy']);
         Route::get('/admin/gift-orders', [AdminProductController::class, 'allOrders']);
         Route::put('/admin/gift-orders/{id}/shipping', [AdminProductController::class, 'updateShipping']);
+
+        // Settings
+        Route::get('/admin/settings', [AdminSettingsController::class, 'index']);
+        Route::put('/admin/settings/{key}', [AdminSettingsController::class, 'update']);
+        Route::put('/admin/settings', [AdminSettingsController::class, 'bulkUpdate']);
     });
 });

@@ -16,12 +16,17 @@ class GiftController extends Controller
 {
     public function __construct()
     {
-        MidtransConfig::$serverKey    = config('services.midtrans.server_key');
-        MidtransConfig::$isProduction = config('services.midtrans.is_production');
+        // Baca config dari database settings (override .env)
+        $serverKey  = \App\Models\Setting::get('midtrans_server_key')  ?: config('services.midtrans.server_key');
+        $clientKey  = \App\Models\Setting::get('midtrans_client_key')  ?: config('services.midtrans.client_key');
+        $isProd     = \App\Models\Setting::get('midtrans_is_production') ?? config('services.midtrans.is_production');
+
+        MidtransConfig::$serverKey    = $serverKey;
+        MidtransConfig::$isProduction = $isProd;
         MidtransConfig::$isSanitized  = config('services.midtrans.is_sanitized');
         MidtransConfig::$is3ds        = config('services.midtrans.is_3ds');
 
-        if (!config('services.midtrans.is_production')) {
+        if (!$isProd) {
             MidtransConfig::$curlOptions = [
                 CURLOPT_SSL_VERIFYHOST => 0,
                 CURLOPT_SSL_VERIFYPEER => false,
