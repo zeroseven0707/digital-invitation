@@ -65,6 +65,40 @@ class TemplateService
             mkdir(resource_path('views/temp'), 0755, true);
         }
 
+        // ── Inject partials ──
+        // Template bisa punya placeholder <!-- GIFT_SECTION --> dan <!-- QR_SECTION -->
+        // Jika tidak ada placeholder, inject otomatis (gift sebelum RSVP, QR sebelum </body>)
+
+        $qrInclude   = "\n@include('public.partials.qr-section')\n";
+        $giftInclude = "\n@include('public.partials.gift-section')\n";
+
+        // QR section
+        if (str_contains($templateHtml, '<!-- QR_SECTION -->')) {
+            $templateHtml = str_replace('<!-- QR_SECTION -->', $qrInclude, $templateHtml);
+        } else {
+            $templateHtml = str_ireplace('</body>', $qrInclude . '</body>', $templateHtml);
+        }
+
+        // Gift section
+        if (str_contains($templateHtml, '<!-- GIFT_SECTION -->')) {
+            $templateHtml = str_replace('<!-- GIFT_SECTION -->', $giftInclude, $templateHtml);
+        } else {
+            // Cari section RSVP untuk inject sebelumnya
+            $rsvpMarkers = ['id="rsvp"', "id='rsvp'", 'id="rsvp-section"', "id='rsvp-section'"];
+            $injected = false;
+            foreach ($rsvpMarkers as $marker) {
+                if (stripos($templateHtml, $marker) !== false) {
+                    $pattern = '/(<(?:section|div)[^>]*' . preg_quote($marker, '/') . '[^>]*>)/i';
+                    $templateHtml = preg_replace($pattern, $giftInclude . '$1', $templateHtml, 1);
+                    $injected = true;
+                    break;
+                }
+            }
+            if (!$injected) {
+                $templateHtml = str_ireplace('</body>', $giftInclude . '</body>', $templateHtml);
+            }
+        }
+
         // Write template content to temporary view file
         file_put_contents($tempViewPath, $templateHtml);
 

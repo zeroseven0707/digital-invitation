@@ -25,7 +25,11 @@ class Guest extends Model
         'invitation_id',
         'name',
         'category',
+        'phone',
         'whatsapp_number',
+        'email',
+        'address',
+        'pax',
         'qr_token',
         'checked_in_at',
         'souvenir_taken_at',
@@ -38,6 +42,7 @@ class Guest extends Model
         'souvenir_taken_at'  => 'datetime',
         'checked_out_at'     => 'datetime',
         'souvenir2_taken_at' => 'datetime',
+        'pax'                => 'integer',
     ];
 
     /**

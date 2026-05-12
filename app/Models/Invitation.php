@@ -21,6 +21,7 @@ class Invitation extends Model
         'status',
         'is_paid',
         'paid_at',
+        'gift_enabled',
         'bride_name',
         'bride_father_name',
         'bride_mother_name',
@@ -53,6 +54,7 @@ class Invitation extends Model
             'akad_date' => 'date',
             'reception_date' => 'date',
             'is_paid' => 'boolean',
+            'gift_enabled' => 'boolean',
             'paid_at' => 'datetime',
         ];
     }
@@ -103,6 +105,11 @@ class Invitation extends Model
     public function rsvps()
     {
         return $this->hasMany(Rsvp::class);
+    }
+
+    public function bankAccounts()
+    {
+        return $this->hasMany(BankAccount::class)->orderBy('sort_order');
     }
 
     /**

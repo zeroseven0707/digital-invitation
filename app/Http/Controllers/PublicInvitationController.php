@@ -58,6 +58,7 @@ class PublicInvitationController extends Controller
         // Prepare data for template rendering
         $data = [
             'invitation' => $invitation, // Pass the invitation object
+            'guestForQr' => $guestForQr, // Pass QR guest for QR section partial
             'bride_name' => $invitation->bride_name,
             'bride_father_name' => $invitation->bride_father_name,
             'bride_mother_name' => $invitation->bride_mother_name,

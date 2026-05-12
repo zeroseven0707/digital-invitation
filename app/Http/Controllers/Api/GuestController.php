@@ -30,15 +30,26 @@ class GuestController extends Controller
             ->findOrFail($invitationId);
 
         $validated = $request->validate([
-            'name'             => 'required|string|max:255',
-            'category'         => 'required|in:family,friend,colleague',
-            'whatsapp_number'  => 'nullable|string|max:20',
+            'name'            => 'required|string|max:255',
+            'category'        => 'required|in:family,friend,colleague,other',
+            'phone'           => 'nullable|string|max:20',
+            'whatsapp_number' => 'nullable|string|max:20',
+            'email'           => 'nullable|email|max:255',
+            'address'         => 'nullable|string|max:1000',
+            'pax'             => 'nullable|integer|min:1|max:100',
         ]);
 
-        $validated['qr_token'] = $this->generateUniqueToken();
+        // Sync: if phone provided but no whatsapp_number, use phone as whatsapp too
+        if (!empty($validated['phone']) && empty($validated['whatsapp_number'])) {
+            $validated['whatsapp_number'] = $validated['phone'];
+        }
+
+        $validated['pax']       = $validated['pax'] ?? 1;
+        $validated['qr_token']  = $this->generateUniqueToken();
+
         $guest = $invitation->guests()->create($validated);
 
-        return response()->json(['success' => true, 'message' => 'Guest added successfully', 'guest' => $guest], 201);
+        return response()->json(['success' => true, 'message' => 'Tamu berhasil ditambahkan', 'guest' => $guest], 201);
     }
 
     public function update(Request $request, $invitationId, $guestId)
@@ -48,13 +59,22 @@ class GuestController extends Controller
 
         $validated = $request->validate([
             'name'            => 'sometimes|required|string|max:255',
-            'category'        => 'sometimes|required|in:family,friend,colleague',
+            'category'        => 'sometimes|required|in:family,friend,colleague,other',
+            'phone'           => 'nullable|string|max:20',
             'whatsapp_number' => 'nullable|string|max:20',
+            'email'           => 'nullable|email|max:255',
+            'address'         => 'nullable|string|max:1000',
+            'pax'             => 'nullable|integer|min:1|max:100',
         ]);
+
+        // Sync phone → whatsapp_number
+        if (isset($validated['phone']) && !isset($validated['whatsapp_number'])) {
+            $validated['whatsapp_number'] = $validated['phone'];
+        }
 
         $guest->update($validated);
 
-        return response()->json(['success' => true, 'message' => 'Guest updated successfully', 'guest' => $guest]);
+        return response()->json(['success' => true, 'message' => 'Tamu berhasil diperbarui', 'guest' => $guest->fresh()]);
     }
 
     public function destroy(Request $request, $invitationId, $guestId)

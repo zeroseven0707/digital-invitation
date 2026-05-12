@@ -11,6 +11,9 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\RsvpController;
 use App\Http\Controllers\Api\StatisticsController;
 use App\Http\Controllers\Api\TemplateController;
+use App\Http\Controllers\Api\GiftController;
+use App\Http\Controllers\Api\AdminProductController;
+use App\Http\Controllers\Api\BankAccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +36,13 @@ Route::post('/payment/notification', [PaymentController::class, 'notification'])
 // Public polling endpoint for display screen (no auth needed, rate limited)
 Route::get('/display/{uniqueUrl}/latest-checkin', [GuestController::class, 'latestCheckIn'])
     ->middleware('throttle:60,1');
+
+// ── Gift / Hadiah (public, no auth) ──
+Route::get('/public/invitations/{uniqueUrl}/gifts', [GiftController::class, 'publicProducts']);
+Route::post('/public/invitations/{uniqueUrl}/gifts/order', [GiftController::class, 'publicOrder']);
+Route::get('/public/gift-orders/{orderCode}/status', [GiftController::class, 'publicOrderStatus']);
+Route::post('/gift/notification', [GiftController::class, 'notification'])->withoutMiddleware(['throttle']);
+Route::get('/public/invitations/{uniqueUrl}/bank-accounts', [BankAccountController::class, 'publicIndex']);
 
 // Protected routes (authentication required)
 Route::middleware('auth:sanctum')->group(function () {
@@ -100,4 +110,24 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Statistics
     Route::get('/invitations/{invitation}/statistics', [StatisticsController::class, 'show']);
+
+    // Gift orders (pengantin tracking)
+    Route::get('/invitations/{invitation}/gifts', [GiftController::class, 'invitationGifts']);
+
+    // Bank accounts & gift toggle
+    Route::get('/invitations/{invitation}/bank-accounts', [BankAccountController::class, 'index']);
+    Route::post('/invitations/{invitation}/bank-accounts', [BankAccountController::class, 'store']);
+    Route::put('/invitations/{invitation}/bank-accounts/{account}', [BankAccountController::class, 'update']);
+    Route::delete('/invitations/{invitation}/bank-accounts/{account}', [BankAccountController::class, 'destroy']);
+    Route::post('/invitations/{invitation}/gift-toggle', [BankAccountController::class, 'toggleGift']);
+
+    // Admin: Products & Orders (hanya admin)
+    Route::middleware('admin')->group(function () {
+        Route::get('/admin/products', [AdminProductController::class, 'index']);
+        Route::post('/admin/products', [AdminProductController::class, 'store']);
+        Route::put('/admin/products/{id}', [AdminProductController::class, 'update']);
+        Route::delete('/admin/products/{id}', [AdminProductController::class, 'destroy']);
+        Route::get('/admin/gift-orders', [AdminProductController::class, 'allOrders']);
+        Route::put('/admin/gift-orders/{id}/shipping', [AdminProductController::class, 'updateShipping']);
+    });
 });
