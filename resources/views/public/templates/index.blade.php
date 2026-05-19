@@ -6,232 +6,390 @@
     <title>Template Undangan - NIKAHIN</title>
 
     <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
     <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --primary:      #1a1a2e;
+            --secondary:    #2d2d44;
+            --accent:       #6b4ce6;
+            --accent-dark:  #5538d4;
+            --accent-light: #8b6ff0;
+            --gold:         #d4af37;
+            --gold-light:   #f0d060;
+            --light:        #f8f9fd;
+            --text:         #1a1a2e;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #faf8f3 0%, #f5f1e8 100%);
+            background: var(--light);
+            color: var(--text);
+            min-height: 100vh;
         }
 
-        .navbar {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 15px 0;
+        /* ── Navbar ── */
+        nav {
+            background: var(--primary);
+            padding: 14px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(107,76,230,0.2);
         }
 
-        .navbar-brand img {
-            height: 40px;
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
         }
 
-        .btn-gold {
-            background: linear-gradient(135deg, #d4af37, #b8941e);
+        .nav-brand img { height: 48px; width: auto; }
+
+        .nav-brand-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8rem;
             color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 8px;
+            line-height: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+        .btn-nav {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white !important;
+            padding: 9px 22px;
+            border-radius: 50px;
             font-weight: 600;
+            box-shadow: 0 4px 14px rgba(107,76,230,0.4);
             transition: all 0.3s;
         }
 
-        .btn-gold:hover {
+        .btn-nav:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
-            color: white;
+            box-shadow: 0 8px 20px rgba(107,76,230,0.5);
         }
 
-        .hero-section {
-            padding: 80px 0 60px;
+        /* ── Hero ── */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #2d1b69 100%);
+            padding: 70px 5% 60px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(107,76,230,0.25) 0%, transparent 70%);
+            top: -150px; right: -100px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(107,76,230,0.2);
+            border: 1px solid rgba(107,76,230,0.4);
+            color: var(--accent-light);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
         }
 
         .hero-title {
             font-family: 'Playfair Display', serif;
-            font-size: 48px;
-            font-weight: 700;
-            color: #1a1410;
-            margin-bottom: 20px;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: white;
+            margin-bottom: 14px;
+            position: relative;
         }
 
         .hero-subtitle {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 40px;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.65);
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.7;
         }
 
+        /* ── Grid ── */
+        .templates-section {
+            padding: 70px 5% 100px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 36px;
+            justify-items: center;
+        }
+
+        /* ── Phone card ── */
         .template-card {
-            background: white;
-            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .template-card:hover { transform: translateY(-8px); }
+
+        .template-phone {
+            position: relative;
+            width: 160px;
+            background: #1a1a2e;
+            border-radius: 28px;
+            padding: 10px 8px;
+            box-shadow:
+                0 0 0 2px #2d2d44,
+                0 20px 50px rgba(107,76,230,0.2),
+                0 8px 20px rgba(0,0,0,0.3);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .template-card:hover .template-phone {
+            box-shadow:
+                0 0 0 2px var(--accent),
+                0 28px 60px rgba(107,76,230,0.4),
+                0 12px 30px rgba(0,0,0,0.4);
+        }
+
+        /* Notch */
+        .template-phone::before {
+            content: '';
+            position: absolute;
+            top: 10px; left: 50%;
+            transform: translateX(-50%);
+            width: 40px; height: 6px;
+            background: #2d2d44;
+            border-radius: 3px;
+            z-index: 2;
+        }
+
+        /* Side button */
+        .template-phone::after {
+            content: '';
+            position: absolute;
+            right: -3px; top: 60px;
+            width: 3px; height: 30px;
+            background: #2d2d44;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .template-screen {
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            margin-bottom: 30px;
-            height: 100%;
+            aspect-ratio: 9 / 19;
+            position: relative;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
         }
 
-        .template-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-
-        .template-thumbnail {
-            width: 100%;
-            height: 250px;
+        .template-screen img {
+            width: 100%; height: 100%;
             object-fit: cover;
-            background: #f5f5f5;
+            display: block;
+            transition: transform 0.4s ease;
         }
 
-        .template-body {
-            padding: 20px;
+        .template-card:hover .template-screen img { transform: scale(1.04); }
+
+        .template-screen-placeholder {
+            width: 100%; height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .template-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 22px;
-            font-weight: 600;
-            color: #1a1410;
-            margin-bottom: 10px;
+        .template-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(26,26,46,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 20px;
         }
 
-        .template-description {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
+        .template-card:hover .template-overlay { opacity: 1; }
 
         .btn-preview {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #d4af37, #b8941e);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s;
+            background: white;
+            color: var(--accent);
+            padding: 8px 18px;
+            border-radius: 50px;
             text-decoration: none;
-            display: inline-block;
-            text-align: center;
+            font-weight: 600;
+            font-size: 0.78rem;
+            border: 2px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transform: translateY(6px);
+            transition: all 0.3s;
+            white-space: nowrap;
         }
+
+        .template-card:hover .btn-preview { transform: translateY(0); }
 
         .btn-preview:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            background: var(--accent);
             color: white;
+            border-color: var(--accent);
         }
 
-        .footer {
-            background: #1a1410;
-            color: white;
-            padding: 40px 0;
-            margin-top: 60px;
+        .template-footer { text-align: center; }
+
+        .template-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 0 0 3px;
+        }
+
+        .template-style {
+            font-size: 0.75rem;
+            color: rgba(107,76,230,0.65);
+            font-weight: 500;
+        }
+
+        /* ── Empty state ── */
+        .empty-state {
+            grid-column: 1 / -1;
             text-align: center;
+            padding: 80px 0;
+            color: #aaa;
+        }
+
+        .empty-state i {
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+            display: block;
+            opacity: 0.25;
+        }
+
+        /* ── Footer ── */
+        footer {
+            background: #0f0f1e;
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            padding: 28px;
+            font-size: 0.85rem;
+        }
+
+        footer a { color: var(--gold); text-decoration: none; }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .templates-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 24px; }
+            .template-phone { width: 130px; }
         }
     </style>
 </head>
 <body>
+
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="/">
-                <img src="{{ asset('images/logo.png') }}" alt="NIKAHIN">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Beranda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('public.templates.index') }}">Template</a>
-                    </li>
-                    @auth
-                        <li class="nav-item">
-                            <a href="{{ route('dashboard') }}" class="btn btn-gold ms-3">
-                                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
-                            </a>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a href="{{ route('login') }}" class="nav-link">Masuk</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('register') }}" class="btn btn-gold ms-3">
-                                <i class="fas fa-user-plus me-2"></i> Daftar
-                            </a>
-                        </li>
-                    @endauth
-                </ul>
-            </div>
-        </div>
+    <nav>
+        <a href="/" class="nav-brand">
+            <img src="{{ asset('images/logo.png') }}" alt="Nikahin">
+            <span class="nav-brand-text">Nikahin</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="/">Beranda</a></li>
+            <li><a href="{{ route('public.templates.index') }}" class="active">Template</a></li>
+            @auth
+                <li><a href="{{ route('dashboard') }}" class="btn-nav"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            @else
+                <li><a href="{{ route('login') }}">Masuk</a></li>
+                <li><a href="{{ route('register') }}" class="btn-nav"><i class="fas fa-user-plus"></i> Daftar</a></li>
+            @endauth
+        </ul>
     </nav>
 
-    <!-- Hero Section -->
-    <div class="hero-section">
-        <div class="container">
-            <h1 class="hero-title">Pilih Template Undangan Anda</h1>
-            <p class="hero-subtitle">
-                Temukan template undangan digital yang sempurna untuk momen spesial Anda.<br>
-                Semua template dapat disesuaikan dengan kebutuhan Anda.
-            </p>
-        </div>
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-tag"><i class="fas fa-layer-group"></i> Koleksi Template</div>
+        <h1 class="hero-title">Pilih Desain Undangan Anda</h1>
+        <p class="hero-subtitle">
+            Berbagai tema dari klasik hingga modern, dirancang dengan animasi yang memukau
+            dan tampilan yang sempurna di semua perangkat.
+        </p>
     </div>
 
-    <!-- Templates Grid -->
-    <div class="container pb-5">
-        <div class="row">
+    <!-- Templates -->
+    <div class="templates-section">
+        <div class="templates-grid">
             @forelse($templates as $template)
-                <div class="col-md-4 col-sm-6">
-                    <div class="template-card">
+            <div class="template-card">
+                <div class="template-phone">
+                    <div class="template-screen">
                         @if($template->thumbnail_path && Storage::disk('public')->exists($template->thumbnail_path))
                             <img src="{{ Storage::disk('public')->url($template->thumbnail_path) }}"
-                                 alt="{{ $template->name }}"
-                                 class="template-thumbnail">
+                                 alt="{{ $template->name }}">
                         @else
-                            <div class="template-thumbnail d-flex align-items-center justify-content-center">
-                                <i class="fas fa-image fa-4x text-muted"></i>
+                            <div class="template-screen-placeholder">
+                                <i class="fas fa-image" style="font-size: 2rem; color: rgba(255,255,255,0.2);"></i>
                             </div>
                         @endif
-
-                        <div class="template-body">
-                            <h3 class="template-name">{{ $template->name }}</h3>
-                            <p class="template-description">{{ $template->description }}</p>
-                            <a href="{{ route('public.templates.preview', $template->id) }}"
-                               class="btn-preview">
-                                <i class="fas fa-eye me-2"></i> Lihat Preview
+                        <div class="template-overlay">
+                            <a href="{{ route('public.templates.preview', $template->id) }}" class="btn-preview">
+                                <i class="fas fa-eye"></i> Preview
                             </a>
                         </div>
                     </div>
                 </div>
-            @empty
-                <div class="col-12">
-                    <div class="text-center py-5">
-                        <i class="fas fa-palette fa-4x text-muted mb-3"></i>
-                        <h5 class="text-muted">Tidak ada template yang tersedia saat ini.</h5>
-                    </div>
+                <div class="template-footer">
+                    <h4 class="template-name">{{ $template->name }}</h4>
+                    <span class="template-style">{{ Str::limit($template->description, 22) }}</span>
                 </div>
+            </div>
+            @empty
+            <div class="empty-state">
+                <i class="fas fa-images"></i>
+                <p>Belum ada template tersedia.</p>
+            </div>
             @endforelse
         </div>
     </div>
 
     <!-- Footer -->
-    <div class="footer">
-        <div class="container">
-            <p class="mb-0">&copy; {{ date('Y') }} NIKAHIN. All rights reserved.</p>
-        </div>
-    </div>
+    <footer>
+        &copy; {{ date('Y') }} <a href="/">Nikahin</a>. All rights reserved.
+    </footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

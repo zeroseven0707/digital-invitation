@@ -212,8 +212,8 @@
         }
 
         function backToTemplate() {
-            document.getElementById('template-selection').style.display = 'none';
-            document.getElementById('invitation-form').style.display = 'block';
+            document.getElementById('template-selection').style.display = 'block';
+            document.getElementById('invitation-form').style.display = 'none';
 
             // Scroll to template selection
             document.getElementById('template-selection').scrollIntoView({
@@ -227,6 +227,17 @@
             document.getElementById('template-selection').style.display = 'none';
             document.getElementById('invitation-form').style.display = 'block';
         @endif
+
+        // Check if template is passed via query parameter
+        $(document).ready(function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const templateId = urlParams.get('template_id');
+            const templateName = urlParams.get('template_name');
+            
+            if (templateId && templateName) {
+                selectTemplate(templateId, templateName);
+            }
+        });
 
         // Initialize map
         let map, marker;

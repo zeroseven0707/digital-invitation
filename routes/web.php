@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $templates = \App\Models\Template::where('is_active', true)
         ->orderBy('name')
-        ->limit(9)
+        ->limit(10)
         ->get();
 
     // Get stats

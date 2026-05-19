@@ -18,28 +18,218 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@1.13.1/css/OverlayScrollbars.min.css">
 
     <style>
+        /* Base Admin Layout Theme Upgrades */
+        @media (min-width: 992px) {
+            .sidebar-mini.sidebar-collapse .content-wrapper,
+            .sidebar-mini.sidebar-collapse .main-header,
+            .sidebar-mini.sidebar-collapse .main-footer {
+                margin-left: 4.6rem !important;
+            }
+            .sidebar-mini:not(.sidebar-collapse) .content-wrapper,
+            .sidebar-mini:not(.sidebar-collapse) .main-header,
+            .sidebar-mini:not(.sidebar-collapse) .main-footer {
+                margin-left: 250px !important;
+            }
+            .main-sidebar {
+                width: 250px !important;
+            }
+        }
+
         .brand-link {
             font-size: 1.5rem;
             font-weight: 600;
+            background: linear-gradient(135deg, #2d1b69 0%, #1a103c 100%) !important;
+            border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+            padding: 18px 10px !important;
         }
+        .main-sidebar {
+            background: linear-gradient(180deg, #2d1b69 0%, #1a103c 100%) !important;
+            border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+        }
+        .sidebar {
+            background: transparent !important;
+        }
+        
+        /* Top Navigation Bar Styling */
+        .main-header {
+            background: white !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+            padding: 8px 16px !important;
+        }
+        .main-header .nav-link {
+            color: #64748b !important;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .main-header .nav-link:hover {
+            color: #6b4ce6 !important;
+        }
+        
+        /* Sidebar active link background */
         .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active {
-            background-color: #007bff;
-            color: #fff;
+            background: linear-gradient(135deg, #f0d060 0%, #d4af37 100%) !important;
+            color: #1a103c !important;
+            font-weight: 700;
+            box-shadow: 0 6px 18px rgba(240, 208, 96, 0.35) !important;
+            border-radius: 12px;
         }
         .content-wrapper {
-            background-color: #f4f6f9;
+            background-color: #f8fafc;
+            padding-bottom: 30px;
+        }
+        
+        /* Active Sidebar Badges Customization */
+        .nav-sidebar .nav-item>.nav-link.active .badge {
+            background-color: #1a103c !important;
+            color: #f0d060 !important;
         }
         .small-box {
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(107, 76, 230, 0.06) !important;
+            border: 1px solid rgba(107,76,230,0.04);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .small-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(107, 76, 230, 0.1) !important;
         }
         .card {
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02) !important;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+        .card-header {
+            background-color: white !important;
+            border-bottom: 1px solid #f1f5f9 !important;
+            padding: 16px 20px !important;
         }
         .info-box {
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.015);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+
+        /* Custom Purple Theme Overrides */
+        :root {
+            --accent: #6b4ce6;
+            --accent-hover: #5538d4;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6b4ce6 0%, #5538d4 100%) !important;
+            border: none !important;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(107, 76, 230, 0.2);
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            padding: 10px 20px;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+            background: linear-gradient(135deg, #5538d4 0%, #462eb5 100%) !important;
+            box-shadow: 0 6px 18px rgba(107, 76, 230, 0.35) !important;
+            transform: translateY(-1px);
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+            border: none !important;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        .btn-info:hover {
+            background: linear-gradient(135deg, #0369a1 0%, #075985 100%) !important;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+            border: none !important;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        .btn-success:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+        }
+
+        a {
+            color: var(--accent);
+        }
+        a:hover {
+            color: var(--accent-hover);
+        }
+
+        .badge-primary, .badge-info {
+            background-color: #6b4ce6 !important;
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        
+        .badge-success {
+            background-color: #10b981 !important;
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        .card-primary.card-outline {
+            border-top: 3px solid var(--accent) !important;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            padding: 10px 16px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 0 4px rgba(107, 76, 230, 0.15) !important;
+        }
+
+        /* Sidebar item styling hover */
+        .nav-sidebar .nav-item>.nav-link {
+            transition: all 0.3s;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            color: #cbd5e1 !important;
+        }
+        .nav-sidebar .nav-item>.nav-link:hover {
+            background-color: rgba(255,255,255,0.06) !important;
+            color: #fff !important;
+        }
+        .nav-sidebar .nav-item>.nav-link i {
+            color: rgba(255,255,255,0.7) !important;
+        }
+        .nav-sidebar .nav-item>.nav-link.active i {
+            color: #1a103c !important;
+        }
+        
+        /* Table Styles Upgrades */
+        .table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100% !important;
+        }
+        .table th {
+            background-color: #f8fafc !important;
+            color: #475569 !important;
+            font-weight: 600 !important;
+            border-bottom: 2px solid #e2e8f0 !important;
+            padding: 14px 18px !important;
+        }
+        .table td {
+            border-bottom: 1px solid #e2e8f0 !important;
+            padding: 14px 18px !important;
+            vertical-align: middle !important;
+            color: #334155;
+        }
+        .table tr:last-child td {
+            border-bottom: none !important;
         }
     </style>
 
