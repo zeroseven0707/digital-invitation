@@ -23,6 +23,13 @@ class TemplateBindingPropertyTest extends TestCase
     {
         parent::setUp();
         $this->templateService = new TemplateService();
+
+        // Fake public storage and write a dummy template html
+        \Illuminate\Support\Facades\Storage::fake('public');
+        \Illuminate\Support\Facades\Storage::disk('public')->put(
+            'templates/test/template.html',
+            '<div><h1>{{ $bride_name }} & {{ $groom_name }}</h1><p>{{ $akad_location }}</p><p>{{ $reception_location }}</p><p>{{ $full_address }}</p></div>'
+        );
     }
 
     /**
@@ -56,7 +63,7 @@ class TemplateBindingPropertyTest extends TestCase
                 'reception_location' => 'Grand Ballroom',
                 'full_address' => '123 Main Street, City',
                 'google_maps_url' => 'https://maps.google.com/test',
-                'music_url' => 'https://music.com/song.mp3',
+                 'music_path' => 'https://music.com/song.mp3',
             ],
             [
                 'bride_name' => 'Emma Wilson',
@@ -75,7 +82,7 @@ class TemplateBindingPropertyTest extends TestCase
                 'reception_location' => 'Garden Venue',
                 'full_address' => '456 Oak Avenue, Town',
                 'google_maps_url' => 'https://maps.google.com/venue',
-                'music_url' => 'https://music.com/wedding.mp3',
+                'music_path' => 'https://music.com/wedding.mp3',
             ],
             [
                 'bride_name' => 'Olivia Davis',
@@ -94,7 +101,7 @@ class TemplateBindingPropertyTest extends TestCase
                 'reception_location' => 'Seaside Hall',
                 'full_address' => '789 Beach Road, Coast',
                 'google_maps_url' => 'https://maps.google.com/beach',
-                'music_url' => 'https://music.com/romantic.mp3',
+                'music_path' => 'https://music.com/romantic.mp3',
             ],
         ];
 
@@ -118,7 +125,7 @@ class TemplateBindingPropertyTest extends TestCase
             $this->assertStringNotContainsString('{{reception_location}}', $rendered);
             $this->assertStringNotContainsString('{{full_address}}', $rendered);
             $this->assertStringNotContainsString('{{google_maps_url}}', $rendered);
-            $this->assertStringNotContainsString('{{music_url}}', $rendered);
+            $this->assertStringNotContainsString('{{music_path}}', $rendered);
 
             // Property: Actual data should be present in rendered output
             $this->assertStringContainsString($data['bride_name'], $rendered);
@@ -175,7 +182,7 @@ class TemplateBindingPropertyTest extends TestCase
                 'reception_time_end' => '21:00',
                 'reception_location' => 'Hall',
                 'google_maps_url' => 'https://maps.google.com',
-                'music_url' => 'https://music.com/song.mp3',
+                'music_path' => 'https://music.com/song.mp3',
             ], $data);
 
             $rendered = $this->templateService->renderTemplate($template, $data);
@@ -209,7 +216,7 @@ class TemplateBindingPropertyTest extends TestCase
                 'groom_father_name' => null,
                 'groom_mother_name' => null,
                 'google_maps_url' => null,
-                'music_url' => null,
+                'music_path' => null,
             ],
             [
                 'bride_name' => 'Emma',
@@ -219,7 +226,7 @@ class TemplateBindingPropertyTest extends TestCase
                 'groom_father_name' => '',
                 'groom_mother_name' => '',
                 'google_maps_url' => '',
-                'music_url' => '',
+                'music_path' => '',
             ],
         ];
 
@@ -276,7 +283,7 @@ class TemplateBindingPropertyTest extends TestCase
             'reception_location' => 'Hall',
             'full_address' => 'Address',
             'google_maps_url' => 'https://maps.google.com',
-            'music_url' => 'https://music.com/song.mp3',
+            'music_path' => 'https://music.com/song.mp3',
         ];
 
         // Render multiple times
@@ -332,7 +339,7 @@ class TemplateBindingPropertyTest extends TestCase
                 'reception_location' => 'Hall',
                 'full_address' => 'Address',
                 'google_maps_url' => 'https://maps.google.com',
-                'music_url' => 'https://music.com/song.mp3',
+                'music_path' => 'https://music.com/song.mp3',
             ], $data);
 
             $rendered = $this->templateService->renderTemplate($template, $data);

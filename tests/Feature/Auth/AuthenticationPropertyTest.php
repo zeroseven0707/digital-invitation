@@ -273,7 +273,7 @@ class AuthenticationPropertyTest extends TestCase
             '/dashboard',
             '/profile',
             '/invitations/create',
-            '/templates',
+            '/my-templates',
         ];
 
         foreach ($protectedRoutes as $route) {

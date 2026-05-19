@@ -32,7 +32,7 @@ class AdminWorkflowIntegrationTest extends TestCase
         // Step 1: Admin accesses dashboard
         $response = $this->actingAs($admin)->get('/admin/dashboard');
         $response->assertStatus(200);
-        $response->assertSee('Admin Dashboard');
+        $response->assertSee('Dashboard Admin');
 
         // Step 2: Admin views all users
         $response = $this->actingAs($admin)->get('/admin/users');
@@ -54,6 +54,7 @@ class AdminWorkflowIntegrationTest extends TestCase
         $this->assertFalse($user1->is_active);
 
         // Step 5: Verify deactivated user cannot login
+        \Illuminate\Support\Facades\Auth::logout();
         $response = $this->post('/login', [
             'email' => $user1->email,
             'password' => 'password',
@@ -70,8 +71,8 @@ class AdminWorkflowIntegrationTest extends TestCase
         // Step 7: Verify platform statistics
         $response = $this->actingAs($admin)->get('/admin/dashboard');
         $response->assertStatus(200);
-        $response->assertSee('Total Users');
-        $response->assertSee('Total Invitations');
+        $response->assertSee('Total Pengguna');
+        $response->assertSee('Total Undangan');
     }
 
     /**
@@ -160,8 +161,8 @@ class AdminWorkflowIntegrationTest extends TestCase
         $response->assertStatus(200);
 
         // Should see statistics
-        $response->assertSee('Total Users');
-        $response->assertSee('Total Invitations');
+        $response->assertSee('Total Pengguna');
+        $response->assertSee('Total Undangan');
         $response->assertSee('Total Views');
 
         // Verify counts are correct
@@ -183,15 +184,15 @@ class AdminWorkflowIntegrationTest extends TestCase
 
         // Try to access admin dashboard
         $response = $this->actingAs($regularUser)->get('/admin/dashboard');
-        $response->assertStatus(403);
+        $response->assertRedirect(route('dashboard'));
 
         // Try to access user management
         $response = $this->actingAs($regularUser)->get('/admin/users');
-        $response->assertStatus(403);
+        $response->assertRedirect(route('dashboard'));
 
         // Try to access template management
         $response = $this->actingAs($regularUser)->get('/admin/templates');
-        $response->assertStatus(403);
+        $response->assertRedirect(route('dashboard'));
     }
 
     /**
@@ -264,6 +265,7 @@ class AdminWorkflowIntegrationTest extends TestCase
         $response->assertSee($inactiveUser->email);
 
         // Inactive user cannot login
+        \Illuminate\Support\Facades\Auth::logout();
         $response = $this->post('/login', [
             'email' => $inactiveUser->email,
             'password' => 'password',

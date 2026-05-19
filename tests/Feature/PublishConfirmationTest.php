@@ -60,6 +60,7 @@ class PublishConfirmationTest extends TestCase
             'user_id' => $user->id,
             'template_id' => $template->id,
             'status' => 'draft',
+            'is_paid' => true,
         ]);
 
         $response = $this->actingAs($user)->post(route('invitations.publish', $invitation->id));
@@ -77,6 +78,7 @@ class PublishConfirmationTest extends TestCase
             'user_id' => $user->id,
             'template_id' => $template->id,
             'status' => 'draft',
+            'is_paid' => true,
         ]);
 
         // Publish the invitation
@@ -103,7 +105,15 @@ class PublishConfirmationTest extends TestCase
 
         $response = $this->actingAs($user)->get(route('invitations.show', $invitation->id));
 
-        $expectedUrl = 'https://wa.me/?text=' . urlencode('Anda diundang ke pernikahan kami! ' . url('/i/' . $invitation->unique_url));
+        $waMessage = "Assalamu'alaikum Warahmatullahi Wabarakatuh\n\n";
+        $waMessage .= "Dengan penuh rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk berkenan hadir dan memberikan doa restu pada acara pernikahan kami.\n\n";
+        $waMessage .= "Informasi lengkap dapat diakses melalui tautan berikut:\n";
+        $waMessage .= "👉 " . url('/i/' . $invitation->unique_url) . "\n\n";
+        $waMessage .= "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.\n\n";
+        $waMessage .= "Wassalamu'alaikum Warahmatullahi Wabarakatuh\n\n";
+        $waMessage .= "Terima kasih.";
+
+        $expectedUrl = 'https://wa.me/?text=' . urlencode($waMessage);
         $response->assertSee($expectedUrl, false);
     }
 
@@ -122,8 +132,16 @@ class PublishConfirmationTest extends TestCase
 
         $response = $this->actingAs($user)->get(route('invitations.show', $invitation->id));
 
+        $waMessage = "Assalamu'alaikum Warahmatullahi Wabarakatuh\n\n";
+        $waMessage .= "Dengan penuh rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk berkenan hadir dan memberikan doa restu pada acara pernikahan kami.\n\n";
+        $waMessage .= "Informasi lengkap dapat diakses melalui tautan berikut:\n";
+        $waMessage .= "👉 " . url('/i/' . $invitation->unique_url) . "\n\n";
+        $waMessage .= "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.\n\n";
+        $waMessage .= "Wassalamu'alaikum Warahmatullahi Wabarakatuh\n\n";
+        $waMessage .= "Terima kasih.";
+
         $expectedSubject = urlencode('Undangan Pernikahan Anisa & Dian');
-        $expectedBody = urlencode('Anda diundang ke pernikahan kami! Lihat undangan di: ' . url('/i/' . $invitation->unique_url));
+        $expectedBody = urlencode($waMessage);
 
         $response->assertSee('mailto:?subject=' . $expectedSubject, false);
         $response->assertSee($expectedBody, false);

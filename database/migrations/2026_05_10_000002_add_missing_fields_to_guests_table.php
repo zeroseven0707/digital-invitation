@@ -18,7 +18,9 @@ return new class extends Migration
 
             // Extend category enum to include 'other'
             // MySQL: modify enum
-            \DB::statement("ALTER TABLE guests MODIFY COLUMN category ENUM('family','friend','colleague','other') NOT NULL DEFAULT 'family'");
+            if (\DB::connection()->getDriverName() === 'mysql') {
+                \DB::statement("ALTER TABLE guests MODIFY COLUMN category ENUM('family','friend','colleague','other') NOT NULL DEFAULT 'family'");
+            }
         });
     }
 
@@ -26,7 +28,9 @@ return new class extends Migration
     {
         Schema::table('guests', function (Blueprint $table) {
             $table->dropColumn(['phone', 'email', 'address', 'pax']);
-            \DB::statement("ALTER TABLE guests MODIFY COLUMN category ENUM('family','friend','colleague') NOT NULL DEFAULT 'family'");
+            if (\DB::connection()->getDriverName() === 'mysql') {
+                \DB::statement("ALTER TABLE guests MODIFY COLUMN category ENUM('family','friend','colleague') NOT NULL DEFAULT 'family'");
+            }
         });
     }
 };

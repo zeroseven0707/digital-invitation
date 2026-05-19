@@ -32,6 +32,7 @@ class TemplateRenderingTest extends TestCase
 
         $dummyInvitation = new \stdClass();
         $dummyInvitation->unique_url = 'test-invitation';
+        $dummyInvitation->rsvps = collect();
 
         $data = [
             'invitation' => $dummyInvitation,
@@ -51,6 +52,8 @@ class TemplateRenderingTest extends TestCase
             'reception_location' => 'Gedung Serbaguna',
             'full_address' => 'Jl. Merdeka No. 123, Jakarta',
             'google_maps_url' => 'https://maps.google.com/?q=-6.2088,106.8456',
+            'latitude' => '-6.2088',
+            'longitude' => '106.8456',
             'music_url' => 'https://example.com/music.mp3',
             'galleries' => [],
         ];
@@ -82,6 +85,7 @@ class TemplateRenderingTest extends TestCase
 
         $dummyInvitation = new \stdClass();
         $dummyInvitation->unique_url = 'test-invitation';
+        $dummyInvitation->rsvps = collect();
 
         $data = [
             'invitation' => $dummyInvitation,
@@ -101,6 +105,8 @@ class TemplateRenderingTest extends TestCase
             'reception_location' => 'Gedung',
             'full_address' => 'Jakarta',
             'google_maps_url' => 'https://maps.google.com',
+            'latitude' => '-6.2088',
+            'longitude' => '106.8456',
             'music_url' => null,
             'galleries' => $galleries,
         ];
@@ -119,6 +125,7 @@ class TemplateRenderingTest extends TestCase
 
         $dummyInvitation = new \stdClass();
         $dummyInvitation->unique_url = 'test-invitation';
+        $dummyInvitation->rsvps = collect();
 
         $data = [
             'invitation' => $dummyInvitation,
@@ -138,6 +145,8 @@ class TemplateRenderingTest extends TestCase
             'reception_location' => 'Gedung',
             'full_address' => 'Jakarta',
             'google_maps_url' => null,
+            'latitude' => '-6.2088',
+            'longitude' => '106.8456',
             'music_url' => null,
             'galleries' => [],
         ];
@@ -157,6 +166,7 @@ class TemplateRenderingTest extends TestCase
 
         $dummyInvitation = new \stdClass();
         $dummyInvitation->unique_url = 'test-invitation';
+        $dummyInvitation->rsvps = collect();
 
         $data = [
             'invitation' => $dummyInvitation,
@@ -176,6 +186,8 @@ class TemplateRenderingTest extends TestCase
             'reception_location' => 'Gedung',
             'full_address' => 'Jakarta',
             'google_maps_url' => 'https://maps.google.com',
+            'latitude' => '-6.2088',
+            'longitude' => '106.8456',
             'music_url' => null,
             'galleries' => [],
         ];

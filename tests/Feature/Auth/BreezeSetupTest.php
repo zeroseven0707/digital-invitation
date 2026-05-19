@@ -105,7 +105,7 @@ class BreezeSetupTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertViewIs('auth.verify-email');
-        $response->assertSee('verify your email address');
+        $response->assertSee('verifikasi');
     }
 
     public function test_profile_management_is_available(): void

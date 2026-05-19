@@ -51,7 +51,7 @@ class InvitationControllerTest extends TestCase
             'reception_location' => 'Gedung Serbaguna',
             'full_address' => 'Jl. Raya No. 123, Jakarta',
             'google_maps_url' => 'https://maps.google.com/?q=-6.2088,106.8456',
-            'music_url' => 'https://example.com/music.mp3',
+            'music_path' => 'https://example.com/music.mp3',
         ];
 
         $response = $this->actingAs($user)->post(route('invitations.store'), $data);
@@ -261,7 +261,7 @@ class InvitationControllerTest extends TestCase
             'reception_location' => 'Updated Reception Location',
             'full_address' => 'Updated Full Address',
             'google_maps_url' => 'https://maps.google.com/?q=-6.2088,106.8456',
-            'music_url' => 'https://example.com/updated-music.mp3',
+            'music_path' => 'https://example.com/updated-music.mp3',
         ];
 
         $response = $this->actingAs($user)->put(route('invitations.update', $invitation->id), $data);
@@ -501,6 +501,7 @@ class InvitationControllerTest extends TestCase
         $invitation = Invitation::factory()->create([
             'user_id' => $user->id,
             'status' => 'draft',
+            'is_paid' => true,
             'unique_url' => null,
         ]);
 

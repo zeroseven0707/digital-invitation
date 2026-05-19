@@ -35,7 +35,7 @@ class PublicInvitationViewTest extends TestCase
             'akad_time_start' => '09:00',
             'google_maps_url' => 'https://maps.google.com/?q=-6.200000,106.816666',
             'full_address' => 'Jl. Test No. 123, Jakarta',
-            'music_url' => 'https://example.com/music.mp3',
+            'music_path' => 'https://example.com/music.mp3',
         ]);
 
         Gallery::factory()->count(3)->create([
@@ -111,7 +111,7 @@ class PublicInvitationViewTest extends TestCase
             'user_id' => $user->id,
             'template_id' => $template->id,
 
-            'music_url' => 'https://example.com/wedding-music.mp3',
+            'music_path' => 'https://example.com/wedding-music.mp3',
         ]);
 
         $response = $this->get("/i/{$invitation->unique_url}");
@@ -120,7 +120,7 @@ class PublicInvitationViewTest extends TestCase
         // Check for audio element
         $response->assertSee('<audio', false);
         $response->assertSee('bgMusic', false);
-        $response->assertSee($invitation->music_url, false);
+        $response->assertSee($invitation->music_path, false);
         // Check for music control
         $response->assertSee('music-control', false);
         $response->assertSee('toggleMusic', false);
@@ -136,7 +136,7 @@ class PublicInvitationViewTest extends TestCase
             'user_id' => $user->id,
             'template_id' => $template->id,
 
-            'music_url' => null,
+            'music_path' => null,
         ]);
 
         $response = $this->get("/i/{$invitation->unique_url}");

@@ -13,15 +13,28 @@ class RsvpDisplayTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        \Illuminate\Support\Facades\Storage::fake('public');
+        \Illuminate\Support\Facades\Storage::disk('public')->put('templates/test/template.html', '
+            <div>Ucapan &amp; Doa ({{ $rsvps_count }})</div>
+            <div>{{ request(\'to\') }}</div>
+            @foreach($rsvps as $rsvp)
+                <div class="rsvp-item">{{ $rsvp->name }}</div>
+            @endforeach
+        ');
+    }
+
     public function test_public_invitation_displays_rsvps(): void
     {
         $user = User::factory()->create();
         $template = Template::factory()->create();
 
-        $invitation = Invitation::factory()->create([
+        $invitation = Invitation::factory()->published()->create([
             'user_id' => $user->id,
             'template_id' => $template->id,
-            'status' => 'published',
         ]);
 
         // Create some RSVPs
@@ -40,10 +53,9 @@ class RsvpDisplayTest extends TestCase
         $user = User::factory()->create();
         $template = Template::factory()->create();
 
-        $invitation = Invitation::factory()->create([
+        $invitation = Invitation::factory()->published()->create([
             'user_id' => $user->id,
             'template_id' => $template->id,
-            'status' => 'published',
         ]);
 
         $guestName = 'John Doe';
@@ -58,10 +70,9 @@ class RsvpDisplayTest extends TestCase
         $user = User::factory()->create();
         $template = Template::factory()->create();
 
-        $invitation = Invitation::factory()->create([
+        $invitation = Invitation::factory()->published()->create([
             'user_id' => $user->id,
             'template_id' => $template->id,
-            'status' => 'published',
         ]);
 
         // Create RSVPs with different timestamps
@@ -95,10 +106,9 @@ class RsvpDisplayTest extends TestCase
         $user = User::factory()->create();
         $template = Template::factory()->create();
 
-        $invitation = Invitation::factory()->create([
+        $invitation = Invitation::factory()->published()->create([
             'user_id' => $user->id,
             'template_id' => $template->id,
-            'status' => 'published',
         ]);
 
         // Create 15 RSVPs

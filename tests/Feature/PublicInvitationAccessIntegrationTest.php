@@ -17,13 +17,26 @@ class PublicInvitationAccessIntegrationTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        \Illuminate\Support\Facades\Storage::fake('public');
+        \Illuminate\Support\Facades\Storage::disk('public')->put('templates/test/template.html', '
+            <div>{!! $bride_name !!} & {!! $groom_name !!}</div>
+            <div>{!! $bride_father_name !!} & {!! $bride_mother_name !!}</div>
+            <div>{!! $groom_father_name !!} & {!! $groom_mother_name !!}</div>
+            <div>{{ $akad_date }} & {{ $reception_date }}</div>
+            <div>{!! $akad_location !!} & {!! $reception_location !!}</div>
+            <div>{!! $full_address !!}</div>
+        ');
+    }
+
     /**
      * Test complete public invitation access flow
      */
     public function test_guest_can_access_published_invitation_complete_flow(): void
     {
-        Storage::fake('public');
-
         $user = User::factory()->create();
         $template = Template::factory()->create();
 
@@ -152,8 +165,6 @@ class PublicInvitationAccessIntegrationTest extends TestCase
      */
     public function test_invitation_displays_all_sections(): void
     {
-        Storage::fake('public');
-
         $template = Template::factory()->create();
         $invitation = Invitation::factory()->create([
             'template_id' => $template->id,
@@ -247,6 +258,7 @@ class PublicInvitationAccessIntegrationTest extends TestCase
             'user_id' => $user->id,
             'status' => 'published',
             'unique_url' => 'state-change-test',
+            'is_paid' => true,
         ]);
 
         // Initially accessible
@@ -262,6 +274,7 @@ class PublicInvitationAccessIntegrationTest extends TestCase
 
         // Owner republishes
         $this->actingAs($user)->post("/invitations/{$invitation->id}/publish");
+        $invitation->refresh();
 
         // Accessible again
         $response = $this->get("/i/{$invitation->unique_url}");

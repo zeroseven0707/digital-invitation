@@ -27,6 +27,35 @@ class PreviewPublishPropertyTest extends TestCase
     public function test_property_preview_shows_complete_invitation(): void
     {
         Storage::fake('public');
+        Storage::disk('public')->put('templates/test/template.html', '
+            <html>
+            <body>
+                <h1>{{ $bride_name }} & {{ $groom_name }}</h1>
+                <p>{{ $bride_father_name }}</p>
+                <p>{{ $bride_mother_name }}</p>
+                <p>{{ $groom_father_name }}</p>
+                <p>{{ $groom_mother_name }}</p>
+                <p>{{ $akad_location }}</p>
+                <p>{{ $reception_location }}</p>
+                <p>{{ $full_address }}</p>
+                <p>{{ $google_maps_url }}</p>
+                <p>{{ $music_url }}</p>
+                <div>Preview Mode</div>
+                <div>Kembali ke Edit</div>
+                <div>Publikasikan</div>
+                @if(isset($galleries) && count($galleries) > 0)
+                    @foreach($galleries as $gallery)
+                        <span>{{ $gallery->photo_path }}</span>
+                    @endforeach
+                @endif
+                @if(isset($guests) && count($guests) > 0)
+                    @foreach($guests as $guest)
+                        <span>{{ $guest->name }}</span>
+                    @endforeach
+                @endif
+            </body>
+            </html>
+        ');
         $user = User::factory()->create();
         $template = Template::factory()->create();
 
@@ -52,7 +81,7 @@ class PreviewPublishPropertyTest extends TestCase
                 'reception_location' => fake()->address(),
                 'full_address' => fake()->address(),
                 'google_maps_url' => 'https://maps.google.com/?q=' . fake()->latitude() . ',' . fake()->longitude(),
-                'music_url' => fake()->url(),
+                'music_path' => fake()->url(),
             ]);
 
             // Add random number of gallery photos (1-5)
@@ -136,6 +165,35 @@ class PreviewPublishPropertyTest extends TestCase
     public function test_property_public_view_matches_preview(): void
     {
         Storage::fake('public');
+        Storage::disk('public')->put('templates/test/template.html', '
+            <html>
+            <body>
+                <h1>{{ $bride_name }} & {{ $groom_name }}</h1>
+                <p>{{ $bride_father_name }}</p>
+                <p>{{ $bride_mother_name }}</p>
+                <p>{{ $groom_father_name }}</p>
+                <p>{{ $groom_mother_name }}</p>
+                <p>{{ $akad_location }}</p>
+                <p>{{ $reception_location }}</p>
+                <p>{{ $full_address }}</p>
+                <p>{{ $google_maps_url }}</p>
+                <p>{{ $music_url }}</p>
+                <div>Preview Mode</div>
+                <div>Kembali ke Edit</div>
+                <div>Publikasikan</div>
+                @if(isset($galleries) && count($galleries) > 0)
+                    @foreach($galleries as $gallery)
+                        <span>{{ $gallery->photo_path }}</span>
+                    @endforeach
+                @endif
+                @if(isset($guests) && count($guests) > 0)
+                    @foreach($guests as $guest)
+                        <span>{{ $guest->name }}</span>
+                    @endforeach
+                @endif
+            </body>
+            </html>
+        ');
         $user = User::factory()->create();
         $template = Template::factory()->create();
 
@@ -162,7 +220,7 @@ class PreviewPublishPropertyTest extends TestCase
                 'reception_location' => fake()->address(),
                 'full_address' => fake()->address(),
                 'google_maps_url' => 'https://maps.google.com/?q=' . fake()->latitude() . ',' . fake()->longitude(),
-                'music_url' => fake()->url(),
+                'music_path' => fake()->url(),
             ]);
 
             // Add gallery photos

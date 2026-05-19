@@ -17,6 +17,14 @@ class SecurityPropertyTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        \Illuminate\Support\Facades\Storage::fake('public');
+        \Illuminate\Support\Facades\Storage::disk('public')->put('templates/test/template.html', '<div>{{ $bride_name }} & {{ $groom_name }}</div>');
+    }
+
     /**
      * Property 36: Unauthenticated Access Redirects to Login
      *
@@ -31,7 +39,7 @@ class SecurityPropertyTest extends TestCase
             ['method' => 'GET', 'uri' => '/dashboard'],
             ['method' => 'GET', 'uri' => '/profile'],
             ['method' => 'GET', 'uri' => '/invitations/create'],
-            ['method' => 'GET', 'uri' => '/templates'],
+            ['method' => 'GET', 'uri' => '/my-templates'],
             ['method' => 'GET', 'uri' => '/admin/dashboard'],
             ['method' => 'GET', 'uri' => '/admin/users'],
             ['method' => 'GET', 'uri' => '/admin/templates'],

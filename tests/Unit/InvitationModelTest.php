@@ -166,13 +166,13 @@ class InvitationModelTest extends TestCase
     public function test_invitation_can_have_null_optional_fields(): void
     {
         $invitation = Invitation::factory()->create([
-            'music_url' => null,
+            'music_path' => null,
             'google_maps_url' => null,
             'bride_father_name' => null,
             'bride_mother_name' => null,
         ]);
 
-        $this->assertNull($invitation->music_url);
+        $this->assertNull($invitation->music_path);
         $this->assertNull($invitation->google_maps_url);
         $this->assertNull($invitation->bride_father_name);
         $this->assertNull($invitation->bride_mother_name);

@@ -170,7 +170,7 @@ class InvitationServicePropertyTest extends TestCase
                 'reception_location' => $invitation->reception_location,
                 'full_address' => $invitation->full_address,
                 'google_maps_url' => $invitation->google_maps_url,
-                'music_url' => $invitation->music_url,
+                'music_path' => $invitation->music_path,
                 'status' => $invitation->status,
                 'unique_url' => $invitation->unique_url,
             ];
@@ -198,7 +198,7 @@ class InvitationServicePropertyTest extends TestCase
             $this->assertEquals($originalData['reception_location'], $updated->reception_location);
             $this->assertEquals($originalData['full_address'], $updated->full_address);
             $this->assertEquals($originalData['google_maps_url'], $updated->google_maps_url);
-            $this->assertEquals($originalData['music_url'], $updated->music_url);
+            $this->assertEquals($originalData['music_path'], $updated->music_path);
             $this->assertEquals($originalData['status'], $updated->status);
             $this->assertEquals($originalData['unique_url'], $updated->unique_url);
 

@@ -16,13 +16,22 @@ class CompleteUserFlowIntegrationTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        \Illuminate\Support\Facades\Storage::fake('public');
+        \Illuminate\Support\Facades\Storage::disk('public')->put('templates/test/template.html', '
+            <div>{!! $bride_name !!} & {!! $groom_name !!}</div>
+            <div>{{ $akad_date }} & {{ $reception_date }}</div>
+        ');
+    }
+
     /**
      * Test complete user journey from registration to publishing invitation
      */
     public function test_complete_user_flow_from_registration_to_published_invitation(): void
     {
-        Storage::fake('public');
-
         // Step 1: User Registration
         $response = $this->post('/register', [
             'name' => 'John Doe',
@@ -43,6 +52,7 @@ class CompleteUserFlowIntegrationTest extends TestCase
             'status' => 'draft',
             'bride_name' => 'Jane Smith',
             'groom_name' => 'John Doe',
+            'is_paid' => true,
         ]);
 
         // Step 3: Add guests
@@ -139,6 +149,7 @@ class CompleteUserFlowIntegrationTest extends TestCase
             'user_id' => $user->id,
             'status' => 'published',
             'unique_url' => 'test-unique-url',
+            'is_paid' => true,
         ]);
 
         // Unpublish

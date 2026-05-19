@@ -36,6 +36,8 @@ class AdminController extends Controller
         // Get growth data for charts (last 30 days)
         $userGrowthData = $this->statisticsService->getUserGrowth(30);
         $transactionGrowthData = $this->statisticsService->getTransactionGrowth(30);
+        $invitationGrowthData = $this->statisticsService->getInvitationGrowth(30);
+        $viewGrowthData = $this->statisticsService->getViewGrowth(30);
 
         // Transform growth data to collections for view
         $userGrowth = collect($userGrowthData['dates'])->map(function ($date, $index) use ($userGrowthData) {
@@ -49,6 +51,20 @@ class AdminController extends Controller
             return (object) [
                 'date' => $date,
                 'count' => $transactionGrowthData['counts'][$index]
+            ];
+        });
+
+        $invitationGrowth = collect($invitationGrowthData['dates'])->map(function ($date, $index) use ($invitationGrowthData) {
+            return (object) [
+                'date' => $date,
+                'count' => $invitationGrowthData['counts'][$index]
+            ];
+        });
+
+        $viewGrowth = collect($viewGrowthData['dates'])->map(function ($date, $index) use ($viewGrowthData) {
+            return (object) [
+                'date' => $date,
+                'count' => $viewGrowthData['counts'][$index]
             ];
         });
 
@@ -68,6 +84,8 @@ class AdminController extends Controller
             'platformStats',
             'userGrowth',
             'transactionGrowth',
+            'invitationGrowth',
+            'viewGrowth',
             'topUsers',
             'topInvitations'
         ));

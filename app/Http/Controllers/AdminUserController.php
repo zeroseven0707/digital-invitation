@@ -17,7 +17,7 @@ class AdminUserController extends Controller
      */
     public function index(Request $request): View
     {
-        $query = User::query()->withCount('invitations');
+        $query = User::query()->with('invitations')->withCount('invitations');
 
         // Search functionality
         if ($request->filled('search')) {
@@ -48,7 +48,7 @@ class AdminUserController extends Controller
             }
         }
 
-        $users = $query->latest()->get();
+        $users = $query->latest()->paginate(15);
 
         return view('admin.users.index', compact('users'));
     }

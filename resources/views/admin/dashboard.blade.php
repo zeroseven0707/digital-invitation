@@ -227,9 +227,15 @@
                             @forelse($topInvitations as $invitation)
                             <tr>
                                 <td>
-                                    <a href="{{ route('public.invitation', $invitation->unique_url) }}" target="_blank" class="font-weight-bold text-dark">
-                                        <i class="fas fa-link mr-1 text-muted"></i> {{ Str::limit($invitation->title, 28) }}
-                                    </a>
+                                    @if($invitation->unique_url)
+                                        <a href="{{ route('public.invitation', $invitation->unique_url) }}" target="_blank" class="font-weight-bold text-dark">
+                                            <i class="fas fa-link mr-1 text-muted"></i> {{ Str::limit($invitation->title, 28) }}
+                                        </a>
+                                    @else
+                                        <span class="font-weight-bold text-muted">
+                                            <i class="fas fa-link mr-1 text-muted"></i> {{ Str::limit($invitation->title, 28) }}
+                                        </span>
+                                    @endif
                                 </td>
                                 <td class="text-muted">{{ $invitation->user->name }}</td>
                                 <td class="text-center">

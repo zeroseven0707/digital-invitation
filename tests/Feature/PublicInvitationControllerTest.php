@@ -12,6 +12,21 @@ class PublicInvitationControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        \Illuminate\Support\Facades\Storage::fake('public');
+        \Illuminate\Support\Facades\Storage::disk('public')->put('templates/test/template.html', '
+            <html>
+            <body>
+                <h1>{{ $bride_name }} & {{ $groom_name }}</h1>
+                <p>{{ $music_url }}</p>
+            </body>
+            </html>
+        ');
+    }
+
     public function test_can_view_published_invitation_by_unique_url(): void
     {
         // Arrange

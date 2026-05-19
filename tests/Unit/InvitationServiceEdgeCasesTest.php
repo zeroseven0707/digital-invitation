@@ -62,14 +62,14 @@ class InvitationServiceEdgeCasesTest extends TestCase
             'reception_location' => 'Hotel',
             'full_address' => '123 Main St',
             'google_maps_url' => 'https://maps.google.com',
-            'music_url' => 'https://example.com/music.mp3',
+            'music_path' => 'https://example.com/music.mp3',
         ];
 
         $invitation = $this->service->createInvitation($data, $user->id);
 
         $this->assertEquals('Father', $invitation->bride_father_name);
         $this->assertEquals('https://maps.google.com', $invitation->google_maps_url);
-        $this->assertEquals('https://example.com/music.mp3', $invitation->music_url);
+        $this->assertEquals('https://example.com/music.mp3', $invitation->music_path);
     }
 
     public function test_update_invitation_with_partial_data(): void
@@ -184,16 +184,16 @@ class InvitationServiceEdgeCasesTest extends TestCase
     public function test_update_invitation_can_clear_optional_fields(): void
     {
         $invitation = Invitation::factory()->create([
-            'music_url' => 'https://example.com/music.mp3',
+            'music_path' => 'https://example.com/music.mp3',
             'google_maps_url' => 'https://maps.google.com',
         ]);
 
         $updatedInvitation = $this->service->updateInvitation($invitation, [
-            'music_url' => null,
+            'music_path' => null,
             'google_maps_url' => null,
         ]);
 
-        $this->assertNull($updatedInvitation->music_url);
+        $this->assertNull($updatedInvitation->music_path);
         $this->assertNull($updatedInvitation->google_maps_url);
     }
 

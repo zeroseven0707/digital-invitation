@@ -55,6 +55,21 @@ class PublicInvitationController extends Controller
         $akadDateTime = $invitation->akad_date->format('Y-m-d') . ' ' . $invitation->akad_time_start;
         $receptionDateTime = $invitation->reception_date->format('Y-m-d') . ' ' . $invitation->reception_time_start;
 
+        $latitude = $invitation->latitude;
+        $longitude = $invitation->longitude;
+
+        if (empty($latitude) || empty($longitude)) {
+            if ($invitation->google_maps_url) {
+                if (preg_match('/[?&]q=([-\d.]+),([-\d.]+)/', $invitation->google_maps_url, $matches)) {
+                    $latitude = $matches[1];
+                    $longitude = $matches[2];
+                } elseif (preg_match('/@([-\d.]+),([-\d.]+)/', $invitation->google_maps_url, $matches)) {
+                    $latitude = $matches[1];
+                    $longitude = $matches[2];
+                }
+            }
+        }
+
         // Prepare data for template rendering
         $data = [
             'invitation' => $invitation, // Pass the invitation object
@@ -76,8 +91,8 @@ class PublicInvitationController extends Controller
             'reception_time_end' => $invitation->reception_time_end,
             'reception_location' => $invitation->reception_location,
             'full_address' => $invitation->full_address,
-            'latitude' => $invitation->latitude,
-            'longitude' => $invitation->longitude,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
             'google_maps_url' => $invitation->google_maps_url,
             'music_url' => $invitation->music_path ? Storage::disk('public')->url($invitation->music_path) : null,
             'galleries' => $invitation->galleries,

@@ -54,11 +54,11 @@ class TemplateServiceTest extends TestCase
 
     public function test_render_template_binds_data_correctly()
     {
-        Storage::fake('local');
+        Storage::fake('public');
 
         // Create a simple template HTML with Blade syntax
         $templateHtml = '<h1>{{ $bride_name }} & {{ $groom_name }}</h1><p>Date: {{ $akad_date }}</p>';
-        Storage::put('templates/test/template.html', $templateHtml);
+        Storage::disk('public')->put('templates/test/template.html', $templateHtml);
 
         $template = Template::factory()->create([
             'is_active' => true,
@@ -79,7 +79,7 @@ class TemplateServiceTest extends TestCase
 
     public function test_render_template_throws_exception_for_missing_file()
     {
-        Storage::fake('local');
+        Storage::fake('public');
 
         $template = Template::factory()->create([
             'is_active' => true,
@@ -94,24 +94,24 @@ class TemplateServiceTest extends TestCase
 
     public function test_render_template_handles_blade_directives()
     {
-        Storage::fake('local');
+        Storage::fake('public');
 
         // Template with conditional Blade directive
-        $templateHtml = '@if($music_url)<audio src="{{ $music_url }}"></audio>@endif<p>No music</p>';
-        Storage::put('templates/test/template.html', $templateHtml);
+        $templateHtml = '@if($music_path)<audio src="{{ $music_path }}"></audio>@endif<p>No music</p>';
+        Storage::disk('public')->put('templates/test/template.html', $templateHtml);
 
         $template = Template::factory()->create([
             'is_active' => true,
             'html_path' => 'templates/test/template.html',
         ]);
 
-        // Test with music_url
-        $dataWithMusic = ['music_url' => 'https://example.com/music.mp3'];
+        // Test with music_path
+        $dataWithMusic = ['music_path' => 'https://example.com/music.mp3'];
         $renderedWithMusic = $this->templateService->renderTemplate($template, $dataWithMusic);
         $this->assertStringContainsString('<audio src="https://example.com/music.mp3"></audio>', $renderedWithMusic);
 
-        // Test without music_url
-        $dataWithoutMusic = ['music_url' => null];
+        // Test without music_path
+        $dataWithoutMusic = ['music_path' => null];
         $renderedWithoutMusic = $this->templateService->renderTemplate($template, $dataWithoutMusic);
         $this->assertStringNotContainsString('<audio', $renderedWithoutMusic);
     }

@@ -18,6 +18,17 @@ class AdminUserPropertyTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        \Illuminate\Support\Facades\Storage::fake('public');
+        \Illuminate\Support\Facades\Storage::disk('public')->put('templates/test/template.html', '
+            <div>{!! $bride_name !!} & {!! $groom_name !!}</div>
+            <div>{{ $akad_date }} & {{ $reception_date }}</div>
+        ');
+    }
+
     /**
      * Property 32: Admin Can Access All Users
      *
