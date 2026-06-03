@@ -168,7 +168,27 @@ class PaymentController extends Controller
 
     public function notification(Request $request)
     {
+        // Pastikan ada body — Midtrans selalu kirim JSON
+        $rawBody = $request->getContent();
+        if (empty($rawBody)) {
+            Log::warning('Midtrans notification: empty request body');
+            return response()->json(['message' => 'No content'], 400);
+        }
+
         try {
+            // Set server key dari DB settings (override .env)
+            $serverKey = \App\Models\Setting::get('midtrans_server_key')
+                ?: config('services.midtrans.server_key');
+
+            if (empty($serverKey)) {
+                Log::error('Midtrans notification: server key is not configured');
+                return response()->json(['message' => 'Server key not configured'], 500);
+            }
+
+            MidtransConfig::$serverKey    = $serverKey;
+            MidtransConfig::$isProduction = \App\Models\Setting::get('midtrans_is_production')
+                ?? config('services.midtrans.is_production', false);
+
             $notif = new Notification();
 
             $orderId           = $notif->order_id;
@@ -177,18 +197,24 @@ class PaymentController extends Controller
             $transactionId     = $notif->transaction_id;
             $paymentType       = $notif->payment_type;
 
-            Log::info('Midtrans notification', [
+            Log::info('Midtrans notification received', [
                 'order_id' => $orderId,
                 'status'   => $transactionStatus,
                 'fraud'    => $fraudStatus,
+                'type'     => $paymentType,
             ]);
+
+            if (!$orderId) {
+                Log::warning('Midtrans notification: missing order_id', ['body' => $rawBody]);
+                return response()->json(['message' => 'Invalid notification'], 400);
+            }
 
             $payment = Payment::where('order_id', $orderId)->first();
             if (!$payment) {
+                Log::warning('Midtrans notification: payment not found', ['order_id' => $orderId]);
                 return response()->json(['message' => 'Payment not found'], 404);
             }
 
-            // Determine final status
             $newStatus = $this->resolveStatus($transactionStatus, $fraudStatus);
 
             $payment->update([
@@ -199,19 +225,28 @@ class PaymentController extends Controller
                 'paid_at'           => $newStatus === 'success' ? now() : null,
             ]);
 
-            // Mark invitation as paid
             if ($newStatus === 'success') {
                 $payment->invitation->update([
                     'is_paid' => true,
                     'paid_at' => now(),
-                    'status'  => 'published', // auto-publish after payment
+                    'status'  => 'published',
+                ]);
+
+                Log::info('Payment success — invitation published', [
+                    'order_id'      => $orderId,
+                    'invitation_id' => $payment->invitation_id,
                 ]);
             }
 
             return response()->json(['message' => 'OK']);
+
         } catch (\Exception $e) {
-            Log::error('Midtrans notification error: ' . $e->getMessage());
-            return response()->json(['message' => 'Error'], 500);
+            Log::error('Midtrans notification error', [
+                'message' => $e->getMessage(),
+                'file'    => $e->getFile() . ':' . $e->getLine(),
+                'body'    => $rawBody,
+            ]);
+            return response()->json(['message' => 'Internal server error'], 500);
         }
     }
 
