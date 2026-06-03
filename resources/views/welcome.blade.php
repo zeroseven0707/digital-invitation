@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>nikahin - Undangan Digital Premium | Mulai 49rb</title>
-    <meta name="description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 49.000 dengan 9+ template premium. Bagikan kebahagiaan Anda dengan cara yang berbeda.">
+    <meta name="description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 45.000 dengan 9+ template premium. Bagikan kebahagiaan Anda dengan cara yang berbeda.">
 
     <!-- Canonical URL -->
     <meta property="og:url" content="{{ url('/') }}">
@@ -17,7 +17,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="nikahin">
     <meta property="og:title" content="nikahin - Undangan Digital Premium | Mulai 49rb">
-    <meta property="og:description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 49.000 dengan 9+ template premium. Bagikan kebahagiaan Anda dengan cara yang berbeda.">
+    <meta property="og:description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 45.000 dengan 9+ template premium. Bagikan kebahagiaan Anda dengan cara yang berbeda.">
     <meta property="og:image" content="{{ asset('images/logo.png') }}">
     <meta property="og:image:secure_url" content="{{ asset('images/logo.png') }}">
     <meta property="og:image:type" content="image/png">
@@ -29,7 +29,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@nikahin">
     <meta name="twitter:title" content="nikahin - Undangan Digital Premium | Mulai 49rb">
-    <meta name="twitter:description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 49.000 dengan 9+ template premium.">
+    <meta name="twitter:description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 45.000 dengan 9+ template premium.">
     <meta name="twitter:image" content="{{ asset('images/logo.png') }}">
 
     <!-- WhatsApp Specific -->
@@ -1229,18 +1229,20 @@
 
         /* Footer */
         footer {
-            background: #0f0f1e;
+            background: #0a0a18;
             color: white;
-            padding: 60px 5% 30px;
+            padding: 72px 5% 0;
+            border-top: 1px solid rgba(255,255,255,.06);
         }
 
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 40px;
+            grid-template-columns: 1.8fr 1fr 1fr 1.2fr;
+            gap: 48px;
+            padding-bottom: 56px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
         }
 
         .footer-brand {
@@ -1310,11 +1312,77 @@
         }
 
         .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 30px;
+            border-top: none;
+            padding: 24px 0;
             text-align: center;
-            opacity: 0.7;
-            font-size: 0.9rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0.55;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-bottom-links a {
+            color: rgba(255,255,255,.75);
+            text-decoration: none;
+            font-size: 0.82rem;
+            transition: color .2s;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--gold);
+            opacity: 1;
+        }
+
+        .footer-bottom-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .footer-contact-item i {
+            width: 18px;
+            margin-top: 2px;
+            color: var(--gold);
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .footer-contact-item a,
+        .footer-contact-item span {
+            color: rgba(255,255,255,.75);
+            text-decoration: none;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            transition: color .2s;
+            word-break: break-all;
+        }
+
+        .footer-contact-item a:hover {
+            color: var(--gold);
+        }
+
+        .footer-divider {
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(to right, var(--gold), transparent);
+            border-radius: 2px;
+            margin-bottom: 16px;
         }
 
         /* Mobile Menu */
@@ -1463,8 +1531,8 @@
             }
 
             .footer-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
+                grid-template-columns: 1fr 1fr;
+                gap: 36px;
             }
 
             .stats-grid {
@@ -1673,7 +1741,7 @@
 
     <!-- Navigation -->
     <nav id="navbar">
-        <a href="#" class="logo">
+        <a href="#hero" class="logo">
             <img src="{{ asset('images/logo.png') }}" alt="Nikahin Logo" style="height: 70px; width: auto;">
             <span class="logo-text">Nikahin</span>
         </a>
@@ -1705,7 +1773,7 @@
     </div>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="hero">
         <div class="hero-container">
             <div class="hero-content">
                 <div class="hero-badge">
@@ -1721,7 +1789,7 @@
                 </p>
                 <div class="hero-price">
                     <div class="hero-price-label">Mulai dari</div>
-                    <div class="hero-price-amount">Rp 49.000</div>
+                    <div class="hero-price-amount">Rp 45.000</div>
                     <small style="color: rgba(255,255,255,0.8); display: block; margin-top: 5px;">
                     </small>
                 </div>
@@ -2045,59 +2113,99 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
+            {{-- Col 1: Brand --}}
             <div>
                 <div class="footer-brand">
-                    <img src="{{ asset('images/logo.png') }}" alt="Nikahin Logo" style="height: 80px; width: auto;">
+                    <img src="{{ asset('images/logo.png') }}" alt="Nikahin Logo" style="height: 64px; width: auto;">
                 </div>
+                <div class="footer-divider"></div>
                 <p class="footer-desc">
-                    Jasa pembuatan undangan digital premium dengan harga terjangkau.
-                    Kami berkomitmen memberikan yang terbaik untuk momen spesial Anda.
+                    Platform undangan pernikahan digital untuk pasangan modern Indonesia.
+                    Buat, kelola, dan bagikan undangan dalam hitungan menit.
                 </p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-tiktok"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+                <div class="social-links" style="margin-top: 20px;">
+                    <a href="https://instagram.com/nikahin.id" target="_blank" rel="noopener" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/6281394454900" target="_blank" rel="noopener" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://tiktok.com/@nikahin.id" target="_blank" rel="noopener" aria-label="TikTok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://youtube.com/@nikahin" target="_blank" rel="noopener" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
                 </div>
-                <div style="margin-top: 25px;">
-                    <a href="https://play.google.com/store/apps/details?id=com.nikahin.app" target="_blank" class="btn-playstore" style="height: auto; padding: 8px 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15);">
-                        <i class="fab fa-google-play" style="font-size: 1.2rem; margin-right: 8px; color: #3bccff;"></i>
+                <div style="margin-top: 24px;">
+                    <a href="https://play.google.com/store/apps/details?id=com.nikahin.app" target="_blank" rel="noopener"
+                       class="btn-playstore"
+                       style="height:auto;padding:9px 20px;border-radius:10px;border:1px solid rgba(255,255,255,.15);display:inline-flex;">
+                        <i class="fab fa-google-play" style="font-size:1.1rem;margin-right:10px;color:#3bccff;"></i>
                         <span class="btn-playstore-text">
-                            <span class="download-label" style="font-size: 0.55rem;">GET IT ON</span>
-                            <span class="store-name" style="font-size: 0.85rem;">Google Play</span>
+                            <span class="download-label" style="font-size:.5rem;letter-spacing:1px;">GET IT ON</span>
+                            <span class="store-name" style="font-size:.88rem;font-weight:600;">Google Play</span>
                         </span>
                     </a>
                 </div>
             </div>
+
+            {{-- Col 2: Fitur --}}
             <div>
-                <h4 class="footer-title">Layanan</h4>
+                <h4 class="footer-title">Fitur Aplikasi</h4>
+                <div class="footer-divider"></div>
                 <ul class="footer-links">
-                    <li><a href="#">Undangan Basic</a></li>
-                    <li><a href="#">Undangan Premium</a></li>
-                    <li><a href="#">Undangan Exclusive</a></li>
-                    <li><a href="#">Custom Design</a></li>
+                    <li><a href="#"><i class="fas fa-plus-circle" style="margin-right:8px;opacity:.5;font-size:.75rem;"></i>Buat Undangan</a></li>
+                    <li><a href="#"><i class="fas fa-users" style="margin-right:8px;opacity:.5;font-size:.75rem;"></i>Manajemen Tamu</a></li>
+                    <li><a href="#"><i class="fas fa-qrcode" style="margin-right:8px;opacity:.5;font-size:.75rem;"></i>Scan QR Check-in</a></li>
+                    <li><a href="#"><i class="fab fa-whatsapp" style="margin-right:8px;opacity:.5;font-size:.75rem;"></i>WA Blast Tamu</a></li>
+                    <li><a href="#"><i class="fas fa-images" style="margin-right:8px;opacity:.5;font-size:.75rem;"></i>Galeri Foto</a></li>
+                    <li><a href="#"><i class="fas fa-chart-bar" style="margin-right:8px;opacity:.5;font-size:.75rem;"></i>Statistik Kunjungan</a></li>
                 </ul>
             </div>
+
+            {{-- Col 3: Informasi --}}
             <div>
-                <h4 class="footer-title">Perusahaan</h4>
+                <h4 class="footer-title">Informasi</h4>
+                <div class="footer-divider"></div>
                 <ul class="footer-links">
-                    <li><a href="#">Tentang Kami</a></li>
-                    <li><a href="#">Portfolio</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Karir</a></li>
+                    <li><a href="/templates"><i class="fas fa-palette" style="margin-right:8px;opacity:.5;font-size:.75rem;"></i>Template Undangan</a></li>
+                    <li><a href="/guide"><i class="fas fa-book-open" style="margin-right:8px;opacity:.5;font-size:.75rem;"></i>Panduan Penggunaan</a></li>
+                    <li><a href="/terms"><i class="fas fa-file-alt" style="margin-right:8px;opacity:.5;font-size:.75rem;"></i>Ketentuan Layanan</a></li>
+                    <li><a href="/privacy"><i class="fas fa-shield-alt" style="margin-right:8px;opacity:.5;font-size:.75rem;"></i>Kebijakan Privasi</a></li>
                 </ul>
             </div>
+
+            {{-- Col 4: Kontak --}}
             <div>
-                <h4 class="footer-title">Kontak</h4>
-                <ul class="footer-links">
-                    <li><a href="#"><i class="fab fa-whatsapp"></i> 0813-9445-4900</a></li>
-                    <li><a href="#"><i class="fas fa-envelope"></i> support@nikahin.id</a></li>
-                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</a></li>
-                </ul>
+                <h4 class="footer-title">Hubungi Kami</h4>
+                <div class="footer-divider"></div>
+                <div class="footer-contact-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <a href="https://wa.me/6281394454900" target="_blank" rel="noopener">0813-9445-4900</a>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:pamudanyiptakarya@gmail.com">pamudanyiptakarya@gmail.com</a>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Tasikmalaya, Jawa Barat, Indonesia</span>
+                </div>
+                <div class="footer-contact-item" style="margin-top: 8px;">
+                    <i class="fas fa-clock"></i>
+                    <span>Senin – Sabtu, 08.00 – 21.00 WIB</span>
+                </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 nikahin. All rights reserved. | Dibuat dengan Dunia Karya di Indonesia</p>
+
+        {{-- Bottom bar --}}
+        <div style="max-width:1200px;margin:0 auto;padding:22px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;opacity:.5;font-size:.82rem;">
+            <span>&copy; {{ date('Y') }} Nikahin &mdash; Dibuat dengan ❤️ di Indonesia</span>
+            <div style="display:flex;gap:20px;">
+                <a href="/terms" style="color:rgba(255,255,255,.8);text-decoration:none;">Ketentuan Layanan</a>
+                <a href="/privacy" style="color:rgba(255,255,255,.8);text-decoration:none;">Kebijakan Privasi</a>
+            </div>
         </div>
     </footer>
 
