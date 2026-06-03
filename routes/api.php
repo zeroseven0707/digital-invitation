@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\GiftController;
 use App\Http\Controllers\Api\AdminProductController;
 use App\Http\Controllers\Api\BankAccountController;
 use App\Http\Controllers\Api\AdminSettingsController;
+use App\Http\Controllers\Api\MusicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,11 @@ Route::middleware('auth:sanctum')->group(function () {
     // Payment
     Route::post('/invitations/{invitation}/payment/create', [PaymentController::class, 'create']);
     Route::get('/invitations/{invitation}/payment/status', [PaymentController::class, 'status']);
+
+    // Music
+    Route::get('/invitations/{invitation}/music', [MusicController::class, 'show']);
+    Route::post('/invitations/{invitation}/music', [MusicController::class, 'store']);
+    Route::delete('/invitations/{invitation}/music', [MusicController::class, 'destroy']);
 
     // Gallery
     Route::get('/invitations/{invitation}/gallery', [GalleryController::class, 'index']);
