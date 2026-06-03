@@ -151,29 +151,87 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Inter',sans-serif;
 
 /* ── Date card ── */
 .idle-date-card{
-  display:flex;align-items:center;gap:16px;
+  display:flex;
+  align-items:stretch;
+  gap:0;
   margin-top:32px;
-  padding:14px 28px;
   border-radius:var(--radius-xl);
-  background:var(--glass);border:1px solid var(--glass-border);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
   box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.05);
-  opacity:0;animation:fadeUp 1s cubic-bezier(.22,1,.36,1) 1s forwards;
-  transition:transform .3s ease,box-shadow .3s ease;
+  opacity:0;
+  animation:fadeUp 1s cubic-bezier(.22,1,.36,1) 1s forwards;
+  overflow:hidden;
+  position:relative;
 }
-.idle-date-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md),var(--shadow-gold)}
+/* Shimmer effect */
+.idle-date-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(110deg,transparent 40%,rgba(232,197,122,.06) 50%,transparent 60%);
+  background-size:200% 100%;
+  animation:dateShimmer 3s linear infinite;
+  pointer-events:none;
+}
+@keyframes dateShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.idle-date-section{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:16px 24px;
+  position:relative;
+  z-index:1;
+}
 .idle-date-icon{
-  width:40px;height:40px;border-radius:var(--radius-sm);
-  background:linear-gradient(135deg,var(--gold-glow),transparent);
+  width:48px;
+  height:48px;
+  border-radius:var(--radius-md);
+  background:linear-gradient(135deg,rgba(232,197,122,.12),rgba(232,197,122,.05));
   border:1px solid var(--border-gold);
-  display:flex;align-items:center;justify-content:center;
-  color:var(--gold);flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--gold);
+  flex-shrink:0;
+  position:relative;
 }
-.idle-date-icon svg{width:18px;height:18px}
-.idle-date-content{text-align:left}
-.idle-date-day{font-size:clamp(14px,1.4vw,18px);font-weight:600;color:var(--text-primary);letter-spacing:.3px}
-.idle-date-time{font-size:clamp(12px,1.1vw,14px);color:var(--text-secondary);margin-top:2px;font-weight:500}
-.idle-date-sep{width:1px;height:32px;background:var(--border);margin:0 4px}
+.idle-date-icon::after{
+  content:'';
+  position:absolute;
+  inset:-3px;
+  border-radius:inherit;
+  background:var(--gold-glow);
+  filter:blur(8px);
+  opacity:0;
+  transition:opacity .3s;
+  z-index:-1;
+}
+.idle-date-card:hover .idle-date-icon::after{opacity:.4}
+.idle-date-icon svg{width:22px;height:22px;filter:drop-shadow(0 0 8px rgba(232,197,122,.2))}
+.idle-date-content{display:flex;flex-direction:column;gap:4px}
+.idle-date-label{
+  font-size:clamp(9px,.85vw,11px);
+  font-weight:600;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--text-tertiary);
+}
+.idle-date-value{
+  font-size:clamp(13px,1.35vw,17px);
+  font-weight:600;
+  color:var(--text-primary);
+  letter-spacing:.2px;
+  line-height:1.3;
+}
+.idle-date-divider{
+  width:1px;
+  align-self:stretch;
+  background:linear-gradient(to bottom,transparent,var(--border-gold) 30%,var(--border-gold) 70%,transparent);
+  margin:8px 0;
+}
 
 /* ── Ornament ── */
 .idle-ornament{
@@ -465,15 +523,34 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Inter',sans-serif;
   </div>
 
   <div class="idle-date-card">
-    <div class="idle-date-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
-        <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-      </svg>
+    {{-- Date section --}}
+    <div class="idle-date-section">
+      <div class="idle-date-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+      </div>
+      <div class="idle-date-content">
+        <div class="idle-date-label">Tanggal</div>
+        <div class="idle-date-value">{{ \Carbon\Carbon::parse($invitation->reception_date)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</div>
+      </div>
     </div>
-    <div class="idle-date-content">
-      <div class="idle-date-day">{{ \Carbon\Carbon::parse($invitation->reception_date)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</div>
-      <div class="idle-date-time">{{ \Carbon\Carbon::parse($invitation->reception_time_start)->format('H:i') }}@if($invitation->reception_time_end) – {{ \Carbon\Carbon::parse($invitation->reception_time_end)->format('H:i') }} WIB @else WIB @endif</div>
+
+    {{-- Divider --}}
+    <div class="idle-date-divider"></div>
+
+    {{-- Time section --}}
+    <div class="idle-date-section">
+      <div class="idle-date-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <div class="idle-date-content">
+        <div class="idle-date-label">Waktu</div>
+        <div class="idle-date-value">{{ \Carbon\Carbon::parse($invitation->reception_time_start)->format('H:i') }}@if($invitation->reception_time_end) – {{ \Carbon\Carbon::parse($invitation->reception_time_end)->format('H:i') }}@endif WIB</div>
+      </div>
     </div>
   </div>
 
@@ -484,14 +561,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Inter',sans-serif;
     <div class="idle-ornament-diamond"></div>
     <div class="idle-ornament-line r"></div>
   </div>
-
-  <div class="idle-counter">
-    <div class="idle-counter-card">
-      <div class="counter-item">
-        <span class="counter-num" id="cnt-checkin">{{ $checkedInCount }}</span>
-        <span class="counter-label">Tamu Hadir</span>
-      </div>
-    </div>
   </div>
 </div>
 

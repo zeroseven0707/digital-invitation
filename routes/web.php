@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\LegalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicInvitationController;
 use App\Http\Controllers\StatisticsController;
@@ -30,6 +31,10 @@ Route::get('/', function () {
 
     return view('welcome', compact('templates', 'stats'));
 });
+
+// Legal pages — public, no auth required
+Route::get('/terms', [LegalController::class, 'terms'])->name('legal.terms');
+Route::get('/privacy', [LegalController::class, 'privacy'])->name('legal.privacy');
 
 // Public invitation route (no authentication required) with rate limiting
 Route::get('/i/{uniqueUrl}', [PublicInvitationController::class, 'show'])
