@@ -2,49 +2,167 @@
     use Illuminate\Support\Facades\Storage;
     use App\Models\Setting;
     $invitationPrice = Setting::get('invitation_price', 50000);
-    $formattedPrice = 'Rp ' . number_format($invitationPrice, 0, ',', '.');
+    $formattedPrice  = 'Rp ' . number_format($invitationPrice, 0, ',', '.');
+    $appUrl = rtrim(url('/'), '/');
+    $ogImage = $appUrl . '/images/og-cover.jpg'; // buat gambar cover 1200x630 di public/images/
+    // Fallback ke logo jika og-cover belum ada
+    if (!file_exists(public_path('images/og-cover.jpg'))) {
+        $ogImage = $appUrl . '/images/logo.png';
+    }
+    $siteTitle   = 'Nikahin - Undangan Pernikahan Digital Modern';
+    $siteDesc    = 'Buat undangan pernikahan digital yang modern, elegan, dan interaktif mulai ' . $formattedPrice . '. Lebih dari 9 template premium, manajemen tamu, QR check-in, WA blast, dan statistik kunjungan. Undangan digital terbaik untuk pernikahan impian Anda.';
+    $siteKeywords = implode(', ', [
+        'undangan digital', 'undangan pernikahan digital', 'undangan online', 'wedding invitation',
+        'undangan nikah digital', 'buat undangan pernikahan online', 'undangan pernikahan murah',
+        'undangan pernikahan modern', 'template undangan pernikahan', 'nikahin',
+        'aplikasi undangan pernikahan', 'undangan digital Indonesia',
+    ]);
 @endphp
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" prefix="og: https://ogp.me/ns#">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nikahin - Undangan Digital Premium | Mulai 49rb</title>
-    <meta name="description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari {{ $formattedPrice }} dengan 9+ template premium. Bagikan kebahagiaan Anda dengan cara yang berbeda.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <!-- Canonical URL -->
-    <meta property="og:url" content="{{ url('/') }}">
-    <link rel="canonical" href="{{ url('/') }}">
+    {{-- ── Primary SEO ── --}}
+    <title>{{ $siteTitle }}</title>
+    <meta name="description" content="{{ $siteDesc }}">
+    <meta name="keywords" content="{{ $siteKeywords }}">
+    <meta name="author" content="Nikahin">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="theme-color" content="#6b4ce6">
+    <link rel="canonical" href="{{ $appUrl }}/">
 
-    <!-- Open Graph / Facebook / WhatsApp -->
+    {{-- ── Open Graph ── --}}
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="nikahin">
-    <meta property="og:title" content="nikahin - Undangan Digital Premium | Mulai 49rb">
-    <meta property="og:description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari {{ $formattedPrice }} dengan 9+ template premium. Bagikan kebahagiaan Anda dengan cara yang berbeda.">
-    <meta property="og:image" content="{{ asset('images/logo.png') }}">
-    <meta property="og:image:secure_url" content="{{ asset('images/logo.png') }}">
-    <meta property="og:image:type" content="image/png">
+    <meta property="og:site_name" content="Nikahin">
+    <meta property="og:url" content="{{ $appUrl }}/">
+    <meta property="og:title" content="{{ $siteTitle }}">
+    <meta property="og:description" content="{{ $siteDesc }}">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:image" content="{{ $ogImage }}">
+    <meta property="og:image:secure_url" content="{{ $ogImage }}">
+    <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="nikahin - Undangan Digital Premium">
+    <meta property="og:image:alt" content="Nikahin - Platform Undangan Pernikahan Digital">
 
-    <!-- Twitter Card -->
+    {{-- ── Twitter / X Card ── --}}
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@nikahin">
-    <meta name="twitter:title" content="nikahin - Undangan Digital Premium | Mulai 49rb">
-    <meta name="twitter:description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari {{ $formattedPrice }} dengan 9+ template premium.">
-    <meta name="twitter:image" content="{{ asset('images/logo.png') }}">
+    <meta name="twitter:title" content="{{ $siteTitle }}">
+    <meta name="twitter:description" content="{{ $siteDesc }}">
+    <meta name="twitter:image" content="{{ $ogImage }}">
+    <meta name="twitter:image:alt" content="Nikahin - Platform Undangan Pernikahan Digital">
 
-    <!-- WhatsApp Specific -->
-    <meta property="og:locale" content="id_ID">
-
-    <!-- Additional Meta Tags -->
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="nikahin">
-    <meta name="keywords" content="undangan digital, undangan pernikahan, undangan online, wedding invitation, undangan nikah, undangan murah">
-    <meta name="theme-color" content="#6b4ce6">
-
+    {{-- ── Mobile & PWA ── --}}
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Nikahin">
+    <meta name="application-name" content="Nikahin">
+    <link rel="apple-touch-icon" href="{{ asset('images/favicon.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+
+    {{-- ── JSON-LD: WebSite ── --}}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Nikahin",
+        "alternateName": "Nikahin - Undangan Digital",
+        "url": "{{ $appUrl }}/",
+        "description": "Platform pembuatan undangan pernikahan digital modern untuk pasangan Indonesia.",
+        "inLanguage": "id-ID",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "{{ $appUrl }}/templates?search={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+
+    {{-- ── JSON-LD: Organization ── --}}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Nikahin",
+        "url": "{{ $appUrl }}/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "{{ $appUrl }}/images/logo.png",
+            "width": 200,
+            "height": 200
+        },
+        "description": "Platform undangan pernikahan digital terbaik di Indonesia.",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "email": "pamudanyiptakarya@gmail.com",
+            "availableLanguage": "Indonesian"
+        },
+        "sameAs": [
+            "https://play.google.com/store/apps/details?id=com.nikahin.app"
+        ]
+    }
+    </script>
+
+    {{-- ── JSON-LD: SoftwareApplication (untuk Play Store) ── --}}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Nikahin",
+        "operatingSystem": "Android",
+        "applicationCategory": "LifestyleApplication",
+        "description": "Buat undangan pernikahan digital modern dengan fitur manajemen tamu, QR check-in, dan WA blast.",
+        "offers": {
+            "@type": "Offer",
+            "price": "{{ $invitationPrice }}",
+            "priceCurrency": "IDR"
+        },
+        "url": "https://play.google.com/store/apps/details?id=com.nikahin.app",
+        "inLanguage": "id-ID"
+    }
+    </script>
+
+    {{-- ── JSON-LD: FAQPage ── --}}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Berapa harga membuat undangan digital di Nikahin?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Harga publikasi undangan digital di Nikahin mulai {{ $formattedPrice }} per undangan. Pembayaran hanya sekali, berlaku seumur hidup."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Apa saja fitur yang tersedia di Nikahin?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Nikahin menyediakan fitur: template undangan premium, manajemen daftar tamu, QR code check-in, WhatsApp blast ke semua tamu, galeri foto, RSVP digital, statistik kunjungan, dan amplop digital."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Apakah undangan digital bisa dilihat di HP?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Ya, semua undangan digital Nikahin sudah responsif dan bisa dibuka di smartphone, tablet, maupun komputer."
+                }
+            }
+        ]
+    }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
