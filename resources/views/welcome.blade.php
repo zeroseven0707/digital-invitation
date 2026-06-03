@@ -1,5 +1,8 @@
 @php
     use Illuminate\Support\Facades\Storage;
+    use App\Models\Setting;
+    $invitationPrice = Setting::get('invitation_price', 50000);
+    $formattedPrice = 'Rp ' . number_format($invitationPrice, 0, ',', '.');
 @endphp
 <!DOCTYPE html>
 <html lang="id">
@@ -7,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>nikahin - Undangan Digital Premium | Mulai 49rb</title>
-    <meta name="description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 45.000 dengan 9+ template premium. Bagikan kebahagiaan Anda dengan cara yang berbeda.">
+    <meta name="description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari {{ $formattedPrice }} dengan 9+ template premium. Bagikan kebahagiaan Anda dengan cara yang berbeda.">
 
     <!-- Canonical URL -->
     <meta property="og:url" content="{{ url('/') }}">
@@ -17,7 +20,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="nikahin">
     <meta property="og:title" content="nikahin - Undangan Digital Premium | Mulai 49rb">
-    <meta property="og:description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 45.000 dengan 9+ template premium. Bagikan kebahagiaan Anda dengan cara yang berbeda.">
+    <meta property="og:description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari {{ $formattedPrice }} dengan 9+ template premium. Bagikan kebahagiaan Anda dengan cara yang berbeda.">
     <meta property="og:image" content="{{ asset('images/logo.png') }}">
     <meta property="og:image:secure_url" content="{{ asset('images/logo.png') }}">
     <meta property="og:image:type" content="image/png">
@@ -29,7 +32,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@nikahin">
     <meta name="twitter:title" content="nikahin - Undangan Digital Premium | Mulai 49rb">
-    <meta name="twitter:description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari Rp 45.000 dengan 9+ template premium.">
+    <meta name="twitter:description" content="Buat undangan pernikahan digital yang modern, elegan, dan interaktif. Mulai dari {{ $formattedPrice }} dengan 9+ template premium.">
     <meta name="twitter:image" content="{{ asset('images/logo.png') }}">
 
     <!-- WhatsApp Specific -->
@@ -1789,7 +1792,7 @@
                 </p>
                 <div class="hero-price">
                     <div class="hero-price-label">Mulai dari</div>
-                    <div class="hero-price-amount">Rp 45.000</div>
+                    <div class="hero-price-amount">{{ $formattedPrice }}</div>
                     <small style="color: rgba(255,255,255,0.8); display: block; margin-top: 5px;">
                     </small>
                 </div>

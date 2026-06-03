@@ -325,9 +325,9 @@ return [
             'icon' => 'fas fa-fw fa-palette',
         ],
         [
-            'text' => 'Pengaturan',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-cog',
+            'text'  => 'Pengaturan',
+            'route' => 'admin.settings.index',
+            'icon'  => 'fas fa-fw fa-cog',
         ],
 
         ['header' => 'AKUN'],

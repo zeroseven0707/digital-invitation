@@ -26,8 +26,8 @@ class SettingsSeeder extends Seeder
                 'type'        => 'string',
                 'group'       => 'midtrans',
                 'label'       => 'Midtrans Client Key',
-                'description' => 'Client key dari dashboard Midtrans.',
-                'is_public'   => false,
+                'description' => 'Client key dari dashboard Midtrans. Digunakan di frontend untuk inisiasi Snap pembayaran.',
+                'is_public'   => true,
             ],
             [
                 'key'         => 'midtrans_merchant_id',
@@ -71,7 +71,7 @@ class SettingsSeeder extends Seeder
             ],
             [
                 'key'         => 'app_tagline',
-                'value'       => 'Undangan Digital Pernikahan',
+                'value'       => 'Undangan Digital Pernikahan Premium',
                 'type'        => 'string',
                 'group'       => 'app',
                 'label'       => 'Tagline Aplikasi',
@@ -80,7 +80,7 @@ class SettingsSeeder extends Seeder
             ],
             [
                 'key'         => 'support_email',
-                'value'       => 'support@nikahin.app',
+                'value'       => 'pamudanyiptakarya@gmail.com',
                 'type'        => 'string',
                 'group'       => 'app',
                 'label'       => 'Email Support',
@@ -112,7 +112,16 @@ class SettingsSeeder extends Seeder
                 'group'       => 'app',
                 'label'       => 'Mode Maintenance',
                 'description' => 'Aktifkan untuk menampilkan halaman maintenance ke pengguna.',
-                'is_public'   => false,
+                'is_public'   => true,
+            ],
+            [
+                'key'         => 'app_version',
+                'value'       => '1.0.0',
+                'type'        => 'string',
+                'group'       => 'app',
+                'label'       => 'Versi Aplikasi',
+                'description' => 'Versi saat ini yang ditampilkan di About screen.',
+                'is_public'   => true,
             ],
         ];
 

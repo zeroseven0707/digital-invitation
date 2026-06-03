@@ -1,14 +1,14 @@
-@extends('adminlte::page')
+@extends('layouts.admin')
 
-@section('title', 'Pengaturan Sistem')
+@section('page-title', 'Pengaturan Sistem')
 
-@section('content_header')
-    <div class="d-flex justify-content-between align-items-center">
-        <h1><i class="fas fa-cog mr-2"></i>Pengaturan Sistem</h1>
-    </div>
-@stop
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+    <li class="breadcrumb-item active">Pengaturan Sistem</li>
+@endsection
 
 @section('content')
+
 @if(session('success'))
 <div class="alert alert-success alert-dismissible fade show">
     <i class="fas fa-check-circle mr-2"></i>{{ session('success') }}
@@ -31,6 +31,7 @@
 
     @foreach($groups as $groupKey => $settings)
     @php $meta = $groupLabels[$groupKey] ?? ['label' => ucfirst($groupKey), 'icon' => 'fas fa-cog', 'color' => 'secondary']; @endphp
+
     <div class="card card-{{ $meta['color'] }} card-outline mb-4">
         <div class="card-header">
             <h3 class="card-title">
@@ -50,13 +51,10 @@
                     @endif
                 </label>
                 <div class="col-sm-9">
+
                     @if($setting->type === 'boolean')
                         <div class="custom-control custom-switch mt-2">
-                            <input
-                                type="hidden"
-                                name="{{ $setting->key }}"
-                                value="false"
-                            >
+                            <input type="hidden" name="{{ $setting->key }}" value="false">
                             <input
                                 type="checkbox"
                                 class="custom-control-input"
@@ -70,6 +68,7 @@
                                 {{ $setting->value === 'true' || $setting->value === '1' ? 'Aktif' : 'Nonaktif' }}
                             </label>
                         </div>
+
                     @elseif($setting->type === 'secret')
                         <div class="input-group">
                             <input
@@ -90,6 +89,7 @@
                             <i class="fas fa-exclamation-triangle mr-1"></i>
                             Kosongkan field ini jika tidak ingin mengubah nilai yang tersimpan.
                         </small>
+
                     @elseif($setting->type === 'integer')
                         <input
                             type="number"
@@ -97,6 +97,7 @@
                             name="{{ $setting->key }}"
                             value="{{ $setting->value }}"
                         >
+
                     @else
                         <input
                             type="text"
@@ -111,6 +112,7 @@
                         <i class="fas fa-info-circle mr-1"></i>{{ $setting->description }}
                     </small>
                     @endif
+
                 </div>
             </div>
             @if(!$loop->last)<hr>@endif
@@ -119,15 +121,14 @@
     </div>
     @endforeach
 
-    <div class="d-flex justify-content-end gap-2">
+    <div class="d-flex justify-content-end mb-4">
         <button type="submit" class="btn btn-primary btn-lg">
             <i class="fas fa-save mr-2"></i>Simpan Semua Pengaturan
         </button>
     </div>
 </form>
-@stop
 
-@section('js')
+@push('scripts')
 <script>
 // Toggle secret field visibility
 document.querySelectorAll('.toggle-secret').forEach(btn => {
@@ -153,4 +154,6 @@ document.querySelectorAll('.custom-control-input').forEach(cb => {
     });
 });
 </script>
-@stop
+@endpush
+
+@endsection

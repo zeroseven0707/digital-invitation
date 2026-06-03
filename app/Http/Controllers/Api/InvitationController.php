@@ -154,7 +154,7 @@ class InvitationController extends Controller
                 'success'         => false,
                 'requires_payment'=> true,
                 'message'         => 'Undangan harus dibayar terlebih dahulu sebelum dipublikasikan.',
-                'amount'          => config('services.midtrans.price', 50000),
+                'amount'          => (int) (\App\Models\Setting::get('invitation_price', 50000)),
             ], 402);
         }
 

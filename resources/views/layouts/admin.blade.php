@@ -49,7 +49,7 @@
         .sidebar {
             background: transparent !important;
         }
-        
+
         /* Top Navigation Bar Styling */
         .main-header {
             background: white !important;
@@ -64,7 +64,7 @@
         .main-header .nav-link:hover {
             color: #6b4ce6 !important;
         }
-        
+
         /* Sidebar active link background */
         .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active {
             background: linear-gradient(135deg, #f0d060 0%, #d4af37 100%) !important;
@@ -77,7 +77,7 @@
             background-color: #f8fafc;
             padding-bottom: 30px;
         }
-        
+
         /* Active Sidebar Badges Customization */
         .nav-sidebar .nav-item>.nav-link.active .badge {
             background-color: #1a103c !important;
@@ -143,7 +143,7 @@
         .btn-info:hover {
             background: linear-gradient(135deg, #0369a1 0%, #075985 100%) !important;
         }
-        
+
         .btn-success {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
             border: none !important;
@@ -167,7 +167,7 @@
             border-radius: 50px;
             font-weight: 600;
         }
-        
+
         .badge-success {
             background-color: #10b981 !important;
             padding: 5px 10px;
@@ -208,7 +208,148 @@
         .nav-sidebar .nav-item>.nav-link.active i {
             color: #1a103c !important;
         }
-        
+
+        /* ── Sidebar Enhanced Styles ─────────────────────────── */
+
+        /* User panel */
+        .sidebar-user-panel {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 14px;
+            margin: 12px 12px 4px;
+        }
+        .sidebar-user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #7c5fe6 0%, #f0d060 100%);
+            color: #1a103c;
+            font-weight: 800;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .sidebar-user-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.3;
+        }
+        .sidebar-user-role {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.45);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 1px;
+        }
+        .sidebar-role-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #f0d060;
+            display: inline-block;
+            animation: rolePulse 2.5s ease-in-out infinite;
+        }
+        @keyframes rolePulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(240,208,96,0.5); }
+            50%      { box-shadow: 0 0 0 4px rgba(240,208,96,0); }
+        }
+
+        /* Section headers */
+        .nav-header-custom {
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: rgba(255,255,255,0.25);
+            padding: 4px 8px 2px;
+            list-style: none;
+        }
+
+        /* Nav links */
+        .nav-sidebar .nav-item > .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            border-radius: 12px;
+            margin-bottom: 2px;
+            color: rgba(255,255,255,0.65) !important;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+        .nav-sidebar .nav-item > .nav-link:hover {
+            background: rgba(255,255,255,0.07) !important;
+            color: #fff !important;
+            transform: translateX(3px);
+        }
+        .nav-sidebar .nav-item > .nav-link i.nav-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 9px;
+            background: rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6) !important;
+            margin-right: 10px;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+        .nav-sidebar .nav-item > .nav-link:hover i.nav-icon {
+            background: rgba(255,255,255,0.14);
+            color: #fff !important;
+        }
+
+        /* Active link */
+        .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
+            background: linear-gradient(135deg, #f0d060 0%, #d4af37 100%) !important;
+            color: #1a103c !important;
+            font-weight: 700;
+            box-shadow: 0 4px 16px rgba(240,208,96,0.35) !important;
+            border-radius: 12px;
+            transform: none;
+        }
+        .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active i.nav-icon {
+            background: rgba(26,16,60,0.2) !important;
+            color: #1a103c !important;
+        }
+
+        /* Logout link */
+        .nav-link-logout:hover {
+            background: rgba(239,68,68,0.12) !important;
+            color: #fca5a5 !important;
+        }
+        .nav-link-logout:hover i.nav-icon {
+            background: rgba(239,68,68,0.2) !important;
+            color: #fca5a5 !important;
+        }
+
+        /* Count badges */
+        .nav-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 22px;
+            height: 22px;
+            padding: 0 6px;
+            border-radius: 7px;
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.65);
+            font-size: 0.68rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .nav-badge-green { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+        .nav-sidebar .nav-item > .nav-link.active .nav-badge {
+            background: rgba(26,16,60,0.2);
+            color: #1a103c;
+        }
+
         /* Table Styles Upgrades */
         .table {
             border-collapse: separate;
@@ -291,10 +432,25 @@
 
         <!-- Sidebar -->
         <div class="sidebar">
+            <!-- Admin user info -->
+            <div class="sidebar-user-panel d-flex align-items-center py-3 px-3 mb-1">
+                <div class="sidebar-user-avatar mr-3 flex-shrink-0">
+                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                </div>
+                <div class="sidebar-user-info overflow-hidden">
+                    <div class="sidebar-user-name text-truncate">{{ Auth::user()->name }}</div>
+                    <div class="sidebar-user-role">
+                        <span class="sidebar-role-dot"></span>Administrator
+                    </div>
+                </div>
+            </div>
+
             <!-- Sidebar Menu -->
-            <nav class="mt-2">
+            <nav class="mt-1 px-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Dashboard -->
+
+                    {{-- ── MAIN ── --}}
+                    <li class="nav-header-custom">MAIN</li>
                     <li class="nav-item">
                         <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -302,43 +458,61 @@
                         </a>
                     </li>
 
-                    <!-- User Management -->
+                    {{-- ── MANAJEMEN ── --}}
+                    <li class="nav-header-custom mt-2">MANAJEMEN</li>
                     <li class="nav-item">
                         <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users"></i>
                             <p>
-                                Manajemen User
-                                <span class="badge badge-info right">{{ \App\Models\User::count() }}</span>
+                                Pengguna
+                                <span class="nav-badge ml-auto">{{ \App\Models\User::count() }}</span>
                             </p>
                         </a>
                     </li>
-
-                    <!-- Template Management -->
                     <li class="nav-item">
                         <a href="{{ route('admin.templates.index') }}" class="nav-link {{ request()->routeIs('admin.templates.*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-palette"></i>
                             <p>
-                                Manajemen Template
-                                <span class="badge badge-success right">{{ \App\Models\Template::where('is_active', true)->count() }}</span>
+                                Template
+                                <span class="nav-badge nav-badge-green ml-auto">{{ \App\Models\Template::where('is_active', true)->count() }}</span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.invitations.index') }}" class="nav-link {{ request()->routeIs('admin.invitations.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-envelope-open-text"></i>
+                            <p>
+                                Undangan
+                                <span class="nav-badge ml-auto">{{ \App\Models\Invitation::count() }}</span>
                             </p>
                         </a>
                     </li>
 
-                    <!-- Invitations Management -->
+                    {{-- ── SISTEM ── --}}
+                    <li class="nav-header-custom mt-2">SISTEM</li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.invitations.index') }}" class="nav-link {{ request()->routeIs('admin.invitations.*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-envelope"></i>
-                            <p>
-                                Daftar Undangan
-                                <span class="badge badge-primary right">{{ \App\Models\Invitation::count() }}</span>
-                            </p>
+                        <a href="{{ route('admin.settings.index') }}" class="nav-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-sliders-h"></i>
+                            <p>Pengaturan</p>
                         </a>
                     </li>
+
+                    {{-- ── AKUN ── --}}
+                    <li class="nav-header-custom mt-2">AKUN</li>
+                    <li class="nav-item">
+                        <form method="POST" action="{{ route('logout') }}" id="sidebar-logout-form">
+                            @csrf
+                            <a href="#" class="nav-link nav-link-logout"
+                               onclick="event.preventDefault(); document.getElementById('sidebar-logout-form').submit();">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <p>Logout</p>
+                            </a>
+                        </form>
+                    </li>
+
                 </ul>
             </nav>
-            <!-- /.sidebar-menu -->
         </div>
-        <!-- /.sidebar -->
     </aside>
 
     <!-- Content Wrapper. Contains page content -->

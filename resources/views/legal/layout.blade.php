@@ -56,7 +56,7 @@ body {
   max-width: 1140px; margin: 0 auto;
   padding: 0 28px;
   display: flex; align-items: center; justify-content: space-between;
-  height: 64px;
+  height: 76px;
 }
 .nav-brand {
   display: flex; align-items: center; gap: 10px;
@@ -498,12 +498,7 @@ footer {
 <nav class="nav">
   <div class="nav-inner">
     <a href="/" class="nav-brand">
-      <div class="nav-brand-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-        </svg>
-      </div>
-      Nikahin
+      <img src="{{ asset('images/logo.png') }}" alt="Nikahin Logo" style="height: 56px; width: auto;">
     </a>
     <div class="nav-pills">
       <a href="/terms" class="nav-pill @if(Request::is('terms')) active @endif">Ketentuan Layanan</a>
