@@ -24,7 +24,7 @@ class PublicInvitationController extends Controller
      *
      * @param string $uniqueUrl
      * @param Request $request
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View|\Illuminate\Http\Response
      */
     public function show(string $uniqueUrl, Request $request)
     {
@@ -72,8 +72,8 @@ class PublicInvitationController extends Controller
 
         // Prepare data for template rendering
         $data = [
-            'invitation' => $invitation, // Pass the invitation object
-            'guestForQr' => $guestForQr, // Pass QR guest for QR section partial
+            'invitation' => $invitation,
+            'guestForQr' => $guestForQr,
             'bride_name' => $invitation->bride_name,
             'bride_father_name' => $invitation->bride_father_name,
             'bride_mother_name' => $invitation->bride_mother_name,
@@ -103,10 +103,15 @@ class PublicInvitationController extends Controller
 
         $renderedTemplate = $this->templateService->renderTemplate($invitation->template, $data);
 
+        // If called from iframe (desktop phone mockup), return just the rendered HTML
+        if ($request->get('raw') === '1') {
+            return response($renderedTemplate)->header('Content-Type', 'text/html');
+        }
+
         return view('public.invitation', [
-            'invitation'    => $invitation,
+            'invitation'       => $invitation,
             'renderedTemplate' => $renderedTemplate,
-            'guestForQr'    => $guestForQr,
+            'guestForQr'       => $guestForQr,
         ]);
     }
 

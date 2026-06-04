@@ -74,9 +74,9 @@ class TemplateController extends Controller
      * Display a preview of a specific template for public (no auth required).
      *
      * @param int $id
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View|\Illuminate\Http\Response
      */
-    public function publicPreview($id)
+    public function publicPreview($id, Request $request)
     {
         $template = $this->templateService->getTemplate($id);
 
@@ -88,6 +88,11 @@ class TemplateController extends Controller
 
         // Render template with dummy data
         $renderedTemplate = $this->templateService->renderTemplate($template, $dummyData);
+
+        // If called from iframe, return just the rendered template HTML (no wrapper)
+        if ($request->get('iframe') === '1') {
+            return response($renderedTemplate)->header('Content-Type', 'text/html');
+        }
 
         return view('public.templates.preview', [
             'template' => $template,
@@ -109,23 +114,50 @@ class TemplateController extends Controller
 
         // Dummy invitation object — mimics Eloquent model properties used in partials
         $dummyInvitation = new class {
-            public string $unique_url      = 'preview-template';
-            public string $bride_name      = 'Sarah';
-            public string $groom_name      = 'Ahmad';
-            public string $akad_location   = 'Gedung Pernikahan Indah';
+            public string $unique_url         = 'preview-template';
+            public string $bride_name         = 'Sarah';
+            public string $groom_name         = 'Ahmad';
+            public string $akad_location      = 'Gedung Pernikahan Indah';
             public string $reception_location = 'Gedung Pernikahan Indah';
-            public string $full_address    = 'Jl. Merdeka No. 123, Jakarta Pusat, DKI Jakarta 10110';
-            public ?string $status         = 'published';
-            public bool $is_paid           = true;
-            public int $id                 = 0;
+            public string $full_address       = 'Jl. Merdeka No. 123, Jakarta Pusat, DKI Jakarta 10110';
+            public ?string $latitude          = '-6.200000';
+            public ?string $longitude         = '106.816666';
+            public ?string $music_path        = null;
+            public ?string $status            = 'published';
+            public bool   $is_paid            = true;
+            public int    $id                 = 0;
 
             // Mimic Eloquent collection properties
             public function __get(string $name)
             {
-                if (in_array($name, ['galleries', 'guests', 'rsvps'])) {
+                if (in_array($name, ['galleries', 'guests'])) {
+                    return collect();
+                }
+                // rsvps as property (for ->rsvps->max())
+                if ($name === 'rsvps') {
                     return collect();
                 }
                 return null;
+            }
+
+            // Mimic rsvps() as QueryBuilder chain for ->rsvps()->latest()->take(n)->get()
+            public function rsvps(): object
+            {
+                return new class {
+                    public function latest()  { return $this; }
+                    public function take($n)  { return $this; }
+                    public function get()     { return collect(); }
+                    public function max($col) { return 0; }
+                };
+            }
+
+            // Mimic bankAccounts() etc.
+            public function bankAccounts(): object
+            {
+                return new class {
+                    public function get()    { return collect(); }
+                    public function orderBy($col) { return $this; }
+                };
             }
         };
 
